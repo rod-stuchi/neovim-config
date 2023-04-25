@@ -1,0 +1,55 @@
+local opt = vim.opt -- set option
+local g = vim.g -- set global
+-- ###### DEFAULTS ######
+-- opt.belloff = "all"
+-- opt.hidden = true
+-- opt.history = 10000
+-- opt.hlsearch = true
+-- opt.showcmd = true
+-- vim.cmd("syntax on")
+--
+-- ### DISABLED ###
+-- opt.fileencoding = 'utf-8' -- bug with lazy during install (nvim opening)
+-- opt.undodir = vim.fn.stdpath("cache") .. "/undo"
+-- opt.undofile = true
+-- vim.cmd [[ set fileencoding='utf-8' ]]
+
+g["python3_host_prog"] = "/usr/bin/python3"
+
+opt.backup = false
+opt.cmdheight = 1
+opt.encoding = 'utf-8'
+opt.expandtab = true
+opt.fillchars:append('fold:•')
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldlevel = 4
+opt.foldmethod = "expr"
+opt.foldopen:remove({'search'})
+opt.guifont="Fira Code 10"
+opt.ignorecase = true
+opt.inccommand = "split"
+opt.laststatus = 3
+opt.linespace = 4
+opt.list = true
+opt.listchars = { tab = "›∙", trail = "∙", eol = "↲", nbsp = "␣" }
+opt.mouse = "a"
+opt.number = true
+opt.relativenumber = true
+opt.scrolloff = 8
+opt.shiftwidth = 4
+opt.shortmess:append "c"
+opt.showbreak = "↪"
+opt.showmode = true
+opt.sidescrolloff = 8
+opt.smartcase = true
+opt.smartindent = true
+opt.softtabstop = 4
+opt.splitbelow = true
+opt.splitright = true
+opt.swapfile = false
+opt.tabstop = 4
+opt.termguicolors = true
+opt.title = true
+opt.updatetime = 500
+opt.wildignore = '*/tmp/*,*.so,*.swp,*.zip,node_modules,.git'
+opt.wrap = false
