@@ -20,6 +20,7 @@ return {
                 "erlang",
                 "go",
                 "graphql",
+                "hcl",
                 "http",
                 "javascript",
                 "jq",

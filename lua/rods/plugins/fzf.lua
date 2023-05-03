@@ -29,6 +29,7 @@ return {
           \ 'ctrl-x': 'split',
           \ 'ctrl-v': 'vsplit' }
 
+        " let $BAT_STYLE = 'header-filename,numbers,grid'
 
         " -change for Files
         command! -bang -nargs=? -complete=dir Files
@@ -38,7 +39,8 @@ return {
           \   '--bind=ctrl-d:preview-page-down,ctrl-u:preview-page-up',
           \   '--bind=alt-j:preview-down,alt-k:preview-up',
           \   '--bind=tab:toggle-out,shift-tab:toggle-in',
-          \   '--header=Preview:: ctrl+(d|u): page-down|up; alt+(j|u): down|up',
+          \   '--bind=ctrl-n:half-page-down,ctrl-p:half-page-up',
+          \   '--header=List: ctrl-(x|v|t)=split/vsplit/tab ctrl-(n|p)=half-page-down/up, Preview: ctrl-(d|u)=page-down/up alt-(j|u)=down/up',
           \ ]})
           \, <bang>0)
 
@@ -65,32 +67,68 @@ return {
           \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 
-        " -custom RG command
-        function! RipgrepFzf(query, fullscreen)
-          let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-          let initial_command = printf(command_fmt, shellescape(a:query))
-          let reload_command = printf(command_fmt, '{q}')
-          let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-          let spec = fzf#vim#with_preview(spec, 'right', 'ctrl-/')
-          call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
+        " -custom ripgrep command
+        function! RipgrepFzf(query, fullscreen, rgword)
+          let c = 'rg --column --line-number --no-heading --color=always --smart-case ' . a:rgword . ' -- %s || true'
+          let cmd = printf(c, shellescape(a:query))
+          let reload_cmd = printf(c, '{q}')
+          let opt = [
+            \ '--disabled',
+            \ '--bind=ctrl-d:preview-page-down,ctrl-u:preview-page-up',
+            \ '--bind=alt-j:preview-down,alt-k:preview-up',
+            \ '--bind=tab:toggle-out,shift-tab:toggle-in',
+            \ '--bind=ctrl-n:half-page-down,ctrl-p:half-page-up',
+            \ '--header=List: ctrl-(x|v|t)=split/vsplit/tab ctrl-(n|p)=half-page-down/up, Preview: ctrl-(d|u)=page-down/up alt-(j|u)=down/up',
+            \ '--bind=change:reload:'.reload_cmd,
+            \ '--query',
+            \ a:query,
+          \]
+          call fzf#vim#grep(cmd, 1, fzf#vim#with_preview({'options': opt}), a:fullscreen)
         endfunction
-        command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+        command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0, "")
+        command! -nargs=* -bang RGw call RipgrepFzf(<q-args>, <bang>0, "--word-regexp")
 
 
-        " -not been used
-        function! s:fzf_neighbouring_files()
-          let current_file =expand("%")
-          let cwd = fnamemodify(current_file, ':p:h')
-          " let command = 'rg --column --line-number --no-heading --color=always --max-depth 0 --smart-case %s --full-path ' . cwd
-          let command = 'rg --files --no-follow  ' . cwd . ''
+        " -custom fd command
+        function! FdFzf(fullscreen, fdargs)
+          " let cmd = 'fd . -tf --max-depth=1 --color=never'
+          let c = 'fd . -tf %s --color=never | rg -v %s | sed "1i 󱇧 %s"'
+          let cmd = printf(c, a:fdargs, expand("%:t"), expand("%:t"))
+          let opt = [
+            \ '--info=inline',
+            \ '--bind=ctrl-d:preview-page-down,ctrl-u:preview-page-up',
+            \ '--bind=alt-j:preview-down,alt-k:preview-up',
+            \ '--bind=tab:toggle-out,shift-tab:toggle-in',
+            \ '--bind=ctrl-n:half-page-down,ctrl-p:half-page-up',
+            \ '--header=List: ctrl-(x|v|t)=split/vsplit/tab ctrl-(n|p)=half-page-down/up, Preview: ctrl-(d|u)=page-down/up alt-(j|u)=down/up',
+            \ '--multi',
+            \ '--header-lines=1',
+            \ '--no-sort',
+            \ printf('--prompt=%s/', expand("%:h")),
+            \]
 
-          call fzf#run({
-                \ 'source': command,
-                \ 'sink':   'e',
-                \ 'options': '-m -x +s',
-                \ 'window':  'enew' })
+          call fzf#run(fzf#vim#with_preview(fzf#wrap({
+            \ 'source': cmd,
+            \ 'options': opt,
+            \ 'dir': expand('%:h')
+            \})), a:fullscreen)
         endfunction
-        command! FZFNeigh call s:fzf_neighbouring_files()
+        command! -nargs=* -bang FdOne call FdFzf(<bang>0, "--max-depth=1")
+        command! -nargs=* -bang FdAll call FdFzf(<bang>0, "")
+
+        " " -not been used
+        " function! s:fzf_neighbouring_files()
+        "   let current_file =expand("%")
+        "   let cwd = fnamemodify(current_file, ':p:h')
+        "   let command = 'rg --files --no-follow  ' . cwd . ''
+
+        "   call fzf#run({
+        "         \ 'source': command,
+        "         \ 'sink':   'e',
+        "         \ 'options': '-m -x +s',
+        "         \ 'window':  'enew' })
+        " endfunction
+        " command! FZFNeigh call s:fzf_neighbouring_files()
 
         ]])
     end,

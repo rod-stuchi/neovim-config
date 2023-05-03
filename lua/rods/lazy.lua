@@ -21,12 +21,12 @@ require("lazy").setup({
     require("rods.plugins.nvim-notify"),
     require("rods.plugins.leap"),
     require("rods.plugins.nvim-biscuits"),
-    require("rods.plugins.goto-preview"),
     require("rods.plugins.fidget"),
     require("rods.plugins.pretty-fold"),
     require("rods.plugins.vim-mark"),
     require("rods.plugins.gitsigns"),
     require("rods.plugins.nvim-ts-autotag"),
+    require("rods.plugins.firenvim"),
     -- file
     require("rods.plugins.rnvimr"),
     require("rods.plugins.fzf"),
@@ -34,5 +34,8 @@ require("lazy").setup({
     -- 🌈 theme, colors
     require("rods.themes.kanagawa"),
     require("rods.plugins.nvim-colorize"),
+
+    -- 📰 Code
+    require("rods.plugins.mason"),
 })
 
