@@ -31,10 +31,6 @@ keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
 keymap("v", "<A-j>", ":m '>+1<CR>gv=gv")
 keymap("v", "<A-k>", ":m '<-2<CR>gv=gv")
 
--- keymap("n", "<leader>fd", "<cmd>Files <c-r>=expand('%:h')<cr><cr>")
--- keymap("n", "<leader>sg", [[<cmd>RG <c-r>=expand("<cword>")<cr>]], { desc = "::Rg word cursor" })
--- keymap("n", "<leader>sg", [[<cmd>RG <c-r><c-w><cr>]], { desc = "::Rg word cursor" })
-
 keymap("n", "<leader>sg", function()
     local word = vim.fn.expand('<cword>')
     vim.cmd("RG " .. word)
@@ -45,18 +41,10 @@ keymap("n", "<leader>sb", function()
     vim.cmd("RGw " .. word)
 end, { desc = "RG -w 'word' boundaries cursor" })
 
--- keymap("n", "<leader>fd", function()
---     local dir = vim.fn.expand('%:h')
---     vim.cmd("Files " .. dir)
--- end, { desc = "fzf neighbor" })
-
 keymap("n", "<leader>fd", vim.cmd.FdOne, { desc = "fzf neighbor depth 1" })
 keymap("n", "<leader>fe", vim.cmd.FdAll, { desc = "fzf neighbor" })
 
 vim.cmd([[
-   " nnoremap <silent> <Leader>sr :RG \b<C-R><C-W>\b<CR>
-   " nnoremap <silent> <Leader>sg :Rg \b<C-R><C-W>\b<CR>
-   " autocmd VimEnter * nnoremap <silent> <Leader>fd :Files <C-R>=expand('%:h')<CR><CR>
    command W :execute ':silent w !sudo tee % > /dev/null' | :edit! 
 ]])
 
@@ -68,12 +56,3 @@ vim.cmd([[
 -- keymap('n', 'yip', [[ :lua preserve('normal! yip')<CR>2h ]], opts)
 -- keymap('n', 'yiw', [[ :lua preserve('normal! yiw')<CR> ]])
 -- keymap('n', '<space>==', [[ :lua preserve('normal! gg=G')<CR>2h ]], opts)
-
--- keymap("n", "<Up>", "<C-w><up>")
--- keymap("o", "<Up>", "<C-w><up>")
--- keymap("n", "<Down>", "<C-w><down>")
--- keymap("o", "<Down>", "<C-w><down>")
--- keymap("n", "<Left>", "<C-w><left>")
--- keymap("o", "<Left>", "<C-w><left>")
--- keymap("n", "<Right>", "<C-w><right>")
--- keymap("o", "<Right>", "<C-w><right>")

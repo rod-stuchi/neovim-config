@@ -13,7 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     require("rods.plugins.treesitter"),
-    require("rods.plugins.treesitter-comment"),
     require("rods.plugins.comment"),
     require("rods.plugins.which-key"),
     require("rods.plugins.bufferline"),
