@@ -107,6 +107,7 @@ return {
             \ printf('--prompt=%s/', expand("%:h")),
             \]
 
+
           call fzf#run(fzf#vim#with_preview(fzf#wrap({
             \ 'source': cmd,
             \ 'options': opt,
@@ -115,20 +116,6 @@ return {
         endfunction
         command! -nargs=* -bang FdOne call FdFzf(<bang>0, "--max-depth=1")
         command! -nargs=* -bang FdAll call FdFzf(<bang>0, "")
-
-        " " -not been used
-        " function! s:fzf_neighbouring_files()
-        "   let current_file =expand("%")
-        "   let cwd = fnamemodify(current_file, ':p:h')
-        "   let command = 'rg --files --no-follow  ' . cwd . ''
-
-        "   call fzf#run({
-        "         \ 'source': command,
-        "         \ 'sink':   'e',
-        "         \ 'options': '-m -x +s',
-        "         \ 'window':  'enew' })
-        " endfunction
-        " command! FZFNeigh call s:fzf_neighbouring_files()
 
         ]])
     end,

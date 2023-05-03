@@ -11,10 +11,7 @@ return {
     config = function()
         require("mason").setup()
         require("mason-lspconfig").setup()
-        require("goto-preview").setup({
-            width = 120,
-            height = 20,
-        })
+        require("rods.plugins.lsp.goto-preview").setup()
         local lspconfig = require("lspconfig")
         local lsp_attach = function(client, bufnr)
             -- keybindings

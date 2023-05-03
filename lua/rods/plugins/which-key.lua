@@ -144,6 +144,7 @@ return {
                     d = { '<cmd> lua require("goto-preview").goto_preview_definition()<cr>', "definition" },
                     t = { '<cmd> lua require("goto-preview").goto_preview_type_definition()<cr>', "type definition" },
                     i = { '<cmd> lua require("goto-preview").goto_preview_implementation()<cr>', "implementation" },
+                    -- r = { '<cmd> lua require("goto-preview").goto_preview_references()<cr>', "references" },
                     p = { '<cmd> lua require("goto-preview").close_all_win()<cr>', "close all windows" },
                 },
             },
