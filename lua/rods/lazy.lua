@@ -26,6 +26,9 @@ require("lazy").setup({
     require("rods.plugins.gitsigns"),
     require("rods.plugins.nvim-ts-autotag"),
     require("rods.plugins.firenvim"),
+    require("rods.plugins.live-command"),
+    require("rods.plugins.lualine"),
+
     -- file
     require("rods.plugins.rnvimr"),
     require("rods.plugins.fzf"),
@@ -34,7 +37,7 @@ require("lazy").setup({
     require("rods.themes.kanagawa"),
     require("rods.plugins.nvim-colorize"),
 
-    -- 📰 Code
+    -- 📰 Code LSP
     require("rods.plugins.mason"),
 })
 

@@ -10,6 +10,7 @@ return {
             -- refer to the configuration section below
         })
 
+        -- normal leader
         wk.register({
             ["<tab>"] = "which_key_ignore",
             ["1"] = "which_key_ignore",
@@ -28,6 +29,7 @@ return {
                 b = { "<cmd>Buffers<cr>", "fzf buffers" },
                 l = { "<cmd>BLines<cr>", "fzf buffer lines" },
                 x = { "<cmd>BufferLinePickClose<cr>", "bufferline pick close" },
+                p = { "<cmd>BufferLineTogglePin<cr>", "bufferline toogle pin" },
                 X = { "<cmd>%bd|e#|bd#<cr>", "close all except this" },
             },
             c = {
@@ -49,7 +51,6 @@ return {
             },
             f = {
                 name = "  File",
-                -- d = { "fzf neighbor" }, --mappings.lua
                 r = { "<cmd>RnvimrToggle<cr>", "ranger" },
                 f = { "<cmd>Files<cr>", "fzf files" },
                 g = { "<cmd>GFiles<cr>", "fzf git files" },
@@ -73,7 +74,9 @@ return {
                 },
             },
             l = {
-                name = "󰍜  LSP",
+                name = "  LSP",
+                w = "  workspace",
+                n = { "<cmd>Navbuddy<cr>", "  navbuddy" },
             },
             o = {
                 name = "  Operations",
@@ -94,6 +97,12 @@ return {
                     "date pt-br (dddd, dd de mmmm de yyyy)",
                 },
                 ["5"] = { 'i<c-r>=strftime("%Y-%m-%d")<cr><esc>', "date yyyy-mm-dd" },
+                s = {
+                    function()
+                        vim.cmd("source" .. vim.fn.stdpath("config") .. "/lua/rods/plugins/snips/luasnip.lua")
+                    end,
+                    "Reload LuaSnips",
+                },
             },
             s = {
                 name = "  Search",
@@ -104,7 +113,7 @@ return {
                 name = "  Window",
                 b = "toogle biscuits", -- nvim-bisbuits.lua
                 c = { "<cmd>set cursorcolumn!<bar>set cursorline!<cr>", "toggle column color" },
-                l = { "<Cmd>set number!<bar>set list!<cr>", "toggle list chars" },
+                l = { "<cmd>set number!<bar>set list!<cr>", "toggle list chars" },
                 m = { "<cmd>mksession! /tmp/vim-session.vim<cr><cmd>wincmd o<cr>", "maximize window" },
                 u = { "<cmd>source /tmp/vim-session.vim<cr>", "undo maximize" },
                 r = { "<cmd>set number!<bar>set relativenumber!<cr>", "toggle relative number" },
@@ -112,6 +121,7 @@ return {
             },
         }, { prefix = "<leader>", mode = "n" })
 
+        -- visual leader
         wk.register({
             ["<tab>"] = "which_key_ignore",
             e = {
@@ -126,11 +136,12 @@ return {
             },
         }, { prefix = "<leader>", mode = "v" })
 
+        -- operation leader
         wk.register({
             ["<tab>"] = "which_key_ignore",
         }, { prefix = "<leader>", mode = "o" })
 
-
+        -- normal non leader
         wk.register({
             ["["] = {
                 c = "  Prev git hunk", -- gitsigns.lua

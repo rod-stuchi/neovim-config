@@ -56,6 +56,8 @@ return {
 
         vim.keymap.set('n', '<A-,>', '<cmd>BufferLineMovePrev<cr>')
         vim.keymap.set('n', '<A-.>', '<cmd>BufferLineMoveNext<cr>')
+        vim.keymap.set('n', '<A-(>', '<cmd>BufferLineCyclePrev<cr>')
+        vim.keymap.set('n', '<A-)>', '<cmd>BufferLineCycleNext<cr>')
 
         vim.keymap.set('n', '<Leader>1', '<cmd>lua require("bufferline").go_to_buffer(1, true)<cr>')
         vim.keymap.set('n', '<Leader>2', '<cmd>lua require("bufferline").go_to_buffer(2, true)<cr>')
