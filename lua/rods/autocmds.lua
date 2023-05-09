@@ -19,47 +19,47 @@ vim.cmd([[
 
 vim.api.nvim_create_augroup("FileTypeAdjustments", {})
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "css,javascript,json,scss,yml,yaml",
-    callback = function()
-        --set iskeyword+=-
-        vim.opt.iskeyword:append({ "-" })
-    end,
-    group = "FileTypeAdjustments",
+	pattern = "css,javascript,json,scss,yml,yaml",
+	callback = function()
+		--set iskeyword+=-
+		vim.opt.iskeyword:append({ "-" })
+	end,
+	group = "FileTypeAdjustments",
 })
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "lua", -- or { 'lua', 'help' },
-    callback = function()
-        vim.treesitter.start()
-    end,
-    group = "FileTypeAdjustments",
+	pattern = "lua", -- or { 'lua', 'help' },
+	callback = function()
+		vim.treesitter.start()
+	end,
+	group = "FileTypeAdjustments",
 })
 
 vim.api.nvim_create_augroup("Git", {})
 vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "COMMIT_EDITMSG",
-    callback = function()
-        vim.cmd("set spell spelllang=en_us")
-        -- insert mode if line empty
-        vim.api.nvim_win_set_cursor(0, { 1, 0 })
-        if vim.fn.getline(1) == "" then
-            vim.cmd("startinsert!")
-        end
-    end,
-    group = "Git",
+	pattern = "COMMIT_EDITMSG",
+	callback = function()
+		vim.cmd("set spell spelllang=en_us")
+		-- insert mode if line empty
+		vim.api.nvim_win_set_cursor(0, { 1, 0 })
+		if vim.fn.getline(1) == "" then
+			vim.cmd("startinsert!")
+		end
+	end,
+	group = "Git",
 })
 vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "COMMIT_EDITMSG",
-    callback = function()
-        vim.opt.foldenable = false
-    end,
-    group = "Git",
+	pattern = "COMMIT_EDITMSG",
+	callback = function()
+		vim.opt.foldenable = false
+	end,
+	group = "Git",
 })
 
 vim.api.nvim_create_augroup("highlight_yank", {})
 vim.api.nvim_create_autocmd("TextYankPost", {
-    pattern = "*",
-    callback = function()
-        vim.highlight.on_yank({ higroup = "IncSearch", timeout = 400 })
-    end,
-    group = "highlight_yank",
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 400 })
+	end,
+	group = "highlight_yank",
 })

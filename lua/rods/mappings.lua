@@ -32,13 +32,13 @@ keymap("v", "<A-j>", ":m '>+1<CR>gv=gv")
 keymap("v", "<A-k>", ":m '<-2<CR>gv=gv")
 
 keymap("n", "<leader>sg", function()
-    local word = vim.fn.expand('<cword>')
-    vim.cmd("RG " .. word)
+	local word = vim.fn.expand("<cword>")
+	vim.cmd("RG " .. word)
 end, { desc = "RG word cursor" })
 
 keymap("n", "<leader>sb", function()
-    local word = vim.fn.expand('<cword>')
-    vim.cmd("RGw " .. word)
+	local word = vim.fn.expand("<cword>")
+	vim.cmd("RGw " .. word)
 end, { desc = "RG -w 'word' boundaries cursor" })
 
 keymap("n", "<leader>fd", vim.cmd.FdOne, { desc = "fzf neighbor depth 1" })

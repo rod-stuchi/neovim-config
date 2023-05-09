@@ -26,33 +26,33 @@ local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 
 ls.setup({
-    history = true,
-    update_events = { "TextChanged", "TextChangedI" },
-    enable_autosnippets = true,
+	history = true,
+	update_events = { "TextChanged", "TextChangedI" },
+	enable_autosnippets = true,
 
-    -- ext_opts = {
-    --     [types.choiceNode] = {
-    --         active = {
-    --             virt_text = { { "●", "GruvboxOrange" } },
-    --         },
-    --     },
-    --     [types.insertNode] = {
-    --         active = {
-    --             virt_text = { { "●", "GruvboxBlue" } },
-    --         },
-    --     },
-    -- },
+	-- ext_opts = {
+	--     [types.choiceNode] = {
+	--         active = {
+	--             virt_text = { { "●", "GruvboxOrange" } },
+	--         },
+	--     },
+	--     [types.insertNode] = {
+	--         active = {
+	--             virt_text = { { "●", "GruvboxBlue" } },
+	--         },
+	--     },
+	-- },
 })
 
 ls.add_snippets("all", {
-    s("ternary", {
-        -- equivalent to "${1:cond} ? ${2:then} : ${3:else}"
-        i(1, "cond"),
-        t(" ? "),
-        i(2, "then"),
-        t(" : "),
-        i(3, "else"),
-    }),
+	s("ternary", {
+		-- equivalent to "${1:cond} ? ${2:then} : ${3:else}"
+		i(1, "cond"),
+		t(" ? "),
+		i(2, "then"),
+		t(" : "),
+		i(3, "else"),
+	}),
 })
 
 print("luasnip loaded")

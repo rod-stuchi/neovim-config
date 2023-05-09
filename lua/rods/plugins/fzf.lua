@@ -1,8 +1,8 @@
 return {
-    "junegunn/fzf.vim",
-    dependencies = { "junegunn/fzf" },
-    init = function()
-        vim.cmd([[
+	"junegunn/fzf.vim",
+	dependencies = { "junegunn/fzf" },
+	init = function()
+		vim.cmd([[
         " - Popup window (center of the screen)
         " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
         " - Popup window (anchored to the bottom of the current window)
@@ -118,5 +118,5 @@ return {
         command! -nargs=* -bang FdAll call FdFzf(<bang>0, "")
 
         ]])
-    end,
+	end,
 }

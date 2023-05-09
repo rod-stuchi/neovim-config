@@ -18,14 +18,14 @@ g["python3_host_prog"] = "/usr/bin/python3"
 
 opt.backup = false
 opt.cmdheight = 1
-opt.encoding = 'utf-8'
+opt.encoding = "utf-8"
 opt.expandtab = true
-opt.fillchars:append('fold:•')
+opt.fillchars:append("fold:•")
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 4
 opt.foldmethod = "expr"
-opt.foldopen:remove({'search'})
-opt.guifont="Fira Code 10"
+opt.foldopen:remove({ "search" })
+opt.guifont = "Fira Code 10"
 opt.ignorecase = true
 opt.inccommand = "split"
 opt.laststatus = 3
@@ -37,7 +37,7 @@ opt.number = true
 opt.relativenumber = true
 opt.scrolloff = 8
 opt.shiftwidth = 4
-opt.shortmess:append "c"
+opt.shortmess:append("c")
 opt.showbreak = "↪"
 opt.showmode = true
 opt.sidescrolloff = 8
@@ -51,5 +51,5 @@ opt.tabstop = 4
 opt.termguicolors = true
 opt.title = true
 opt.updatetime = 500
-opt.wildignore = '*/tmp/*,*.so,*.swp,*.zip,node_modules,.git'
+opt.wildignore = "*/tmp/*,*.so,*.swp,*.zip,node_modules,.git"
 opt.wrap = false
