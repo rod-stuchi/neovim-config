@@ -6,17 +6,16 @@ function M.setup()
 	local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
 	cmp.setup({
-		sources = {
-			{
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-				{ name = "nvim_lsp_signature_help" },
-			},
-			{
-				{ name = "treesitter", keyword_length = 3 },
-				{ name = "path", keyword_length = 3 },
-			}
-		},
+		sources = cmp.config.sources({
+			{ name = "nvim_lsp" },
+			{ name = "luasnip" },
+			{ name = "nvim_lsp_signature_help" },
+		}, {
+			{ name = "treesitter", keyword_length = 3 },
+			{ name = "path", keyword_length = 3 },
+		}, {
+			{ name = "buffer", keyword_length = 3 },
+		}),
 		snippet = {
 			expand = function(args)
 				luasnip.lsp_expand(args.body)
