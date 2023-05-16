@@ -7,4 +7,9 @@ require("rods.lazy")
 require("rods.funcs")
 require("rods.mappings")
 require("rods.autocmds")
+
 require("rods.plugins.snips.luasnip")
+require("rods.abbreviation.abbrev").setup()
+
+-- vim.lsp.set_log_level("debug")
+-- :lua vim.cmd('e'..vim.lsp.get_log_path())

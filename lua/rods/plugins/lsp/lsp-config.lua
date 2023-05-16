@@ -8,7 +8,7 @@ function M.setup(server_name, lspconfig)
 					format = { enable = false },
 					runtime = { version = "LuaJIT" },
 					diagnostics = {
-						globals = { "vim", "require" },
+						globals = { "vim", "require", "awesome", "client" },
 					},
 					-- workspace = {
 					--     -- Make the server aware of Neovim runtime files

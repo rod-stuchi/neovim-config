@@ -109,6 +109,15 @@ return {
 				-- r = { "Rg word cursor" }, -- mappings.lua
 				-- R = { "RG word cursor" }, -- mappings.lua
 			},
+			t = {
+				name = "  Trouble",
+				d = { "<cmd>Trouble document_diagnostics<cr>", "document diagnostics" },
+				w = { "<cmd>Trouble workspace_diagnostics<cr>", "workspace diagnostics" },
+				r = { "<cmd>Trouble lsp_references<cr>", "lsp references" },
+				D = { "<cmd>Trouble lsp_definitions<cr>", "lsp definitions" },
+				t = { "<cmd>Trouble lsp_type_definitions<cr>", "lsp type definitions" },
+				R = { "<cmd>TroubleRefresh<cr>", "refresh" },
+			},
 			w = {
 				name = "  Window",
 				b = "toogle biscuits", -- nvim-bisbuits.lua
