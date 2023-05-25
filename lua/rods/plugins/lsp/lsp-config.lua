@@ -10,12 +10,15 @@ function M.setup(server_name, lspconfig)
 					diagnostics = {
 						globals = { "vim", "require", "awesome", "client" },
 					},
-					-- workspace = {
-					--     -- Make the server aware of Neovim runtime files
-					--     library = vim.api.nvim_get_runtime_file("", true),
-					-- },
 				},
 			},
+		})
+	end
+	if server_name == "tsserver" then
+		lspconfig[server_name].setup({
+			on_attach = function(client)
+				client.server_capabilities.documentFormattingProvider = false
+			end,
 		})
 	end
 end

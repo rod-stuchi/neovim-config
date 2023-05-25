@@ -1,3 +1,4 @@
+-- vim: foldlevel=9
 return {
 	"folke/which-key.nvim",
 	config = function()

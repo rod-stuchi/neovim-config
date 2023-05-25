@@ -79,6 +79,14 @@ vim.api.nvim_create_user_command("RodRemoveHardSpaces", function()
 	M.preserve("%s/\\%xa0/ /g")
 end, {})
 
+-- https://www.reddit.com/r/neovim/comments/zhweuc/comment/izo9br1/?utm_source=share&utm_medium=web2x&context=3
+vim.api.nvim_create_user_command('Redir', function(ctx)
+  local lines = vim.split(vim.api.nvim_exec(ctx.args, true), '\n', { plain = true })
+  vim.cmd('new')
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+  vim.opt_local.modified = false
+end, { nargs = '+', complete = 'command' })
+
 vim.cmd("source" .. vim.fn.stdpath("config") .. "/lua/rods/vim-funcs/center_cursor.vim")
 vim.cmd("source" .. vim.fn.stdpath("config") .. "/lua/rods/vim-funcs/fold_comments.vim")
 vim.cmd("source" .. vim.fn.stdpath("config") .. "/lua/rods/vim-funcs/remove_diacritics.vim")
