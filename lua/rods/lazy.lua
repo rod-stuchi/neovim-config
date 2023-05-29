@@ -29,6 +29,8 @@ require("lazy").setup({
 	require("rods.plugins.live-command"),
 	require("rods.plugins.lualine"),
 	require("rods.plugins.diffview"),
+	require("rods.plugins.treesj"),
+	require("rods.plugins.ccc"),
 
 	-- file
 	require("rods.plugins.rnvimr"),

@@ -49,6 +49,8 @@ return {
 				name = "  Editing",
 				a = { "<plug>(EasyAlign)", "EasyAlign" },
 				l = { "<plug>(LiveEasyAlign)", "LiveEasyAlign" },
+				c = { "<cmd>CccPick<cr>", "Color Picker" },
+				j = { "<cmd>lua require('treesj').toggle()<cr>", "Join Treesitter" },
 			},
 			f = {
 				name = "  File",
