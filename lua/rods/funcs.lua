@@ -87,8 +87,10 @@ vim.api.nvim_create_user_command('Redir', function(ctx)
   vim.opt_local.modified = false
 end, { nargs = '+', complete = 'command' })
 
-vim.cmd("source" .. vim.fn.stdpath("config") .. "/lua/rods/vim-funcs/center_cursor.vim")
-vim.cmd("source" .. vim.fn.stdpath("config") .. "/lua/rods/vim-funcs/fold_comments.vim")
-vim.cmd("source" .. vim.fn.stdpath("config") .. "/lua/rods/vim-funcs/remove_diacritics.vim")
+local vimpath = vim.fn.stdpath("config") .. "/lua/rods/vim-funcs"
+local vimfiles = Scandir("\\.vim$", vimpath)
+for _, f in ipairs(vimfiles) do
+	vim.cmd("source " .. f)
+end
 
 return M
