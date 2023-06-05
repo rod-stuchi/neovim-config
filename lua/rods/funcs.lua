@@ -4,7 +4,7 @@ function M.setCustomHighLights()
 	vim.cmd([[ 
   " line column colors
   highlight LineNrAbove guibg=#1e2127 guifg=#414855
-  highlight LineNr guifg=#93a2bf
+  highlight LineNr guifg=#a8a250
   highlight LineNrBelow guibg=#1e2127 guifg=#414855
   " git
   highlight SignColumn  guibg=#1e2127
