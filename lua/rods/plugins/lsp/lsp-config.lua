@@ -8,7 +8,7 @@ function M.setup(server_name, lspconfig)
 					format = { enable = false },
 					runtime = { version = "LuaJIT" },
 					diagnostics = {
-						globals = { "vim", "require", "awesome", "client" },
+						globals = { "vim", "require" },
 					},
 				},
 			},

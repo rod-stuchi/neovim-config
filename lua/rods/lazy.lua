@@ -31,6 +31,7 @@ require("lazy").setup({
 	require("rods.plugins.diffview"),
 	require("rods.plugins.treesj"),
 	require("rods.plugins.ccc"),
+	require("rods.plugins.todo-comments"),
 
 	-- file
 	require("rods.plugins.rnvimr"),

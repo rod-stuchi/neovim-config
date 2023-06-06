@@ -43,6 +43,7 @@
   "pretty-fold.nvim": { "branch": "master", "commit": "a7d8b424abe0eedf50116c460fbe6dfd5783b1d5" },
   "rnvimr": { "branch": "main", "commit": "8021cc2ea47a4a3c1cee05a555b3368c8e1d67be" },
   "tint.nvim": { "branch": "master", "commit": "51e9144fa3cd3f2492a282ccadc8bd3355653f5c" },
+  "todo-comments.nvim": { "branch": "main", "commit": "09b0b17d824d2d56f02ff15967e8a2499a89c731" },
   "treesj": { "branch": "main", "commit": "b1e2976c2d7ba922371cc7f3ab08b75136c27231" },
   "trouble.nvim": { "branch": "main", "commit": "324c977cfeacb8498ca9ba1c74cc35bd18858a8d" },
   "vim-easy-align": { "branch": "master", "commit": "12dd6316974f71ce333e360c0260b4e1f81169c3" },

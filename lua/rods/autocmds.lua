@@ -63,3 +63,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 	group = "highlight_yank",
 })
+
+vim.api.nvim_create_augroup("sxhkdrcAutoCmd", {})
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = "sxhkdrc",
+	callback = function()
+		vim.fn.system("pkill -10 sxhkd")
+		vim.fn.system('dunstify -t 700 -u low "sxhkd reloaded"')
+	end,
+	group = "sxhkdrcAutoCmd",
+})
