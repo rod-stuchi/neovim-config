@@ -59,7 +59,10 @@ return {
         inoremap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
 
 
-        " complete lines in all project
+        " -complete line in buffer
+        imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
+
+        " -complete lines in all project
         inoremap <expr> <c-x><c-k> fzf#vim#complete(fzf#wrap({
           \ 'prefix': '^.*$',
           \ 'source': 'rg -n ^ --color always',
