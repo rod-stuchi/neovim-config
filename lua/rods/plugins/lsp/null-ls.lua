@@ -20,6 +20,7 @@ function M.setup()
 						}
 				end,
 			}),
+			null_ls.builtins.formatting.black,
 		},
 	})
 end
