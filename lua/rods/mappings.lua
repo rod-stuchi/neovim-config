@@ -8,6 +8,9 @@ keymap({ "n", "v" }, ":", ";")
 
 keymap("n", "Q", "<nop>")
 
+-- remap digraphs, conflict with cmp
+keymap("i", "<c-y>", "<c-k>")
+
 keymap("n", "<BS>", "<cmd>noh<cr>")
 keymap("n", "<M-o>", "<cmd>copen<cr>")
 keymap("n", "<M-O>", "<cmd>cclose<cr>")
