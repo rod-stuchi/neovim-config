@@ -23,6 +23,12 @@ return {
 				python = {
 					disabled = true,
 				},
+				sql = {
+					disabled = true
+				},
+				vimdoc = {
+					disabled = true
+				}
 			},
 		})
 	end,
