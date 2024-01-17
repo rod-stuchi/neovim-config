@@ -34,6 +34,14 @@ return {
 			},
 			opts = { lsp = { auto_attach = true } },
 		},
+		-- {
+		-- 	"hinell/lsp-timeout.nvim",
+		-- 	init = function()
+		-- 		vim.g.lspTimeoutConfig = {
+		-- 			--
+		-- 		}
+		-- 	end,
+		-- },
 	},
 	config = function()
 		table.unpack = table.unpack or unpack -- 5.1 compatibility
