@@ -181,6 +181,7 @@ return {
 				c = "  Next git hunk", -- gitsigns.lua
 			},
 			g = {
+				n = "Treesitter: select ", -- NOTE: not working 
 				p = {
 					name = "  Goto Preview",
 					d = { '<cmd> lua require("goto-preview").goto_preview_definition()<cr>', "definition" },

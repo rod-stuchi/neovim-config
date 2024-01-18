@@ -12,40 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	require("rods.plugins.treesitter"),
-	require("rods.plugins.comment"),
-	require("rods.plugins.which-key"),
-	require("rods.plugins.bufferline"),
-	require("rods.plugins.vim-easy-align"),
-	require("rods.plugins.nvim-notify"),
-	require("rods.plugins.leap"),
-	require("rods.plugins.nvim-biscuits"),
-	require("rods.plugins.fidget"),
-	require("rods.plugins.pretty-fold"),
-	require("rods.plugins.vim-mark"),
-	require("rods.plugins.gitsigns"),
-	require("rods.plugins.nvim-ts-autotag"),
-	require("rods.plugins.firenvim"),
-	require("rods.plugins.live-command"),
-	require("rods.plugins.lualine"),
-	require("rods.plugins.diffview"),
-	require("rods.plugins.treesj"),
-	require("rods.plugins.ccc"), -- Create Color Code (Color Picker)
-	require("rods.plugins.todo-comments"),
-	require("rods.plugins.rgflow"),
-	require("rods.plugins.dressing"),
-	require("rods.plugins.igs"),
-
-	-- file
-	require("rods.plugins.rnvimr"),
-	require("rods.plugins.fzf"),
-
-	-- 🌈 theme, colors
-	require("rods.themes.kanagawa"),
-	require("rods.plugins.nvim-colorize"),
-	require("rods.plugins.tint"),
-
-	-- 📰 Code LSP
-	require("rods.plugins.mason"),
-	require("rods.plugins.trouble"),
+	{ import = "rods.themes" },
+	{ import = "rods.plugins" },
+	{ import = "rods.plugins.lsp" },
 })

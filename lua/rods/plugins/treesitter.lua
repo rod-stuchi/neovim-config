@@ -1,12 +1,20 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	dependencies = {
+		"theHamsta/nvim-treesitter-pairs",
+	},
+	build = function()
+		require("nvim-treesitter.install").update({ with_sync = true })()
+	end,
 	config = function()
-		require("nvim-treesitter.configs").setup({
-			-- JoosepAlviste/nvim-ts-context-commentstring
-			context_commentstring = {
-				enable = true,
-				enable_autocmd = false,
+		-- JoosepAlviste/nvim-ts-context-commentstring
+		require("ts_context_commentstring").setup({
+			enable_autocmd = false,
+			languages = {
+				typescript = "// %s",
 			},
+		})
+		require("nvim-treesitter.configs").setup({
 			autotag = {
 				enables = true,
 			},
@@ -74,10 +82,10 @@ return {
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = "gnn", -- set to `false` to disable one of the mappings
-					node_incremental = "grn",
-					scope_incremental = "grc",
-					node_decremental = "grm",
+					init_selection = "gn", -- set to `false` to disable one of the mappings
+					scope_incremental = "go",
+					node_incremental = "gn",
+					node_decremental = "gm",
 				},
 			},
 		})

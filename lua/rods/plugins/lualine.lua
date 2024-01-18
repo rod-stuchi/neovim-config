@@ -12,6 +12,12 @@ return {
 				}
 			end
 		end
+		local function spell()
+			if vim.wo.spell == true then -- Note that 'spell' is a window option, so: wo
+				return "[" .. vim.bo.spelllang .. "]"
+			end
+			return ""
+		end
 
 		require("lualine").setup({
 			options = {
@@ -46,7 +52,7 @@ return {
 				},
 				lualine_c = { "filename" },
 				-- lualine_c = { custom_fname },
-				lualine_x = { "encoding", "fileformat", "filetype", "filesize" },
+				lualine_x = { spell, "encoding", "fileformat", "filetype", "filesize" },
 				lualine_y = { "progress" },
 				lualine_z = { "location" },
 			},

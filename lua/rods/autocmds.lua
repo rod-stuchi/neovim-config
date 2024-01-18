@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 vim.cmd([[
     "autocmd! BufWinLeave * let b:winview = winsaveview()
     "autocmd! BufWinEnter * if exists('b:winview') | call winrestview(b:winview) | unlet b:winview
@@ -74,4 +75,5 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	group = "sxhkdrcAutoCmd",
 })
 
-vim.cmd('packadd cfilter')
+vim.cmd("packadd cfilter")
+
