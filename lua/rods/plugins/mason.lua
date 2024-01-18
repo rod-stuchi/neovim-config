@@ -16,12 +16,12 @@ return {
 			"hrsh7th/nvim-cmp",
 			event = "InsertEnter",
 			dependencies = {
-				{ "hrsh7th/cmp-nvim-lsp" },
+				{ "hrsh7th/cmp-nvim-lsp", event = { "InsertEnter", "CmdlineEnter" } },
 				{ "hrsh7th/cmp-buffer" },
 				{ "hrsh7th/cmp-path" },
 				{ "hrsh7th/cmp-cmdline" },
 				{ "saadparwaiz1/cmp_luasnip" },
-				{ "L3MON4D3/LuaSnip" },
+				{ "L3MON4D3/LuaSnip", dependencies = { "rafamadriz/friendly-snippets" } },
 				{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 				{ "ray-x/cmp-treesitter" },
 			},
@@ -46,6 +46,10 @@ return {
 	config = function()
 		table.unpack = table.unpack or unpack -- 5.1 compatibility
 
+		require("luasnip.loaders.from_vscode").lazy_load()
+		require'luasnip'.filetype_extend("ruby", {"rails"})
+		require'luasnip'.filetype_extend("typescript", {"javascript"})
+
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			ensure_installed = {
@@ -66,7 +70,9 @@ return {
 		local get_servers = require("mason-lspconfig").get_installed_servers
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-		for _, server_name in ipairs(get_servers()) do
+		local servers = get_servers()
+		table.insert(servers, "dartls")
+		for _, server_name in ipairs(servers) do
 			lspconfig[server_name].setup({
 				capabilities = capabilities,
 			})

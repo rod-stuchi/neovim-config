@@ -6,6 +6,9 @@ function M.setup()
 	local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
 	cmp.setup({
+		completion = {
+			completionopt = "menu,menuone,preview,noselect",
+		},
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
@@ -22,14 +25,16 @@ function M.setup()
 			end,
 		},
 		mapping = {
-			-- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-			["<cr>"] = cmp.mapping.confirm({ select = true }),
+			["<C-Space>"] = cmp.mapping.complete(),
+			["<CR>"] = cmp.mapping.confirm({ select = true }),
 			["<C-e>"] = cmp.mapping.abort(),
 			["<C-u>"] = cmp.mapping.scroll_docs(-4),
 			["<C-d>"] = cmp.mapping.scroll_docs(4),
 			["<c-j>"] = cmp.mapping(function()
 				if luasnip.jumpable(-1) then
 					luasnip.jump(-1)
+				else
+					cmp.select_next_item(cmp_select_opts)
 				end
 			end, { "i", "s" }),
 			["<c-k>"] = cmp.mapping(function()
@@ -37,15 +42,17 @@ function M.setup()
 				-- they way you will only jump inside the snippet region
 				if luasnip.expand_or_jumpable() then
 					luasnip.expand_or_jump()
+				else
+					cmp.select_prev_item(cmp_select_opts)
 				end
 			end, { "i", "s" }),
 			["<c-l>"] = cmp.mapping(function()
 				if luasnip.choice_active() then
 					luasnip.change_choice(1)
+				else
+					cmp.confirm({ select = true })
 				end
 			end, { "i" }),
-			-- ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select_opts),
-			-- ["<C-n>"] = cmp.mapping.select_next_item(cmp_select_opts),
 			["<C-p>"] = cmp.mapping(function()
 				if cmp.visible() then
 					cmp.select_prev_item(cmp_select_opts)

@@ -30,8 +30,11 @@ require("lazy").setup({
 	require("rods.plugins.lualine"),
 	require("rods.plugins.diffview"),
 	require("rods.plugins.treesj"),
-	require("rods.plugins.ccc"),
+	require("rods.plugins.ccc"), -- Create Color Code (Color Picker)
 	require("rods.plugins.todo-comments"),
+	require("rods.plugins.rgflow"),
+	require("rods.plugins.dressing"),
+	require("rods.plugins.igs"),
 
 	-- file
 	require("rods.plugins.rnvimr"),

@@ -21,6 +21,23 @@ function M.setup(server_name, lspconfig)
 			end,
 		})
 	end
+	if server_name == "dartls" then
+		lspconfig[server_name].setup({
+			init_options = {
+				closingLabels = true,
+				flutterOutline = true,
+				onlyAnalyzeProjectsWithOpenFiles = true,
+				outline = true,
+				suggestFromUnimportedLibraries = true,
+			},
+			settings = {
+				dart = {
+					completeFunctionCalls = true,
+					showTodos = true,
+				},
+			},
+		})
+	end
 end
 
 return M

@@ -73,3 +73,5 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	end,
 	group = "sxhkdrcAutoCmd",
 })
+
+vim.cmd('packadd cfilter')

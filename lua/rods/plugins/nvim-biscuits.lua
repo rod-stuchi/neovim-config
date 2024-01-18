@@ -13,6 +13,9 @@ return {
 			},
 
 			language_config = {
+				dart = {
+					disabled = true,
+				},
 				html = {
 					prefix_string = " 🌐 ",
 				},
