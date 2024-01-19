@@ -59,8 +59,8 @@ return {
 				g = { "<cmd>GFiles<cr>", "fzf git files" },
 				s = {
 					name = "Git status",
-					m = { "<cmd>lua require('igs').qf_modified()<cr>", "added qf" },
-					a = { "<cmd>lua require('igs').qf_added()<cr>", "modified qf" },
+					m = { "<cmd>lua require('igs').qf_modified()<cr>", "modified qf" },
+					a = { "<cmd>lua require('igs').qf_added()<cr>", "added qf" },
 				},
 			},
 			h = {
