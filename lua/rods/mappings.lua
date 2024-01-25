@@ -18,6 +18,7 @@ keymap("n", "<M-[>", "<cmd>cprevious<cr>")
 keymap("n", "<M-]>", "<cmd>cnext<cr>")
 
 keymap("c", "%%", [[getcmdtype() == ':' ? expand('%:h').'/' : '%%' ]], { noremap = true, expr = true })
+keymap("c", "Mk", "mksession! _S<cr>", { silent = false, desc = "Make a session '_S'" })
 
 -- keymap("i", "UU", "<c-r>=system(\"uuidgen -r | tr -d '\\n'\")<cr>")
 -- keymap("i", "CPF", "<c-r>=system(\"cpf | tr -d '\\n'\")<cr>")

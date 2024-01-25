@@ -31,6 +31,18 @@ return {
 
         " let $BAT_STYLE = 'header-filename,numbers,grid'
 
+        " -change for GFiles (diff)
+        command! -bang -nargs=? -complete=dir GFiles
+          \ call fzf#vim#gitfiles(<q-args>,
+          \ fzf#vim#with_preview({'options': [
+          \   '--info=inline',
+          \   '--bind=tab:toggle-out,shift-tab:toggle-in',
+          \   '--bind=ctrl-l:toggle-out,ctrl-h:toggle-in',
+          \   '--bind=ctrl-n:half-page-down,ctrl-p:half-page-up',
+          \   '--header=List: ctrl-(x|v|t)=split/vsplit/tab ctrl-(n|p)=half-page-down/up',
+          \ ]})
+          \, <bang>0)
+
         " -change for Files
         command! -bang -nargs=? -complete=dir Files
           \ call fzf#vim#files(<q-args>,
@@ -102,6 +114,7 @@ return {
             \ '--bind=ctrl-d:preview-page-down,ctrl-u:preview-page-up',
             \ '--bind=alt-j:preview-down,alt-k:preview-up',
             \ '--bind=tab:toggle-out,shift-tab:toggle-in',
+            \ '--bind=ctrl-l:toggle-out,ctrl-h:toggle-in',
             \ '--bind=ctrl-n:half-page-down,ctrl-p:half-page-up',
             \ '--header=List: ctrl-(x|v|t)=split/vsplit/tab ctrl-(n|p)=half-page-down/up, Preview: ctrl-(d|u)=page-down/up alt-(j|u)=down/up',
             \ '--multi',

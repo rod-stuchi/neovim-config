@@ -87,6 +87,7 @@ vim.api.nvim_create_user_command('Redir', function(ctx)
   vim.opt_local.modified = false
 end, { nargs = '+', complete = 'command' })
 
+-- === === === === === === === === LOAD .vim scripts === === === === === === === ===
 local vimpath = vim.fn.stdpath("config") .. "/lua/rods/vim-funcs"
 local vimfiles = Scandir("\\.vim$", vimpath)
 for _, f in ipairs(vimfiles) do

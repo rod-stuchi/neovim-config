@@ -55,3 +55,5 @@ opt.wildignore = "*/tmp/*,*.so,*.swp,*.zip,node_modules,.git"
 opt.wrap = false
 -- https://twitter.com/vim_tricks/status/1714387192284426539
 opt.shiftround = true
+-- https://github.com/neovim/neovim/pull/9496#issuecomment-1909973603
+opt.breakindent = true

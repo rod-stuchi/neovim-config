@@ -57,6 +57,7 @@ return {
 				r = { "<cmd>RnvimrToggle<cr>", "ranger" },
 				f = { "<cmd>Files<cr>", "fzf files" },
 				g = { "<cmd>GFiles<cr>", "fzf git files" },
+				t = { "<cmd>GFiles?<cr>", "fzf git status" },
 				s = {
 					name = "Git status",
 					m = { "<cmd>lua require('igs').qf_modified()<cr>", "modified qf" },
@@ -113,19 +114,10 @@ return {
 				},
 			},
 			r = {
-				name = "󰑑 rg flow",
-				["?"] = "print status",
-				a = "open again",
-				g = "open cword",
-				G = "open blank",
-				p = "open paste",
-				x = "abort",
-				c = "print cmd",
+				name = "󰑑  RGFlow",
 			},
 			s = {
 				name = "  Search",
-				-- r = { "Rg word cursor" }, -- mappings.lua
-				-- R = { "RG word cursor" }, -- mappings.lua
 			},
 			t = {
 				name = "  Trouble",
@@ -162,7 +154,7 @@ return {
 				r = "reset hunk", -- gitsigns.lua
 			},
 			r = {
-				name = "󰑑 rg flow",
+				name = "󰑑  RGFlow",
 				g = "open visual",
 			},
 		}, { prefix = "<leader>", mode = "v" })
