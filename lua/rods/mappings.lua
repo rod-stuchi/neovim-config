@@ -56,6 +56,8 @@ end, { desc = "RG -w 'word' boundaries cursor" })
 keymap("n", "<leader>fd", vim.cmd.FdOne, { desc = "fzf neighbor depth 1" })
 keymap("n", "<leader>fe", vim.cmd.FdAll, { desc = "fzf neighbor" })
 
+keymap("n", "gO", "<cmd>!mimeo <cfile> & disown<CR><CR>", { desc = "Open with external default program" })
+
 vim.cmd([[
    command W :execute ':silent w !sudo tee % > /dev/null' | :edit! 
 ]])

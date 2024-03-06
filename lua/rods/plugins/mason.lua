@@ -9,12 +9,12 @@ return {
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			ensure_installed = {
-				"lua_ls",
 				"gopls",
+				"lua_ls",
+				"rust_analyzer",
 				"terraformls",
 				"tflint",
 				"tsserver",
-				"rust_analyzer",
 			},
 		})
 	end,
