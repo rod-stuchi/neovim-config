@@ -57,3 +57,10 @@ opt.wrap = false
 opt.shiftround = true
 -- https://github.com/neovim/neovim/pull/9496#issuecomment-1909973603
 opt.breakindent = true
+
+-- to add a '\n' at the end of line in the end of the file
+opt.fixendofline = true
+opt.endofline = true
+
+-- to load local vim/nvim configuration
+opt.exrc = true

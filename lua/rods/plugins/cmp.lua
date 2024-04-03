@@ -42,20 +42,18 @@ return {
 				["<C-e>"] = cmp.mapping.abort(),
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),
 				["<C-d>"] = cmp.mapping.scroll_docs(4),
-				["<c-j>"] = cmp.mapping(function()
+				["<c-k>"] = cmp.mapping(function()
 					if luasnip.jumpable(-1) then
 						luasnip.jump(-1)
-					else
-						cmp.select_next_item(cmp_select_opts)
+					else --if cmp.visible() then
+						cmp.select_prev_item(cmp_select_opts)
 					end
 				end, { "i", "s" }),
-				["<c-k>"] = cmp.mapping(function()
-					-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-					-- they way you will only jump inside the snippet region
+				["<c-j>"] = cmp.mapping(function()
 					if luasnip.expand_or_jumpable() then
 						luasnip.expand_or_jump()
 					else
-						cmp.select_prev_item(cmp_select_opts)
+						cmp.select_next_item(cmp_select_opts)
 					end
 				end, { "i", "s" }),
 				["<c-l>"] = cmp.mapping(function()

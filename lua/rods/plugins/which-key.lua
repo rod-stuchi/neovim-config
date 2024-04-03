@@ -108,7 +108,8 @@ return {
 				["5"] = { 'i<c-r>=strftime("%Y-%m-%d")<cr><esc>', "date yyyy-mm-dd" },
 				s = {
 					function()
-						vim.cmd("source" .. vim.fn.stdpath("config") .. "/lua/rods/plugins/snips/luasnip.lua")
+						local path = vim.fn.stdpath("config") .. "/lua/rods/plugins/snips/luasnip.lua"
+						vim.cmd("source " .. path)
 					end,
 					"Reload LuaSnips",
 				},

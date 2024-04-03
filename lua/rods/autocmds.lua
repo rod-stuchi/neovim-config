@@ -77,3 +77,14 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 vim.cmd("packadd cfilter")
 
+vim.api.nvim_create_augroup("fix_onwrite_endofline", {})
+-- vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePre" }, {
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*",
+	callback = function()
+		vim.opt.endoffile = true
+		vim.opt.endofline = true
+		vim.opt.fixendofline = true
+	end,
+	group = "fix_onwrite_endofline",
+})

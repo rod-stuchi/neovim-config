@@ -15,4 +15,6 @@ require("lazy").setup({
 	{ import = "rods.themes" },
 	{ import = "rods.plugins" },
 	{ import = "rods.plugins.lsp" },
+}, {
+	change_detection = { enabled = true, notify = false },
 })
