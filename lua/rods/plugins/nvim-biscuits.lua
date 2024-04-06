@@ -1,5 +1,7 @@
 return {
 	"code-biscuits/nvim-biscuits",
+	ft = { "dart", "javascript", "lua" },
+	event = "VeryLazy",
 	config = function()
 		require("nvim-biscuits").setup({
 			cursor_line_only = true,
@@ -13,9 +15,6 @@ return {
 			},
 
 			language_config = {
-				dart = {
-					disabled = true,
-				},
 				html = {
 					prefix_string = " 🌐 ",
 				},
@@ -27,11 +26,11 @@ return {
 					disabled = true,
 				},
 				sql = {
-					disabled = true
+					disabled = true,
 				},
 				vimdoc = {
-					disabled = true
-				}
+					disabled = true,
+				},
 			},
 		})
 	end,
