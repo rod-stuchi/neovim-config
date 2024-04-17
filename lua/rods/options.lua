@@ -25,6 +25,7 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 4
 opt.foldmethod = "expr"
 opt.foldopen:remove({ "search" })
+opt.formatoptions:remove({ "o", "c" })
 opt.guifont = "Fira Code 10"
 opt.ignorecase = true
 opt.inccommand = "split"

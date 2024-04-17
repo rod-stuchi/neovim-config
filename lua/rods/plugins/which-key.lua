@@ -29,6 +29,7 @@ return {
 				["<space>"] = { "<cmd>BufferLinePick<cr>", "bufferline pick" },
 				b = { "<cmd>Buffers<cr>", "fzf buffers" },
 				l = { "<cmd>BLines<cr>", "fzf buffer lines" },
+				d = { "<cmd>BuffersDelete<cr>", "fzf delete buffers" },
 				x = { "<cmd>BufferLinePickClose<cr>", "bufferline pick close" },
 				p = { "<cmd>BufferLineTogglePin<cr>", "bufferline toogle pin" },
 				X = { "<cmd>%bd|e#|bd#<cr>", "close all except this" },

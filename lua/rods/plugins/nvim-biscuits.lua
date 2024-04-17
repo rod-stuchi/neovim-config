@@ -15,6 +15,9 @@ return {
 			},
 
 			language_config = {
+				json = {
+					disabled = true,
+				},
 				html = {
 					prefix_string = " 🌐 ",
 				},
