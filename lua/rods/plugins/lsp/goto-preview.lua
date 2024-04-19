@@ -5,7 +5,7 @@ return {
 			width = 120,
 			height = 20,
 			opacity = 0,
-			stack_floating_preview_windows = false,
+			stack_floating_preview_windows = true,
 		})
 	end,
 }
