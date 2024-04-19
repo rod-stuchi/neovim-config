@@ -38,12 +38,16 @@ return {
 				name = "  Copy/Change",
 				d = { '<cmd>cd %:p:h<cr><cmd>echom "CD to [" . expand("%:p:h") . "]"<cr>', "cd directory current path" },
 				n = {
+					'<cmd>let @+=expand("%:t")<cr><cmd>echom "Copied: [" . expand("%:t") . "] use ctrl+v"<cr>',
+					"copy filename to clipboard",
+				},
+				o = {
 					'<cmd>let @+=expand("%")<cr><cmd>echom "Copied: [" . expand("%") . "] use ctrl+v"<cr>',
-					"copy filename clipboard",
+					"copy relative filepath to clipboard",
 				},
 				p = {
 					'<cmd>let @+=expand("%:p")<cr><cmd>echom "Copied: [" . expand("%:p") . "] use ctrl+v"<cr>',
-					"copy filepath clipboard",
+					"copy full filepath to clipboard",
 				},
 			},
 			e = {

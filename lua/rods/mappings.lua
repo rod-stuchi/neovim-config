@@ -58,6 +58,8 @@ keymap("n", "<leader>fe", vim.cmd.FdAll, { desc = "fzf neighbor" })
 
 keymap("n", "gO", "<cmd>!mimeo <cfile> & disown<CR><CR>", { desc = "Open with external default program" })
 
+keymap("n", "<BS>", "<cmd>b#<CR>", { desc = "back to alternate file"})
+
 vim.cmd([[
    command W :execute ':silent w !sudo tee % > /dev/null' | :edit! 
 ]])
