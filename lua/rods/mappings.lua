@@ -11,7 +11,7 @@ keymap("n", "Q", "<nop>")
 -- remap digraphs, conflict with cmp
 keymap("i", "<c-y>", "<c-k>")
 
-keymap("n", "<BS>", "<cmd>noh<cr>")
+keymap("n", "\\", "<cmd>noh<cr>")
 keymap("n", "<M-o>", "<cmd>copen<cr>")
 keymap("n", "<M-O>", "<cmd>cclose<cr>")
 keymap("n", "<M-[>", "<cmd>cprevious<cr>")
@@ -20,12 +20,6 @@ keymap("n", "<M-]>", "<cmd>cnext<cr>")
 keymap("c", "%%", [[getcmdtype() == ':' ? expand('%:h').'/' : '%%' ]], { noremap = true, expr = true })
 keymap("c", "Mk", "mksession! _S<cr>", { silent = false, desc = "Make a session '_S'" })
 
--- keymap("i", "UU", "<c-r>=system(\"uuidgen -r | tr -d '\\n'\")<cr>")
--- keymap("i", "CPF", "<c-r>=system(\"cpf | tr -d '\\n'\")<cr>")
--- keymap("i", "CPFF", "<c-r>=system(\"cpf -m | tr -d '\\n'\")<cr>")
--- keymap("i", "OID", "<c-r>=system(\"oid | tr -d '\\n'\")<cr>")
-keymap("i", "PWG", "<c-r>=system(\"pwgen -sBy1 40 | tr -d '\\n'\")<cr>")
-keymap("i", "PWD", '<c-r>=expand("%")<cr>')
 -- from: https://www.reddit.com/r/neovim/comments/16mijcz/comment/k18jbee/?utm_source=share&utm_medium=web2x&context=3
 vim.cmd("inoreabbrev <expr> _uuid system('uuidgen')->trim()->tolower()")
 vim.cmd("inoreabbrev <expr> _cpf system('cpf')->trim()")
@@ -33,7 +27,9 @@ vim.cmd("inoreabbrev <expr> _cpff system('cpf -m')->trim()")
 vim.cmd("inoreabbrev <expr> _oid system('oid')->trim()")
 vim.cmd("iabbrev <expr> _d strftime('%Y-%m-%d')")
 vim.cmd("iabbrev <expr> _t strftime('%Y-%m-%dT%TZ')")
-vim.cmd("iabbrev <expr> _pwg system('pwgen --numerals -B1 --capitalize --secure 40')->trim()")
+vim.cmd("iabbrev <expr> _pwg system('pwgen --numerals --ambiguous --capitalize --secure 1 40')->trim()")
+vim.cmd("iabbrev <expr> _pwgg system('pwgen --numerals --symbols --ambiguous --capitalize --secure 1 40')->trim()")
+vim.cmd("iabbrev <expr> _pwd expand('%')")
 
 -- moving lines
 keymap("n", "<A-j>", ":m .+1<CR>==")
