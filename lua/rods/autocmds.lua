@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 vim.cmd("packadd cfilter")
 
-vim.api.nvim_create_augroup("fix_onwrite_endofline", {})
+vim.api.nvim_create_augroup("au_custom_rods", {})
 -- vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePre" }, {
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = "*",
@@ -85,6 +85,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.opt.endoffile = true
 		vim.opt.endofline = true
 		vim.opt.fixendofline = true
+
+		-- ref.: https://www.reddit.com/r/neovim/comments/10mqhs3/comment/j6atyxu
+		local get_filename = function(path)
+			local filename_with_relative_path = vim.fn.substitute(path, vim.fn.getcwd() .. "/", "", "")
+			return filename_with_relative_path
+		end
+
+		vim.opt_local.winbar = "%=%m " .. get_filename(vim.fn.expand("%"))
 	end,
-	group = "fix_onwrite_endofline",
+	group = "au_custom_rods",
 })

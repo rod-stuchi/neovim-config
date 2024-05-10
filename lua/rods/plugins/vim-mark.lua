@@ -1,10 +1,12 @@
 return {
 	"inkarkat/vim-mark",
 	dependencies = "inkarkat/vim-ingo-library",
-	config = function()
+	init = function()
 		vim.g["mwDefaultHighlightingPalette"] = "extended"
 		vim.g["mwDefaultHighlightingPalette"] = "maximum"
 		vim.g["mwDefaultHighlightingNum"] = 30
+	end,
+	config = function()
 		vim.keymap.set("n", "<leader>m", "<nop>")
 		vim.keymap.set("n", "<leader>n", "<nop>")
 		vim.keymap.set("n", "<leader>r", "<nop>")
@@ -13,7 +15,7 @@ return {
 		vim.keymap.set("n", "<leader>/", "<nop>")
 		vim.keymap.set("n", "<leader>?", "<nop>")
 
-		vim.keymap.set("n", ",m", "<plug>MarkSet")
+		vim.keymap.set({ "n", "x" }, ",m", "<plug>MarkSet")
 		vim.keymap.set("n", ",M", "<plug>MarkToggle")
 		vim.keymap.set("n", ",N", "<plug>MarkAllClear")
 		vim.keymap.set("n", ",#", "<plug>MarkSearchOrCurPrev")

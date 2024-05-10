@@ -14,7 +14,7 @@ local g = vim.g -- set global
 -- opt.undofile = true
 -- vim.cmd [[ set fileencoding='utf-8' ]]
 
-g["python3_host_prog"] = "/usr/bin/python3"
+g["python3_host_prog"] = "/home/rods/.pyenv/shims/python"
 
 opt.backup = false
 opt.cmdheight = 1
@@ -63,5 +63,8 @@ opt.breakindent = true
 opt.fixendofline = true
 opt.endofline = true
 
+opt.winbar = '%=%m %f'
+
 -- to load local vim/nvim configuration
 opt.exrc = true
+

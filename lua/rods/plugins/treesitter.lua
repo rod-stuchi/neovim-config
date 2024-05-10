@@ -1,5 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	disabled = false,
 	dependencies = {
 		"theHamsta/nvim-treesitter-pairs",
 	},
@@ -7,6 +8,13 @@ return {
 		require("nvim-treesitter.install").update({ with_sync = true })()
 	end,
 	config = function()
+		local disable_ts = function(lang, buf)
+			local max_filesize = 300 * 1024 -- 300 KB
+			local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+			if ok and stats and stats.size > max_filesize then
+				return true
+			end
+		end
 		-- JoosepAlviste/nvim-ts-context-commentstring
 		require("ts_context_commentstring").setup({
 			enable_autocmd = false,
@@ -17,6 +25,7 @@ return {
 		require("nvim-treesitter.configs").setup({
 			autotag = {
 				enables = true,
+				disable = disable_ts,
 			},
 			ensure_installed = {
 				"bash",
@@ -55,21 +64,7 @@ return {
 			},
 			highlight = {
 				enable = true,
-
-				-- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-				-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-				-- the name of the parser)
-				-- list of language that will be disabled
-				-- disable = { "c", "rust" },
-				-- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-				disable = function(lang, buf)
-					local max_filesize = 300 * 1024 -- 100 KB
-					local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-					if ok and stats and stats.size > max_filesize then
-						return true
-					end
-				end,
-
+				disable = disable_ts,
 				-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 				-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
 				-- Using this option may slow down your editor, and you may see some duplicate highlights.
@@ -78,9 +73,11 @@ return {
 			},
 			indent = {
 				enable = true,
+				disable = disable_ts,
 			},
 			incremental_selection = {
 				enable = true,
+				disable = disable_ts,
 				keymaps = {
 					init_selection = "gn", -- set to `false` to disable one of the mappings
 					scope_incremental = "go",
