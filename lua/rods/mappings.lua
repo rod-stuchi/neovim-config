@@ -17,8 +17,16 @@ keymap("n", "<M-O>", "<cmd>cclose<cr>")
 keymap("n", "<M-[>", "<cmd>cprevious<cr>")
 keymap("n", "<M-]>", "<cmd>cnext<cr>")
 
+-- make search result appear in the middle
+keymap("n", "n", "nzz")
+keymap("n", "N", "Nzz")
+keymap("n", "*", "*zz")
+keymap("n", "#", "#zz")
+keymap("n", "g*", "g*zz")
+keymap("n", "g#", "g#zz")
+
 keymap("c", "%%", [[getcmdtype() == ':' ? expand('%:h').'/' : '%%' ]], { noremap = true, expr = true })
-keymap("c", "Mk", "mksession! _S<cr>", { silent = false, desc = "Make a session '_S'" })
+keymap("c", ":mk", "mksession! _S<cr>", { silent = false, desc = "Make a session '_S'" })
 
 -- from: https://www.reddit.com/r/neovim/comments/16mijcz/comment/k18jbee/?utm_source=share&utm_medium=web2x&context=3
 vim.cmd("inoreabbrev <expr> _uuid system('uuidgen')->trim()->tolower()")

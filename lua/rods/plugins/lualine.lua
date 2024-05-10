@@ -1,6 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	requires = { "nvim-tree/nvim-web-devicons", opt = true },
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
 		local function diff_source()
 			local gitsigns = vim.b.gitsigns_status_dict

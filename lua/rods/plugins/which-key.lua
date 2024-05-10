@@ -36,6 +36,7 @@ return {
 			},
 			c = {
 				name = "  Copy/Change",
+				c = { '<cmd>Commands<cr>', 'open Commands' },
 				d = { '<cmd>cd %:p:h<cr><cmd>echom "CD to [" . expand("%:p:h") . "]"<cr>', "cd directory current path" },
 				n = {
 					'<cmd>let @+=expand("%:t")<cr><cmd>echom "Copied: [" . expand("%:t") . "] use ctrl+v"<cr>',

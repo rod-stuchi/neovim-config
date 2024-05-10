@@ -20,5 +20,7 @@ return {
 		vim.keymap.set("n", ",*", "<plug>MarkSearchOrCurNext")
 		vim.keymap.set("n", ",(", "<plug>MarkSearchOrAnyPrev")
 		vim.keymap.set("n", ",)", "<plug>MarkSearchOrAnyNext")
+		vim.keymap.set("n", ",[", "<plug>MarkSearchAnyOrDefaultPrev")
+		vim.keymap.set("n", ",]", "<plug>MarkSearchAnyOrDefaultNext")
 	end,
 }
