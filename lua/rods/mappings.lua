@@ -27,8 +27,8 @@ keymap("n", "g#", "g#zz")
 
 keymap("n", "<M-t>", "<c-w>+") -- resize split
 keymap("n", "<M-s>", "<c-w>-") -- resize split
-keymap("n", "<M-<>", "<c-w>5<") -- resize split
-keymap("n", "<M->>", "<c-w>5>") -- resize split
+keymap("n", "<M-h>", "<c-w>5<") -- resize split
+keymap("n", "<M-l>", "<c-w>5>") -- resize split
 
 keymap("c", "%%", [[getcmdtype() == ':' ? expand('%:h').'/' : '%%' ]], { noremap = true, expr = true })
 keymap("c", ":mk", "mksession! _S<cr>", { silent = false, desc = "Make a session '_S'" })

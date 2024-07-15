@@ -23,7 +23,7 @@ return {
 				},
 				javascript = {
 					prefix_string = " ✨ ",
-					max_length = 80,
+					max_length = 500,
 				},
 				python = {
 					disabled = true,

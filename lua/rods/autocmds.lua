@@ -87,12 +87,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.opt.fixendofline = true
 
 		-- ref.: https://www.reddit.com/r/neovim/comments/10mqhs3/comment/j6atyxu
-		local get_filename = function(path)
-			local filename_with_relative_path = vim.fn.substitute(path, vim.fn.getcwd() .. "/", "", "")
-			return filename_with_relative_path
-		end
+		-- local get_filename = function(path)
+		-- 	local filename_with_relative_path = vim.fn.substitute(path, vim.fn.getcwd() .. "/", "", "")
+		-- 	return filename_with_relative_path
+		-- end
 
-		vim.opt_local.winbar = "%=%m " .. get_filename(vim.fn.expand("%"))
+		-- vim.opt_local.winbar = "%=%m " .. get_filename(vim.fn.expand("%"))
 	end,
 	group = "au_custom_rods",
 })

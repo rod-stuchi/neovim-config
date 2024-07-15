@@ -8,6 +8,7 @@ return {
 		vim.keymap.set("n", "<leader>f-", "<cmd>lua require('oil').toggle_float()<cr>", { desc = "Oil float" })
 
 		require("oil").setup({
+			skip_confirm_for_simple_edits = true,
 			float = {
 				padding = 5,
 			},
