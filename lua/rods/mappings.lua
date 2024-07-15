@@ -25,6 +25,11 @@ keymap("n", "#", "#zz")
 keymap("n", "g*", "g*zz")
 keymap("n", "g#", "g#zz")
 
+keymap("n", "<M-t>", "<c-w>+") -- resize split
+keymap("n", "<M-s>", "<c-w>-") -- resize split
+keymap("n", "<M-<>", "<c-w>5<") -- resize split
+keymap("n", "<M->>", "<c-w>5>") -- resize split
+
 keymap("c", "%%", [[getcmdtype() == ':' ? expand('%:h').'/' : '%%' ]], { noremap = true, expr = true })
 keymap("c", ":mk", "mksession! _S<cr>", { silent = false, desc = "Make a session '_S'" })
 
@@ -62,7 +67,7 @@ keymap("n", "<leader>fe", vim.cmd.FdAll, { desc = "fzf neighbor" })
 
 keymap("n", "gO", "<cmd>!mimeo <cfile> & disown<CR><CR>", { desc = "Open with external default program" })
 
-keymap("n", "<BS>", "<cmd>b#<CR>", { desc = "back to alternate file"})
+keymap("n", "<BS>", "<cmd>b#<CR>", { desc = "back to alternate file" })
 
 vim.cmd([[
    command W :execute ':silent w !sudo tee % > /dev/null' | :edit! 

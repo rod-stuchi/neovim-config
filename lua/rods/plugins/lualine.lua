@@ -18,6 +18,12 @@ return {
 			end
 			return ""
 		end
+		local function inlay_hint()
+			if vim.lsp.inlay_hint.is_enabled() then
+				return "inlay: 👀"
+			end
+			return ""
+		end
 
 		require("lualine").setup({
 			options = {
@@ -50,7 +56,7 @@ return {
 					{ "diff", source = diff_source },
 					{ "diagnostics", sources = { "nvim_diagnostic", "coc" } },
 				},
-				lualine_c = { "filename" },
+				lualine_c = { "filename", inlay_hint },
 				-- lualine_c = { custom_fname },
 				lualine_x = { spell, "encoding", "fileformat", "filetype", "filesize" },
 				lualine_y = { "progress" },

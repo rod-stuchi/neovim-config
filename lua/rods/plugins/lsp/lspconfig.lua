@@ -42,27 +42,35 @@ return {
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { table.unpack(opts), desc = "  declaration" })
 				vim.keymap.set("n", "gd", vim.lsp.buf.definition, d(ev.buf, "  definition"))
 				vim.keymap.set("n", "<leader>li", vim.lsp.buf.implementation, d(ev.buf, "  implementation"))
-				vim.keymap.set("n", "<leader>lR", vim.lsp.buf.references, d(ev.buf, "  references"))
+				vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, d(ev.buf, "  references"))
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, d(ev.buf, "  hover"))
 				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, d(ev.buf, "  signature help"))
 				vim.keymap.set("n", "<leader>lD", vim.lsp.buf.type_definition, d(ev.buf, "  type definition"))
-				vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, d(ev.buf, "  rename"))
+				vim.keymap.set("n", "<leader>lR", vim.lsp.buf.rename, d(ev.buf, "  rename"))
 				vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, d(ev.buf, "  code actions"))
+
+				vim.keymap.set("n", "<leader>lh", function()
+					vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+				end, { desc = "  toggle inlay hint" })
+
 				vim.keymap.set("n", "<leader>lf", function()
 					vim.lsp.buf.format({ async = true })
 				end, d(ev.buf, "  format"))
+
 				vim.keymap.set(
 					"n",
 					"<leader>lwa",
 					vim.lsp.buf.add_workspace_folder,
 					d(ev.buf, "  add workspace folder")
 				)
+
 				vim.keymap.set(
 					"n",
 					"<leader>lwr",
 					vim.lsp.buf.remove_workspace_folder,
 					d(ev.buf, "  remove workspace folder")
 				)
+
 				vim.keymap.set("n", "<leader>lwl", function()
 					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 				end, d(ev.buf, "  list workspace folders"))
