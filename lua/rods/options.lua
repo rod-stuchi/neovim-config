@@ -68,3 +68,9 @@ opt.winbar = '%=%m %f'
 -- to load local vim/nvim configuration
 opt.exrc = true
 
+-- https://kulala.mwco.app/docs/requirements#optional-requirements
+vim.filetype.add({
+  extension = {
+    ['http'] = 'http',
+  },
+})

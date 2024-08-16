@@ -23,5 +23,23 @@ return {
 				null_ls.builtins.formatting.black,
 			},
 		})
+
+		null_ls.register({
+			name = "my-actions",
+			method = { require("null-ls").methods.CODE_ACTION },
+			filetypes = { "typescriptreact" },
+			generator = {
+				fn = function()
+					return {
+						{
+							title = "Organize Imports",
+							action = function()
+								vim.cmd([[ OrganizeImports ]])
+							end,
+						},
+					}
+				end,
+			},
+		})
 	end,
 }
