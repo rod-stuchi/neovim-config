@@ -1,7 +1,11 @@
 return {
 	"lewis6991/gitsigns.nvim",
-	dependencies = "nvim-lua/plenary.nvim",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"folke/which-key.nvim",
+	},
 	config = function()
+		local wk = require("which-key")
 		require("gitsigns").setup({
             -- stylua: ignore
             signs = {
@@ -73,31 +77,30 @@ return {
 					return "<Ignore>"
 				end, { expr = true })
 
-				-- Actions
-				map("n", "<leader>hs", gs.stage_hunk)
-				map("n", "<leader>hr", gs.reset_hunk)
-				map("v", "<leader>hs", function()
-					gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-				end)
-				map("v", "<leader>hr", function()
-					gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-				end)
-				map("n", "<leader>hS", gs.stage_buffer)
-				map("n", "<leader>hu", gs.undo_stage_hunk)
-				map("n", "<leader>hR", gs.reset_buffer)
-				map("n", "<leader>hp", gs.preview_hunk)
-				map("n", "<leader>hb", function()
-					gs.blame_line({ full = true })
-				end)
-				map("n", "<leader>htb", gs.toggle_current_line_blame)
-				map("n", "<leader>hd", gs.diffthis)
-				map("n", "<leader>hD", function()
-					gs.diffthis("~")
-				end)
-				map("n", "<leader>htd", gs.toggle_deleted)
-
 				-- Text object
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+
+				local _icon = { icon = "", color = "red" }
+				wk.add({
+					{ "<leader>h", group = "Gitsigns", icon = _icon },
+					{ "<leader>hs", gs.stage_hunk, desc = "stage hunk" },
+					{ "<leader>hr", gs.reset_hunk, desc = "reset hunk" },
+					{ "<leader>eq", "<cmd>Gitsigns setqflist<cr>", desc = "set quickfix list" },
+					{ "<leader>hs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, desc = "stage selection", mode = "v" },
+					{ "<leader>hr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, desc = "reset selection", mode = "v" },
+					{ "<leader>hS", gs.stage_buffer, desc = "stage buffer", icon = _icon },
+					{ "<leader>hu", gs.undo_stage_hunk, desc = "stage buffer", icon = _icon },
+					{ "<leader>hR", gs.reset_buffer, desc = "reset buffer", icon = _icon },
+					{ "<leader>hp", gs.preview_hunk, desc = "preview hunk" },
+					{ "<leader>hb", function() gs.blame_line({ full = true }) end, desc = "blame line" },
+					{ "<leader>hd", gs.diffthis, desc = "diff index" },
+					{ "<leader>hD", function() gs.diffthis("~") end, desc = "diff last commit ~" },
+
+
+					{ "<leader>ht", group = "Toggle" },
+					{ "<leader>htb", gs.toggle_current_line_blame, desc = "current line blame" },
+					{ "<leader>htd", gs.toggle_deleted, desc = "deleted lines" },
+				})
 			end,
 		})
 	end,

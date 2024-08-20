@@ -1,6 +1,7 @@
 return {
 	"neovim/nvim-lspconfig",
 	config = function()
+		local wk = require("which-key")
 		table.unpack = table.unpack or unpack -- 5.1 compatibility
 
 		local lspconfig = require("lspconfig")
@@ -17,15 +18,17 @@ return {
 		end
 
 		-- ================ LSP ATTACH ================
-		local d = function(buf, desc)
-			return { buffer = buf, desc = desc }
-		end
 		-- Global mappings.
 		-- See `:help vim.diagnostic.*` for documentation on any of the below fun
-		vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, { desc = "  diagnostic open float" })
-		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "  diagnostic prev" })
-		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "  diagnostic next" })
-		vim.keymap.set("n", "<leader>lq", vim.diagnostic.setloclist, { desc = "  set loclist" })
+		local _icon = { icon = "", color = "orange" }
+		wk.add({
+			{ "<leader>l", group = "LSP", icon = _icon },
+			{ "<leader>ln", "<cmd>Navbuddy<cr>", desc = "navbuddy" },
+			{ "<leader>ld", vim.diagnostic.open_float, desc = "diagnostic open float", icon = _icon },
+			{ "<leader>lq", vim.diagnostic.setloclist, desc = "set loclist", icon = _icon },
+			{ "[d", vim.diagnostic.goto_prev, desc = "diagnostic prev", icon = _icon },
+			{ "]d", vim.diagnostic.goto_next, desc = "diagnostic next", icon = _icon },
+		})
 
 		-- Use LspAttach autocommand to only map the following keys
 		-- after the language server attaches to the current buffer
@@ -37,43 +40,32 @@ return {
 
 				-- Buffer local mappings.
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
-				local opts = { buffer = ev.buf }
 
-				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { table.unpack(opts), desc = "  declaration" })
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, d(ev.buf, "  definition"))
-				vim.keymap.set("n", "<leader>li", vim.lsp.buf.implementation, d(ev.buf, "  implementation"))
-				vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, d(ev.buf, "  references"))
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, d(ev.buf, "  hover"))
-				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, d(ev.buf, "  signature help"))
-				vim.keymap.set("n", "<leader>lD", vim.lsp.buf.type_definition, d(ev.buf, "  type definition"))
-				vim.keymap.set("n", "<leader>lR", vim.lsp.buf.rename, d(ev.buf, "  rename"))
-				vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, d(ev.buf, "  code actions"))
+				-- stylua: ignore start
+				wk.add({
+					{ "gD", vim.lsp.buf.declaration, desc = "declaration", icon = _icon, buffer = ev.buf},
+					{ "gd", vim.lsp.buf.definition, desc = "definition", icon = _icon, buffer = ev.buf},
+					{ "K", vim.lsp.buf.hover, desc = "hover", icon = _icon, buffer = ev.buf},
+					{ "<C-k>", vim.lsp.buf.signature_help, desc = "signature help", icon = _icon, buffer = ev.buf},
+				})
 
-				vim.keymap.set("n", "<leader>lh", function()
-					vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-				end, { desc = "  toggle inlay hint" })
+				wk.add({
+					{ "<leader>lr", vim.lsp.buf.references, desc = "references", icon = _icon, buffer = ev.buf },
+					{ "<leader>li", vim.lsp.buf.implementation, desc = "implementation", icon = _icon, buffer = ev.buf },
+					{ "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, desc = "format", icon = _icon, buffer = ev.buf },
+					{ "<leader>lh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, desc = "toggle inlay hint", icon = _icon, buffer = ev.buf },
+					{ "<leader>la", vim.lsp.buf.code_action, desc = "code actions", mode = { "n", "v" }, icon = _icon, buffer = ev.buf },
+					{ "<leader>lR", vim.lsp.buf.rename, desc = "rename", icon = _icon, buffer = ev.buf },
+					{ "<leader>lD", vim.lsp.buf.type_definition, desc = "type definition", icon = _icon, buffer = ev.buf },
+				})
 
-				vim.keymap.set("n", "<leader>lf", function()
-					vim.lsp.buf.format({ async = true })
-				end, d(ev.buf, "  format"))
-
-				vim.keymap.set(
-					"n",
-					"<leader>lwa",
-					vim.lsp.buf.add_workspace_folder,
-					d(ev.buf, "  add workspace folder")
-				)
-
-				vim.keymap.set(
-					"n",
-					"<leader>lwr",
-					vim.lsp.buf.remove_workspace_folder,
-					d(ev.buf, "  remove workspace folder")
-				)
-
-				vim.keymap.set("n", "<leader>lwl", function()
-					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-				end, d(ev.buf, "  list workspace folders"))
+				wk.add({
+					{ "<leader>lw", group = "workspace" },
+					{ "<leader>lwa", vim.lsp.buf.add_workspace_folder, desc = "add workspace folder", icon = _icon, buffer = ev.buf },
+					{ "<leader>lwr", vim.lsp.buf.remove_workspace_folder, desc = "remove workspace folder", icon = _icon, buffer = ev.buf },
+					{ "<leader>lwl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, desc = "list workspace folders", icon = _icon, buffer = ev.buf },
+				})
+				-- stylua: ignore end
 			end,
 		})
 	end,
