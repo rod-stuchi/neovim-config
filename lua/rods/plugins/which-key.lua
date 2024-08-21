@@ -32,12 +32,13 @@ return {
 		local buf_icon = { icon = "", color = "green"}
 		wk.add({
 			{ "<leader>b", group = "Buffers", icon = buf_icon },
-			{ "<leader>bb", "<cmd>Buffers<cr>", desc = "fzf buffers", icon = buf_icon },
 			{ "<leader>b<space>", "<cmd>BufferLinePick<cr>", desc = "bufferline pick", icon = buf_icon },
-			{ "<leader>bl", "<cmd>BLines<cr>", desc = "fzf buffer lines", icon = buf_icon },
+			{ "<leader>bb", "<cmd>Buffers<cr>", desc = "fzf buffers", icon = buf_icon },
 			{ "<leader>bd", "<cmd>BuffersDelete<cr>", desc = "fzf delete buffers", icon = buf_icon },
-			{ "<leader>bx", "<cmd>BufferLinePickClose<cr>", desc = "bufferline pick close", icon = buf_icon },
+			{ "<leader>bl", "<cmd>BLines<cr>", desc = "fzf buffer lines", icon = buf_icon },
 			{ "<leader>bp", "<cmd>BufferLineTogglePin<cr>", desc = "bufferline toogle pin", icon = buf_icon },
+			{ "<leader>bt", "<cmd>Neotree float buffers focus toggle reveal<cr>", desc = "neotree buffers", icon = buf_icon },
+			{ "<leader>bx", "<cmd>BufferLinePickClose<cr>", desc = "bufferline pick close", icon = buf_icon },
 			{ "<leader>bX", "<cmd>%bd|e#|bd#<cr>", desc = "close all except this", icon = buf_icon },
 		})
 
@@ -70,12 +71,12 @@ return {
 		})
 
 		wk.add({
-			{ "m", group = "bookmarks", icon = { icon = "󰃁", color = "green" } },
-			{ "mm", "<cmd>BookmarksMark<cr>", desc = "Mark current line", mode = { "n", "v" } },
-			{ "mo", "<cmd>BookmarksGoto<cr>", desc = "Go to bookmark", mode = { "n", "v" } },
-			{ "ma", "<cmd>BookmarksCommands<cr>", desc = "Commands", mode = { "n", "v" } },
-			{ "mg", "<cmd>BookmarksGotoRecent<cr>", desc = "Go to latest", mode = { "n", "v" } },
-			{ "mt", "<cmd>BookmarksTree<cr>", desc = "Open BookmarkTree", mode = { "n", "v" } },
+			{ "<leader>m", group = "bookmarks", icon = { icon = "󰃁", color = "green" } },
+			{ "<leader>mm", "<cmd>BookmarksMark<cr>", desc = "Mark current line", mode = { "n", "v" } },
+			{ "<leader>mo", "<cmd>BookmarksGoto<cr>", desc = "Go to bookmark", mode = { "n", "v" } },
+			{ "<leader>ma", "<cmd>BookmarksCommands<cr>", desc = "Commands", mode = { "n", "v" } },
+			{ "<leader>mg", "<cmd>BookmarksGotoRecent<cr>", desc = "Go to latest", mode = { "n", "v" } },
+			{ "<leader>mt", "<cmd>BookmarksTree<cr>", desc = "Open BookmarkTree", mode = { "n", "v" } },
 		})
 
 		wk.add({
