@@ -63,14 +63,28 @@ opt.breakindent = true
 opt.fixendofline = true
 opt.endofline = true
 
-opt.winbar = '%=%m %f'
+opt.winbar = "%=%m %f"
 
 -- to load local vim/nvim configuration
 opt.exrc = true
 
 -- https://kulala.mwco.app/docs/requirements#optional-requirements
 vim.filetype.add({
-  extension = {
-    ['http'] = 'http',
-  },
+	extension = {
+		["http"] = "http",
+	},
+})
+
+-- to detect golang (hugo) templates
+-- https://neovim.io/doc/user/lua.html#vim.filetype.add()
+-- needs to TSinstall gotmpl
+vim.filetype.add({
+	extension = {
+		["html"] = function()
+			if vim.fn.search("{{") ~= 0 then
+				return "gotmpl"
+			end
+			return "html"
+		end,
+	},
 })

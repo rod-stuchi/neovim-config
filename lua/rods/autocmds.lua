@@ -75,6 +75,15 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	group = "sxhkdrcAutoCmd",
 })
 
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = "swhkdrc",
+	callback = function()
+		vim.fn.system("pkill -HUP swhkd")
+		vim.fn.system('dunstify -t 700 -u low "swhkd reloaded"')
+	end,
+	group = "sxhkdrcAutoCmd",
+})
+
 vim.cmd("packadd cfilter")
 
 vim.api.nvim_create_augroup("au_custom_rods", {})
@@ -96,3 +105,4 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 	group = "au_custom_rods",
 })
+

@@ -29,6 +29,9 @@ return {
 		})
 
 		-- stylua: ignore start
+		wk.add({
+			{ "<leader>a", group = "Avante", icon = { icon = "󰧑 ", color = "red" } },
+		})
 		local buf_icon = { icon = "", color = "green"}
 		wk.add({
 			{ "<leader>b", group = "Buffers", icon = buf_icon },
@@ -36,9 +39,7 @@ return {
 			{ "<leader>bb", "<cmd>Buffers<cr>", desc = "fzf buffers", icon = buf_icon },
 			{ "<leader>bd", "<cmd>BuffersDelete<cr>", desc = "fzf delete buffers", icon = buf_icon },
 			{ "<leader>bl", "<cmd>BLines<cr>", desc = "fzf buffer lines", icon = buf_icon },
-			{ "<leader>bp", "<cmd>BufferLineTogglePin<cr>", desc = "bufferline toogle pin", icon = buf_icon },
 			{ "<leader>bt", "<cmd>Neotree float buffers focus toggle reveal<cr>", desc = "neotree buffers", icon = buf_icon },
-			{ "<leader>bx", "<cmd>BufferLinePickClose<cr>", desc = "bufferline pick close", icon = buf_icon },
 			{ "<leader>bX", "<cmd>%bd|e#|bd#<cr>", desc = "close all except this", icon = buf_icon },
 		})
 
@@ -61,13 +62,30 @@ return {
 
 		wk.add({
 			{ "<leader>f", group = "File", icon = { icon = "", color = "orange" } },
-			{ "<leader>fr", "<cmd>RnvimrToggle<cr>", desc = "ranger" },
+			{ "<leader>fn", "<cmd>Neotree toggle<cr>", desc = "Neotree" },
 			{ "<leader>ff", "<cmd>Files<cr>", desc = "fzf files" },
 			{ "<leader>fg", "<cmd>GFiles<cr>", desc = "fzf git files" },
+			{ "<leader>fr", "<cmd>RnvimrToggle<cr>", desc = "ranger" },
 			{ "<leader>ft", "<cmd>GFiles?<cr>", desc = "fzf git status" },
 			{ "<leader>fs", group = "Git status" },
 			{ "<leader>fsm", "<cmd>lua require('igs').qf_modified()<cr>", desc = "modified qf" },
 			{ "<leader>fsa", "<cmd>lua require('igs').qf_added()<cr>", desc = "added qf" },
+		})
+
+		wk.add({
+			{ "<leader>g", group = "Git", mode = { "n", "v" } },
+			{ "<leader>gy", '<cmd>GitLink<cr> <bar> <cmd>lua require"notify"("copied to clipboard")<cr>', desc = "Yank git link", mode = { "n", "v" } },
+			{ "<leader>gY", "<cmd>GitLink!<cr>", desc = "Open git link", mode = { "n", "v" } },
+		})
+
+		wk.add({
+			{ "<leader>k", group = "Kulala", icon = { icon = " ", color = "blue" }, mode = { "n" } },
+			{ "<leader>kc", "<cmd>lua require('kulala').copy()<cr>", desc = "Copy to CURL"},
+			{ "<leader>kp", "<cmd>lua require('kulala').from_curl()<cr>", desc = "Paste from CURL"},
+		})
+
+		wk.add({
+			{ "<leader>ls", '<cmd>lua require("luasnip.extras.snippet_list").open()<cr>', desc = "LuaSnip List", icon = { icon = " ", color = "blue" } },
 		})
 
 		wk.add({
@@ -102,8 +120,8 @@ return {
 
 		wk.add({
 			{ "<leader>t", group = "Trouble", icon = { icon = "󰠭", color = "yellow" } },
-			{ "<leader>td", "<cmd>Trouble document_diagnostics<cr>", desc = "document diagnostics" },
-			{ "<leader>tw", "<cmd>Trouble workspace_diagnostics<cr>", desc = "workspace diagnostics" },
+			{ "<leader>td", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "document diagnostics" },
+			{ "<leader>tw", "<cmd>Trouble diagnostics toggle<cr>", desc = "workspace diagnostics" },
 			{ "<leader>tr", "<cmd>Trouble lsp_references<cr>", desc = "lsp references" },
 			{ "<leader>tD", "<cmd>Trouble lsp_definitions<cr>", desc = "lsp definitions" },
 			{ "<leader>tt", "<cmd>Trouble lsp_type_definitions<cr>", desc = "lsp type definitions" },
@@ -121,11 +139,26 @@ return {
 			{ "<leader>wt", '<cmd>lua require("rods.funcs").toggle_transparency()<cr>', desc = "toggle transparency" },
 		})
 
+		wk.add({
+			{ "<leader>z", group = "FzfLua", icon = { icon = " ", color = "azure" } },
+			{ "<leader>zb", "<cmd>FzfLua buffers<cr>", desc = "buffers" },
+			{ "<leader>zd1", "<cmd>lua FzfLuaDepth1()<cr>", desc = "files depth 1" },
+			{ "<leader>zdd", "<cmd>lua FzfLuaDepthN()<cr>", desc = "files depth N" },
+			{ "<leader>zf", "<cmd>FzfLua files resume=true<cr>", desc = "files" },
+			{ "<leader>zg", "<cmd>FzfLua git_files<cr>", desc = "git files" },
+			{ "<leader>zl", "<cmd>FzfLua<cr>", desc = "FzfLua" },
+			{ "<leader>zs", "<cmd>FzfLua git_status<cr>", desc = "git status" },
+			{ "<leader>zy", "<cmd>lua FzfLuaFrecency()<cr>", desc = "frecency files" },
+			{ "<leader>zu", "<cmd>lua Update_frecency_db()<cr>", desc = "update frecency files" },
+		})
+
 		-- normal non leader
 		-- stylua: ignore start
 		wk.add({
 			{ "[c", desc = "Prev git hunk", icon = { icon = "󰊢", color = "red" } },
 			{ "]c", desc = "Next git hunk", icon = { icon = "󰊢", color = "red" } },
+			{ "[t", "<cmd>lua require('todo-comments').jump_prev()<cr>", desc = "Prev todo comment" },
+			{ "]t", "<cmd>lua require('todo-comments').jump_next()<cr>", desc = "Next todo comment" },
 			{ "gn", desc = "Treesitter: select " },
 			{ "gp", group = " Goto Preview" },
 			{ "gpd", '<cmd> lua require("goto-preview").goto_preview_definition()<cr>', desc = "definition" },

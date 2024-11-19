@@ -43,9 +43,9 @@ return {
 				always_divide_middle = true,
 				globalstatus = false,
 				refresh = {
-					statusline = 1000,
-					tabline = 1000,
-					winbar = 1000,
+					statusline = 250,
+					tabline = 250,
+					winbar = 250,
 				},
 			},
 			sections = {
@@ -70,7 +70,14 @@ return {
 				lualine_y = {},
 				lualine_z = {},
 			},
-			tabline = {},
+			tabline = {
+				lualine_a = { { "buffers", mode = 0, filetype_names = { ["snipe-menu"] = " " } } },
+				-- lualine_b = {},
+				-- lualine_c = {},
+				-- lualine_x = {},
+				-- lualine_y = {},
+				lualine_z = { "tabs" },
+			},
 			winbar = {},
 			inactive_winbar = {},
 			extensions = {

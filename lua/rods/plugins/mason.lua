@@ -14,7 +14,7 @@ return {
 				"rust_analyzer",
 				"terraformls",
 				"tflint",
-				"tsserver",
+				"ts_ls",
 			},
 		})
 	end,

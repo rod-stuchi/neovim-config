@@ -76,27 +76,27 @@ return {
 
 " ----------------------------------------------------------------------------------------------------
 
-        " -relative "../.." path completation
-        inoremap <expr> <c-x><c-r> fzf#vim#complete("fd <Bar> xargs realpath --relative-to " . expand("%:h"))
+        " " -relative "../.." path completation
+        " inoremap <expr> <c-x><c-r> fzf#vim#complete("fd <Bar> xargs realpath --relative-to " . expand("%:h"))
 
 " ----------------------------------------------------------------------------------------------------
 
         " -default path completation
-        inoremap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
+        " inoremap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
 
 " ----------------------------------------------------------------------------------------------------
 
         " -complete line in buffer
-        imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
+        " imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
 
 " ----------------------------------------------------------------------------------------------------
 
         " -complete lines in all project
-        inoremap <expr> <c-x><c-k> fzf#vim#complete(fzf#wrap({
-          \ 'prefix': '^.*$',
-          \ 'source': 'rg -n ^ --color always',
-          \ 'options': '--ansi --delimiter : --nth 3..',
-          \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+        " inoremap <expr> <c-x><c-;> fzf#vim#complete(fzf#wrap({
+        "   \ 'prefix': '^.*$',
+        "   \ 'source': 'rg -n ^ --color always',
+        "   \ 'options': '--ansi --delimiter : --nth 3..',
+        "   \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 " ----------------------------------------------------------------------------------------------------
 

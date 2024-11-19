@@ -5,6 +5,20 @@ return {
 		{ "stevearc/dressing.nvim" }, -- optional: to have the same UI shown in the GIF
 	},
 	config = function()
+		-- telescope re-mappings
+		local actions = require("telescope.actions")
+		require("telescope").setup({
+			defaults = {
+				mappings = {
+					i = {
+						["<C-j>"] = actions.move_selection_next,
+						["<C-k>"] = actions.move_selection_previous,
+					},
+				},
+			},
+		})
+		-- telescope re-mappings [end]
+
 		local opts = {
 			-- This is how the sign looks.
 			signs = {
