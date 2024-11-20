@@ -99,6 +99,10 @@ return {
 
 		wk.add({
 			{ "<leader>o", group = "Operations", icon = { icon = "", color = "cyan" }},
+			{ "<leader>od", group = "Disable things" },
+			{ "<leader>odh", "<cmd>TSBufDisable highlight<cr>", desc = "highlight" },
+			{ "<leader>odi", "<cmd>TSBufDisable indent<cr>", desc = "indent" },
+			{ "<leader>oda", "<cmd>write<cr><cmd>LspStop harper_ls<cr><cmd>e!<cr>", desc = "harper_ls" },
 				-- abc = 12 ^12
 				-- cde = 3 * 4 + 2
 			{ "<leader>o1", "<cmd>w !/home/rods/.scripts/sum.sh<cr>", desc = "sum" },
