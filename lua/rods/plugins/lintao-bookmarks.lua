@@ -2,7 +2,9 @@ return {
 	"LintaoAmons/bookmarks.nvim",
 	event = "BufEnter",
 	dependencies = {
-		{ "stevearc/dressing.nvim" }, -- optional: to have the same UI shown in the GIF
+		{ "kkharji/sqlite.lua" },
+		{ "nvim-telescope/telescope.nvim" },
+		{ "stevearc/dressing.nvim" }, -- optional: better UI
 	},
 	config = function()
 		-- telescope re-mappings
