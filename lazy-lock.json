@@ -6,7 +6,6 @@
   "blink.cmp": { "branch": "main", "commit": "1cc3b1a908fbcfd15451c4772759549724f38524" },
   "bookmarks.nvim": { "branch": "main", "commit": "621966a605db666c5cd103cd0f09c9fd59967bcb" },
   "ccc.nvim": { "branch": "main", "commit": "b57cbaf8db3ac43c56c9e2c7f3812944638260ed" },
-  "codecompanion.nvim": { "branch": "main", "commit": "a55c561f2bfb10725e87bb7d55a70a8616dd7e37" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "dressing.nvim": { "branch": "master", "commit": "3a45525bb182730fe462325c99395529308f431e" },
   "emmet-vim": { "branch": "master", "commit": "6c511a8d7d2863066f32e25543e2bb99d505172c" },
