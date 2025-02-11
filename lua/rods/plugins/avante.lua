@@ -14,6 +14,14 @@ return {
 			max_tokens = 4096,
 			api_key_name = "OPENAI_API_KEY",
 		},
+		claude = {
+			endpoint = "https://api.anthropic.com",
+			model = "claude-3-5-sonnet-20241022",
+			timeout = 30000, -- Timeout in milliseconds
+			temperature = 0,
+			max_tokens = 4096,
+			api_key_name = "ANTHROPIC_API_KEY",
+		},
 	},
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 	build = "make",

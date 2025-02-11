@@ -20,6 +20,10 @@ return {
 			},
 		})
 		-- telescope re-mappings [end]
+		vim.keymap.set("n", "<M-,>", "<cmd>BookmarksGotoPrev<cr>")
+		vim.keymap.set("n", "<M-.>", "<cmd>BookmarksGotoNext<cr>")
+		vim.keymap.set("n", "<M-<>", "<cmd>BookmarksGotoPrevInList<cr>")
+		vim.keymap.set("n", "<M->>", "<cmd>BookmarksGotoNextInList<cr>")
 
 		local opts = {
 			-- This is how the sign looks.
