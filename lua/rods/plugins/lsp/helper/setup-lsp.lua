@@ -120,8 +120,9 @@ function M.setup(server_name, lspconfig)
 					},
 				},
 			},
-			on_attach = function(client)
+			on_attach = function(client, bufnr)
 				client.server_capabilities.documentFormattingProvider = false
+				client.server_capabilities.documentRangeFormattingProvider = false
 			end,
 		})
 	end
@@ -168,9 +169,63 @@ function M.setup(server_name, lspconfig)
 		})
 	end
 
+	if server_name == "prismals" then
+		lspconfig[server_name].setup({
+			on_attach = function(client, bufnr)
+				client.server_capabilities.documentFormattingProvider = false
+				client.server_capabilities.documentRangeFormattingProvider = false
+			end,
+		})
+	end
+
 	if server_name == "tailwindcss" then
 		lspconfig[server_name].setup({
-			filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "edge", "eelixir", "ejs", "erb", "eruby", "gohtml", "gotmpl", "haml", "handlebars", "hbs", "html", "html-eex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" }
+			filetypes = {
+				"aspnetcorerazor",
+				"astro",
+				"astro-markdown",
+				"blade",
+				"django-html",
+				"edge",
+				"eelixir",
+				"ejs",
+				"erb",
+				"eruby",
+				"gohtml",
+				"gotmpl",
+				"haml",
+				"handlebars",
+				"hbs",
+				"html",
+				"html-eex",
+				"jade",
+				"leaf",
+				"liquid",
+				"markdown",
+				"mdx",
+				"mustache",
+				"njk",
+				"nunjucks",
+				"php",
+				"razor",
+				"slim",
+				"twig",
+				"css",
+				"less",
+				"postcss",
+				"sass",
+				"scss",
+				"stylus",
+				"sugarss",
+				"javascript",
+				"javascriptreact",
+				"reason",
+				"rescript",
+				"typescript",
+				"typescriptreact",
+				"vue",
+				"svelte",
+			},
 		})
 	end
 end

@@ -106,3 +106,19 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = "au_custom_rods",
 })
 
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+	group = vim.api.nvim_create_augroup("float_diagnostic_cursor", { clear = true }),
+	callback = function()
+		vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = vim.api.nvim_create_augroup("au_format_rods", { clear = true }),
+	pattern = "*",
+	callback = function()
+		vim.cmd("write")
+		vim.lsp.buf.format({ async = false })
+		vim.cmd("edit")
+	end,
+})
