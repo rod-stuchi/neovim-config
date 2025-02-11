@@ -116,15 +116,15 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = vim.api.nvim_create_augroup("au_format_rods", { clear = true }),
 	pattern = {
-		"go",
-		"javascript",
-		"javascriptreact",
-		"lua",
-		"prisma",
-		"python",
-		"rust",
-		"typescript",
-		"typescriptreact",
+		"*.css",
+		"*.go",
+		"*.js",
+		"*.lua",
+		"*.prisma",
+		"*.py",
+		"*.rs",
+		"*.scss",
+		"*.ts",
 	},
 	callback = function()
 		vim.cmd("write")
