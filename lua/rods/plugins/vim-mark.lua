@@ -2,6 +2,7 @@ return {
 	"inkarkat/vim-mark",
 	dependencies = "inkarkat/vim-ingo-library",
 	init = function()
+		vim.g["mwIgnoreCase"] = 0 -- marks as case sensitive
 		vim.g["mwDefaultHighlightingPalette"] = "extended"
 		vim.g["mwDefaultHighlightingPalette"] = "maximum"
 		vim.g["mwDefaultHighlightingNum"] = 30
