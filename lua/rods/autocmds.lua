@@ -127,8 +127,64 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		"*.ts",
 	},
 	callback = function()
-		vim.cmd("write")
-		vim.lsp.buf.format({ async = false })
-		vim.cmd("edit")
+		local bufnr = vim.api.nvim_get_current_buf()
+
+		if not vim.api.nvim_buf_is_valid(bufnr) then
+			vim.notify("Invalid buffer", vim.log.levels.ERROR)
+			return
+		end
+
+		-- Save buffer state (including folds)
+		pcall(vim.cmd, "silent! mkview")
+
+		-- Check if LSP is attached
+		local has_lsp = false
+		for _, client in pairs(vim.lsp.get_active_clients({ bufnr = bufnr })) do
+			if client.supports_method("textDocument/formatting") then
+				has_lsp = true
+				break
+			end
+		end
+
+		-- Save the current buffer state
+		local ok = pcall(vim.cmd, "write")
+		if not ok then
+			vim.notify("Failed to save file", vim.log.levels.ERROR)
+			return
+		end
+
+		-- Only attempt to format if we have an LSP that supports formatting
+		if has_lsp then
+			local format_ok = pcall(function()
+				vim.lsp.buf.format({
+					async = false,
+					timeout_ms = 5000, -- 5 second timeout
+					bufnr = bufnr,
+				})
+			end)
+
+			if not format_ok then
+				vim.notify("Formatting failed, but file was saved", vim.log.levels.WARN)
+			end
+		end
+
+		-- Reload the buffer to ensure we have the latest content
+		local reload_ok = pcall(function()
+			-- Preserve cursor position
+			local cursor_pos = vim.api.nvim_win_get_cursor(0)
+			vim.cmd("edit")
+			vim.api.nvim_win_set_cursor(0, cursor_pos)
+
+			-- Restore buffer state (including folds)
+			vim.cmd("silent! loadview")
+		end)
+
+		if not reload_ok then
+			vim.notify("Failed to reload buffer", vim.log.levels.WARN)
+		end
+
+		-- vim.cmd("write")
+		-- vim.lsp.buf.format({ async = false })
+		-- vim.cmd("edit")
 	end,
 })

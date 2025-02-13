@@ -1,5 +1,8 @@
 return {
 	"leath-dub/snipe.nvim",
+	ui = {
+		preselect_current = true,
+	},
 	keys = {
 		{
 			",<space>",

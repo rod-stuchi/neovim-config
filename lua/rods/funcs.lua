@@ -80,18 +80,33 @@ vim.api.nvim_create_user_command("RodRemoveHardSpaces", function()
 end, {})
 
 -- https://www.reddit.com/r/neovim/comments/zhweuc/comment/izo9br1/?utm_source=share&utm_medium=web2x&context=3
-vim.api.nvim_create_user_command('Redir', function(ctx)
-  local lines = vim.split(vim.api.nvim_exec(ctx.args, true), '\n', { plain = true })
-  vim.cmd('new')
-  vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
-  vim.opt_local.modified = false
-end, { nargs = '+', complete = 'command' })
+vim.api.nvim_create_user_command("Redir", function(ctx)
+	local lines = vim.split(vim.api.nvim_exec(ctx.args, true), "\n", { plain = true })
+	vim.cmd("new")
+	vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+	vim.opt_local.modified = false
+end, { nargs = "+", complete = "command" })
 
 -- === === === === === === === === LOAD .vim scripts === === === === === === === ===
 local vimpath = vim.fn.stdpath("config") .. "/lua/rods/vim-funcs"
 local vimfiles = Scandir("\\.vim$", vimpath)
 for _, f in ipairs(vimfiles) do
 	vim.cmd("source " .. f)
+end
+
+vim.g.diagnostics_visible = vim.diagnostic.config().virtual_text
+function M.toggle_diagnostics()
+	if vim.g.diagnostics_visible then
+		vim.diagnostic.config({
+			virtual_text = false,
+		})
+		vim.g.diagnostics_visible = false
+	else
+		vim.diagnostic.config({
+			virtual_text = true,
+		})
+		vim.g.diagnostics_visible = true
+	end
 end
 
 return M

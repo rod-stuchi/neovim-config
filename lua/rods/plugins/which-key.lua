@@ -35,7 +35,6 @@ return {
 		local buf_icon = { icon = "", color = "green"}
 		wk.add({
 			{ "<leader>b", group = "Buffers", icon = buf_icon },
-			{ "<leader>b<space>", "<cmd>BufferLinePick<cr>", desc = "bufferline pick", icon = buf_icon },
 			{ "<leader>bb", "<cmd>Buffers<cr>", desc = "fzf buffers", icon = buf_icon },
 			{ "<leader>bd", "<cmd>BuffersDelete<cr>", desc = "fzf delete buffers", icon = buf_icon },
 			{ "<leader>bl", "<cmd>BLines<cr>", desc = "fzf buffer lines", icon = buf_icon },
@@ -136,6 +135,7 @@ return {
 			{ "<leader>w", group = "Window", icon = { icon = "", color = "azure" } },
 			{ "<leader>wb", "<cmd>lua require('nvim-biscuits').toggle_biscuits()<cr>", desc = "toggle bisbuits" },
 			{ "<leader>wc", "<cmd>set cursorcolumn!<bar>set cursorline!<cr>", desc = "toggle column/line cursor" },
+			{ "<leader>wd", '<cmd>lua require("rods.funcs").toggle_diagnostics()<cr>', desc = "toggle diagnostics" },
 			{ "<leader>wl", "<cmd>set number!<bar>set list!<cr>", desc = "toggle list chars" },
 			{ "<leader>wm", "<cmd>mksession! /tmp/vim-session.vim<cr><cmd>wincmd o<cr>", desc = "maximize window" },
 			{ "<leader>wu", "<cmd>source /tmp/vim-session.vim<cr>", desc = "undo maximize" },
