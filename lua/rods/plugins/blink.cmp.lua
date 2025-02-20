@@ -93,10 +93,9 @@ return {
 						-- NOTE: After the transformation, I have to reload the luasnip source
 						-- Otherwise really crazy shit happens and I spent way too much time
 						-- figurig this out
-						-- NOTE: rods: it seems to be working normaly
-						-- vim.schedule(function()
-						-- 	require("blink.cmp").reload("snippets")
-						-- end)
+						vim.schedule(function()
+							require("blink.cmp").reload("snippets")
+						end)
 						return items
 					end,
 				},

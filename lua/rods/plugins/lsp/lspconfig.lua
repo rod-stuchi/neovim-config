@@ -6,10 +6,11 @@ return {
 
 		local lspconfig = require("lspconfig")
 		local get_servers = require("mason-lspconfig").get_installed_servers
-		local capabilities = require('blink.cmp').get_lsp_capabilities()
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		local servers = get_servers()
 		table.insert(servers, "dartls")
+		table.insert(servers, "kulala_ls")
 		for _, server_name in ipairs(servers) do
 			lspconfig[server_name].setup({
 				capabilities = capabilities,

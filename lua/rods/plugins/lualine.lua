@@ -71,7 +71,7 @@ return {
 				lualine_z = {},
 			},
 			tabline = {
-				lualine_a = { { "buffers", mode = 0, filetype_names = { ["snipe-menu"] = " " } } },
+				-- lualine_a = { { "buffers", mode = 0, filetype_names = { ["snipe-menu"] = " " } } },
 				-- lualine_b = {},
 				-- lualine_c = {},
 				-- lualine_x = {},

@@ -79,8 +79,6 @@ return {
 
 		wk.add({
 			{ "<leader>k", group = "Kulala", icon = { icon = " ", color = "blue" }, mode = { "n" } },
-			{ "<leader>kc", "<cmd>lua require('kulala').copy()<cr>", desc = "Copy to CURL"},
-			{ "<leader>kp", "<cmd>lua require('kulala').from_curl()<cr>", desc = "Paste from CURL"},
 		})
 
 		wk.add({

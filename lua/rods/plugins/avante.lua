@@ -7,7 +7,8 @@ return {
 		-- add any opts here
 		provider = "openai",
 		openai = {
-			endpoint = "https://api.openai.com/v1",
+			-- endpoint = "https://api.openai.com/v1",
+			endpoint = "http://192.168.2.10:8091/v1",
 			model = "gpt-4o",
 			timeout = 30000, -- Timeout in milliseconds
 			temperature = 0,
@@ -15,7 +16,8 @@ return {
 			api_key_name = "OPENAI_API_KEY",
 		},
 		claude = {
-			endpoint = "https://api.anthropic.com",
+			-- endpoint = "https://api.anthropic.com",
+			endpoint = "http://192.168.2.10:8092",
 			model = "claude-3-5-sonnet-20241022",
 			timeout = 30000, -- Timeout in milliseconds
 			temperature = 0,

@@ -1,6 +1,7 @@
 return {
 	"jackMort/ChatGPT.nvim",
 	event = "VeryLazy",
+	enabled = false,
 	dependencies = {
 		"MunifTanjim/nui.nvim",
 		"nvim-lua/plenary.nvim",
@@ -10,7 +11,7 @@ return {
 		require("chatgpt").setup({
 			-- api_key_cmd = "gpg --quiet -d /disks/Vault/Secret_Files/openai.gpg",
 			-- api_key_cmd = "keepassxc-cli show -s -a Password --no-password -k ${TEMP_KPXC} /disks/Vault/KeePassXC/Default/SafeKeys.kdbx OpenAI",
-			api_key_cmd = "cat /disks/Vault/Secret_Files/openai",
+			-- api_key_cmd = "cat /disks/Vault/Secret_Files/openai",
 			openai_params = {
 				model = "gpt-4o",
 				frequency_penalty = 0,
@@ -24,7 +25,7 @@ return {
 			openai_edit_params = {
 				model = "gpt-4o",
 				temperature = 0.7,
-			}
+			},
 		})
 	end,
 }

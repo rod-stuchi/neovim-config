@@ -5,6 +5,7 @@ return {
 		-- plugins for leap
 		"ggandor/flit.nvim",
 	},
+	enabled = false,
 	config = function()
 		require("leap").add_default_mappings()
 		require("flit").setup({
