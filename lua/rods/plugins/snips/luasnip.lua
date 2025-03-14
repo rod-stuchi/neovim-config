@@ -47,6 +47,7 @@ ls.setup({
 	-- },
 })
 
+-- left only for test purposes
 ls.add_snippets("all", {
 	-- stylua: ignore
 	s("ternary", {
@@ -55,29 +56,16 @@ ls.add_snippets("all", {
 	}),
 })
 
-local function get_emoji()
-	local handle = io.popen("python ~/.scripts/emoji/choice.py")
-	local result = ""
-	if handle ~= nil then
-		result = handle:read("*a")
-		handle:close()
-	end
-
-	result = result:gsub("\n", "")
-	local symbol, text = string.match(result, "(.*)#(.*)")
-	return string.rep(symbol, 3) .. " " .. text
-end
-
 -- cle console.log("{EMOJI}", obj);
-ls.add_snippets("all", {
+ls.add_snippets("javascript", {
 	s("cle", {
 		f(function()
-			return 'console.log("' .. get_emoji() .. '", '
+			return 'console.log("' .. Get_emoji(true) .. '", '
 		end),
 		i(1, "obj"),
-		f(function()
-			return ");"
-		end),
+		t(");"),
+	}, {
+		description = "Console log with emoji",
 	}),
 })
 
@@ -96,7 +84,6 @@ ls.add_snippets("javascript", {
 		t({ "", "}" }),
 	}),
 })
-
 
 -- export const aaa = (args) => {
 -- }
@@ -190,6 +177,23 @@ ls.add_snippets("javascript", {
 				i(1, "..."),
 			}
 		)
+	),
+})
+
+-- Function to create a snippet that works with visual selection
+local function visual_snippet(trigger, template)
+	return s({ trig = trigger, mode = "v" }, template)
+end
+
+-- JSON.stringify snippet for visual mode
+ls.add_snippets("javascript", {
+	visual_snippet(
+		"json",
+		fmt("JSON.stringify({}, null, 2)", {
+			f(function(_, snip)
+				return snip.env.TM_SELECTED_TEXT[1] or "variable"
+			end),
+		})
 	),
 })
 

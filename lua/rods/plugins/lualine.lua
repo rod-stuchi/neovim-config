@@ -2,6 +2,7 @@ return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
+		local navic = require("nvim-navic")
 		local function diff_source()
 			local gitsigns = vim.b.gitsigns_status_dict
 			if gitsigns then
@@ -29,10 +30,6 @@ return {
 			options = {
 				icons_enabled = true,
 				theme = "auto",
-				-- component_separators = { left = "", right = "" },
-				-- section_separators = { left = "", right = "" },
-				-- component_separators = { left = "▎", right = "▎" },
-				-- section_separators = { left = "", right = "" },
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				disabled_filetypes = {
@@ -72,6 +69,22 @@ return {
 			},
 			tabline = {
 				-- lualine_a = { { "buffers", mode = 0, filetype_names = { ["snipe-menu"] = " " } } },
+				lualine_a = {
+					{ "filename", path = 1, file_status = true },
+				},
+				lualine_b = { {
+					"filetype",
+					icon_only = true,
+					icon = { align = "center" },
+				} },
+				lualine_c = {
+					{
+						function()
+							return navic.get_location()
+						end,
+						cond = navic.is_available,
+					},
+				},
 				-- lualine_b = {},
 				-- lualine_c = {},
 				-- lualine_x = {},

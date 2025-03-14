@@ -5,14 +5,18 @@ return {
 		"rafamadriz/friendly-snippets",
 	},
 	config = function()
-		local luasnip = require("luasnip")
+		local ls = require("luasnip")
 		require("luasnip.loaders.from_vscode").lazy_load()
 		require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/github/awesome-flutter-snippets" } })
-		luasnip.filetype_extend("ruby", { "rails" })
+		ls.filetype_extend("ruby", { "rails" })
 		local filetypes = { "typescript", "typescriptreact", "vue", "svelte" }
 		for _, ft in ipairs(filetypes) do
-			luasnip.filetype_extend(ft, { "javascript" })
+			ls.filetype_extend(ft, { "javascript" })
 		end
+
+		ls.config.set_config({
+			store_selection_keys = "<Tab>", -- This key will be used to capture the selection
+		})
 
 		-- Load LuaSnip safely
 		-- local status_ok, luasnip = pcall(require, "luasnip")

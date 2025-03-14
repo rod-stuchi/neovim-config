@@ -28,7 +28,7 @@ local function organize_imports()
 	vim.lsp.buf.execute_command(params)
 end
 
-function M.setup(server_name, lspconfig)
+function M.setup(server_name, lspconfig, attach)
 	if server_name == "lua_ls" then
 		lspconfig[server_name].setup({
 			settings = {
@@ -123,6 +123,7 @@ function M.setup(server_name, lspconfig)
 			on_attach = function(client, bufnr)
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
+				attach(client, bufnr)
 			end,
 		})
 	end
@@ -174,6 +175,7 @@ function M.setup(server_name, lspconfig)
 			on_attach = function(client, bufnr)
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
+				attach(client, bufnr)
 			end,
 		})
 	end

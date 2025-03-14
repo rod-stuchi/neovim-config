@@ -1,6 +1,7 @@
 return {
 	"neovim/nvim-lspconfig",
 	config = function()
+		local navic = require("nvim-navic")
 		local wk = require("which-key")
 		table.unpack = table.unpack or unpack -- 5.1 compatibility
 
@@ -8,14 +9,21 @@ return {
 		local get_servers = require("mason-lspconfig").get_installed_servers
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
+		local on_attach = function(client, bufnr)
+			if client.server_capabilities.documentSymbolProvider then
+				navic.attach(client, bufnr)
+			end
+		end
+
 		local servers = get_servers()
 		table.insert(servers, "dartls")
 		table.insert(servers, "kulala_ls")
 		for _, server_name in ipairs(servers) do
 			lspconfig[server_name].setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
 			})
-			require("rods.plugins.lsp.helper.setup-lsp").setup(server_name, lspconfig)
+			require("rods.plugins.lsp.helper.setup-lsp").setup(server_name, lspconfig, on_attach)
 		end
 
 		-- ================ LSP ATTACH ================

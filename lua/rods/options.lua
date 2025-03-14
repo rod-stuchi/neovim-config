@@ -63,7 +63,7 @@ opt.breakindent = true
 opt.fixendofline = true
 opt.endofline = true
 
-opt.winbar = "%=%m %f"
+-- opt.winbar = "%=%m %f"
 
 -- to load local vim/nvim configuration
 opt.exrc = true

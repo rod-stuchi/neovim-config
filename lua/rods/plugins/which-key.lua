@@ -30,8 +30,9 @@ return {
 
 		-- stylua: ignore start
 		wk.add({
-			{ "<leader>a", group = "Avante", icon = { icon = "󰧑 ", color = "red" } },
+			{ "<leader>a", group = "Avante", icon = { icon = "󰧑 ", color = "red" }, mode = { "n", "v" } },
 		})
+
 		local buf_icon = { icon = "", color = "green"}
 		wk.add({
 			{ "<leader>b", group = "Buffers", icon = buf_icon },
@@ -52,11 +53,11 @@ return {
 		})
 
 		wk.add({
-			{ "<leader>e", group = "Editing", icon = { icon = "", color = "yellow" } },
-			{ "<leader>ea", "<plug>(EasyAlign)", desc = "EasyAlign" },
-			{ "<leader>el", "<plug>(LiveEasyAlign)", desc = "LiveEasyAlign" },
+			{ "<leader>e", group = "Editing", icon = { icon = "", color = "yellow" }, mode = { "n", "v" } },
+			{ "<leader>ea", "<plug>(EasyAlign)", desc = "EasyAlign", mode = { "n", "v" } },
+			{ "<leader>el", "<plug>(LiveEasyAlign)", desc = "LiveEasyAlign", mode = { "n", "v" } },
 			{ "<leader>ec", "<cmd>CccPick<cr>", desc = "Color Picker" },
-			{ "<leader>ej", "<cmd>lua require('treesj').toggle()<cr>", desc = "Join Treesitter" },
+			{ "<leader>ej", "<cmd>lua require('treesj').toggle()<cr>", desc = "Join Treesitter", mode = { "n", "v" } },
 		})
 
 		wk.add({
@@ -64,7 +65,6 @@ return {
 			{ "<leader>fn", "<cmd>Neotree toggle<cr>", desc = "Neotree" },
 			{ "<leader>ff", "<cmd>Files<cr>", desc = "fzf files" },
 			{ "<leader>fg", "<cmd>GFiles<cr>", desc = "fzf git files" },
-			{ "<leader>fr", "<cmd>RnvimrToggle<cr>", desc = "ranger" },
 			{ "<leader>ft", "<cmd>GFiles?<cr>", desc = "fzf git status" },
 			{ "<leader>fs", group = "Git status" },
 			{ "<leader>fsm", "<cmd>lua require('igs').qf_modified()<cr>", desc = "modified qf" },
@@ -78,15 +78,20 @@ return {
 		})
 
 		wk.add({
+			{ "<leader>h", group = "Hunk", icon = { icon = "󰊢", color = "red" }, mode = { "n", "v" } },
+		})
+
+		wk.add({
 			{ "<leader>k", group = "Kulala", icon = { icon = " ", color = "blue" }, mode = { "n" } },
 		})
 
 		wk.add({
+			{ "<leader>l", group = "LSP", icon = { icon = "", color = "orange" }, mode = { "n", "v" } },
 			{ "<leader>ls", '<cmd>lua require("luasnip.extras.snippet_list").open()<cr>', desc = "LuaSnip List", icon = { icon = " ", color = "blue" } },
 		})
 
 		wk.add({
-			{ "<leader>m", group = "bookmarks", icon = { icon = "󰃁", color = "green" } },
+			{ "<leader>m", group = "bookmarks", icon = { icon = "󰃁", color = "green" }, mode = { "n", "v" } },
 			{ "<leader>mm", "<cmd>BookmarksMark<cr>", desc = "Mark current line", mode = { "n", "v" } },
 			{ "<leader>mo", "<cmd>BookmarksGoto<cr>", desc = "Go to bookmark", mode = { "n", "v" } },
 			{ "<leader>ma", "<cmd>BookmarksCommands<cr>", desc = "Commands", mode = { "n", "v" } },
@@ -116,7 +121,6 @@ return {
 
 		wk.add({
 			{ "<leader>r", group = "RGFlow", icon = { icon = "󰑑", color = "red" } },
-			{ "<leader>s", group = "Search", icon = { icon = "", color = "blue" } },
 		})
 
 		wk.add({

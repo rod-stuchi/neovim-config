@@ -5,7 +5,7 @@ return {
 	version = false, -- set this if you want to always pull the latest change
 	opts = {
 		-- add any opts here
-		provider = "openai",
+		provider = "claude",
 		openai = {
 			-- endpoint = "https://api.openai.com/v1",
 			endpoint = "http://192.168.2.10:8091/v1",
@@ -18,11 +18,12 @@ return {
 		claude = {
 			-- endpoint = "https://api.anthropic.com",
 			endpoint = "http://192.168.2.10:8092",
-			model = "claude-3-5-sonnet-20241022",
+			model = "claude-3-7-sonnet-20250219",
 			timeout = 30000, -- Timeout in milliseconds
 			temperature = 0,
 			max_tokens = 4096,
 			api_key_name = "ANTHROPIC_API_KEY",
+			disable_tools = { "python" },
 		},
 	},
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`

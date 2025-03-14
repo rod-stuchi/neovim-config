@@ -11,33 +11,49 @@ return {
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = function(_, opts)
+		local disabled_filetypes = {
+			["TelescopePrompt"] = true,
+			["minifiles"] = true,
+			["snacks_picker_input"] = true,
+		}
+
 		opts.enabled = function()
 			local filetype = vim.bo[0].filetype
-			if filetype == "TelescopePrompt" or filetype == "minifiles" then
-				return false
-			end
-			return true
+			return not disabled_filetypes[filetype]
 		end
 
-		-- NOTE: The new way to enable LuaSnip
-		-- Merge custom sources with the existing ones from lazyvim
-		-- NOTE: by default lazyvim already includes the lazydev source, so not adding it here again
 		opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
-			-- default = { "lsp", "path", "snippets", "buffer", "copilot", "dadbod", "emoji", "dictionary" },
-			default = { "lsp", "path", "snippets", "buffer" },
+			-- DOC: DYNAMICALLY PICKING PROVIDERS BY TREESITTER NODE/FILETYPE
+			-- default = { "lsp", "path", "snippets", "buffer" },
+			default = function(ctx)
+				local default_sources = { "lsp", "path", "snippets", "buffer" }
+				local success, node = pcall(vim.treesitter.get_node)
+				if vim.bo.filetype == "lua" then
+					return default_sources
+				elseif
+					success
+					and node
+					and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
+				then
+					return { "buffer", "patch" }
+				else
+					return default_sources
+				end
+			end,
+
 			providers = {
 				lsp = {
 					name = "lsp",
 					enabled = true,
 					module = "blink.cmp.sources.lsp",
-					-- Enabled fallbacks as this seems to be working now
-					-- Disabling fallbacks as my snippets wouldn't show up when editing
-					-- lua files
+					-- disable fallback for lsp, breaks `trigger_text` for snippets
 					-- fallbacks = { "snippets", "buffer" },
 					score_offset = 90, -- the higher the number, the higher the priority
 				},
+
 				path = {
 					name = "Path",
+					enabled = true,
 					module = "blink.cmp.sources.path",
 					score_offset = 25,
 					fallbacks = { "snippets", "buffer" },
@@ -50,6 +66,7 @@ return {
 						show_hidden_files_by_default = true,
 					},
 				},
+
 				buffer = {
 					name = "Buffer",
 					enabled = true,
@@ -58,13 +75,15 @@ return {
 					min_keyword_length = 4,
 					score_offset = 15, -- the higher the number, the higher the priority
 				},
+
+				-- INFO: https://github.com/linkarzu/dotfiles-latest/blob/main/neovim/neobean/lua/plugins/blink-cmp.lua
 				snippets = {
 					name = "snippets",
 					enabled = true,
 					max_items = 8,
 					min_keyword_length = 2,
 					module = "blink.cmp.sources.snippets",
-					score_offset = 85, -- the higher the number, the higher the priority
+					score_offset = 100, -- the higher the number, the higher the priority
 					-- Only show snippets if I type the trigger_text characters, so
 					-- to expand the "bash" snippet, if the trigger_text is ";" I have to
 					should_show_items = function()
@@ -75,52 +94,79 @@ return {
 					end,
 					-- After accepting the completion, delete the trigger_text characters
 					-- from the final inserted text
+					-- Modified transform_items function based on suggestion by `synic` so
+					-- that the luasnip source is not reloaded after each transformation
+					-- https://github.com/linkarzu/dotfiles-latest/discussions/7#discussion-7849902
 					transform_items = function(_, items)
 						local col = vim.api.nvim_win_get_cursor(0)[2]
 						local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
 						local trigger_pos = before_cursor:find(trigger_text .. "[^" .. trigger_text .. "]*$")
 						if trigger_pos then
 							for _, item in ipairs(items) do
-								item.textEdit = {
-									newText = item.insertText or item.label,
-									range = {
-										start = { line = vim.fn.line(".") - 1, character = trigger_pos - 1 },
-										["end"] = { line = vim.fn.line(".") - 1, character = col },
-									},
-								}
+								if not item.trigger_text_modified then
+									---@diagnostic disable-next-line: inject-field
+									item.trigger_text_modified = true
+									item.textEdit = {
+										newText = item.insertText or item.label,
+										range = {
+											start = { line = vim.fn.line(".") - 1, character = trigger_pos - 1 },
+											["end"] = { line = vim.fn.line(".") - 1, character = col },
+										},
+									}
+								end
 							end
 						end
-						-- NOTE: After the transformation, I have to reload the luasnip source
-						-- Otherwise really crazy shit happens and I spent way too much time
-						-- figurig this out
-						vim.schedule(function()
-							require("blink.cmp").reload("snippets")
-						end)
 						return items
 					end,
 				},
+
+				cmdline = {
+					min_keyword_length = function(ctx)
+						if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
+							return 3
+						end
+						return 0
+					end,
+				},
 			},
-			-- command line completion, thanks to dpetka2001 in reddit
-			-- https://www.reddit.com/r/neovim/comments/1hjjf21/comment/m37fe4d
-			cmdline = function()
+		})
+
+		opts.cmdline = {
+			completion = { menu = { auto_show = true } },
+			sources = function()
 				local type = vim.fn.getcmdtype()
+				-- Search forward and backward
 				if type == "/" or type == "?" then
 					return { "buffer" }
 				end
-				if type == ":" then
+				-- Commands
+				if type == ":" or type == "@" then
 					return { "cmdline" }
 				end
 				return {}
 			end,
-		})
+			-- Add custom keymap for cmdline mode
+			-- stylua: ignore
+			keymap = {
+				preset     = "cmdline",
+				["<Up>"]   = { "select_prev", "fallback" },
+				["<C-p>"]  = { "select_prev", "fallback" },
+				["<C-k>"]  = { "select_prev", "fallback" },
+				["<C-n>"]  = { "select_next", "fallback" },
+				["<C-j>"]  = { "select_next", "fallback" },
+				["<Down>"] = { "select_next", "fallback" },
+
+				["<CR>"]   = { "accept_and_enter", "fallback" },
+			},
+		}
 
 		opts.completion = {
 			keyword = {
-				-- 'prefix' will fuzzy match on the text before the cursor
-				-- 'full' will fuzzy match on the text before *and* after the cursor
-				-- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
 				range = "full",
 			},
+			-- trigger = {
+			-- 	show_on_trigger_character = true,
+			-- },
 			menu = {
 				border = "single",
 			},
@@ -131,7 +177,6 @@ return {
 					border = "single",
 				},
 			},
-			-- Displays a preview of the selected item on the current line
 			ghost_text = {
 				enabled = true,
 			},
@@ -153,25 +198,27 @@ return {
 			end,
 		}
 
+		-- stylua: ignore
 		opts.keymap = {
 			preset = "default",
-			["<Tab>"] = { "snippet_forward", "fallback" },
-			["<S-Tab>"] = { "snippet_backward", "fallback" },
+			["<Tab>"]     = { "snippet_forward", "fallback" },
+			["<S-Tab>"]   = { "snippet_backward", "fallback" },
 
-			["<Up>"] = { "select_prev", "fallback" },
-			["<Down>"] = { "select_next", "fallback" },
-			["<C-p>"] = { "select_prev", "fallback" },
-			["<C-k>"] = { "select_prev", "fallback" },
-			["<C-n>"] = { "select_next", "fallback" },
-			["<C-j>"] = { "select_next", "fallback" },
+			["<Up>"]      = { "select_prev", "fallback" },
+			["<C-p>"]     = { "select_prev", "fallback" },
+			["<C-k>"]     = { "select_prev", "fallback" },
+			["<C-n>"]     = { "select_next", "fallback" },
+			["<C-j>"]     = { "select_next", "fallback" },
+			["<Down>"]    = { "select_next", "fallback" },
 
-			["<C-l>"] = { "select_and_accept", "fallback" },
+			["<CR>"]      = { "select_and_accept", "fallback" },
+			["<C-l>"]     = { "select_and_accept", "fallback" },
 
-			["<S-k>"] = { "scroll_documentation_up", "fallback" },
-			["<S-j>"] = { "scroll_documentation_down", "fallback" },
+			["<S-k>"]     = { "scroll_documentation_up", "fallback" },
+			["<S-j>"]     = { "scroll_documentation_down", "fallback" },
 
 			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-			["<C-e>"] = { "hide", "fallback" },
+			["<C-e>"]     = { "hide", "fallback" },
 		}
 
 		return opts
