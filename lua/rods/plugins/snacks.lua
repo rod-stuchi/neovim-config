@@ -40,7 +40,7 @@ return {
 		{ "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume" },
 		{ "<leader>ft", function() Snacks.picker.git_status() end, desc = "Git files status" },
 		{ "<leader>fw", function() Snacks.picker.grep_word() end, desc = "Grep word" },
-		{ "<leader>\\", function() Snacks.picker() end },
+		{ "<leader>\\", function() Snacks.picker() end, desc = "Snacks Picker" },
 		-- stylua: ignore end
 		{
 			"<leader>,",
