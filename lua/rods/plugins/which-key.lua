@@ -36,9 +36,6 @@ return {
 		local buf_icon = { icon = "", color = "green"}
 		wk.add({
 			{ "<leader>b", group = "Buffers", icon = buf_icon },
-			{ "<leader>bb", "<cmd>Buffers<cr>", desc = "fzf buffers", icon = buf_icon },
-			{ "<leader>bd", "<cmd>BuffersDelete<cr>", desc = "fzf delete buffers", icon = buf_icon },
-			{ "<leader>bl", "<cmd>BLines<cr>", desc = "fzf buffer lines", icon = buf_icon },
 			{ "<leader>bt", "<cmd>Neotree float buffers focus toggle reveal<cr>", desc = "neotree buffers", icon = buf_icon },
 			{ "<leader>bX", "<cmd>%bd|e#|bd#<cr>", desc = "close all except this", icon = buf_icon },
 		})
@@ -63,9 +60,6 @@ return {
 		wk.add({
 			{ "<leader>f", group = "File", icon = { icon = "", color = "orange" } },
 			{ "<leader>fn", "<cmd>Neotree toggle<cr>", desc = "Neotree" },
-			{ "<leader>ff", "<cmd>Files<cr>", desc = "fzf files" },
-			{ "<leader>fg", "<cmd>GFiles<cr>", desc = "fzf git files" },
-			{ "<leader>ft", "<cmd>GFiles?<cr>", desc = "fzf git status" },
 			{ "<leader>fs", group = "Git status" },
 			{ "<leader>fsm", "<cmd>lua require('igs').qf_modified()<cr>", desc = "modified qf" },
 			{ "<leader>fsa", "<cmd>lua require('igs').qf_added()<cr>", desc = "added qf" },
@@ -147,15 +141,9 @@ return {
 
 		wk.add({
 			{ "<leader>z", group = "FzfLua", icon = { icon = " ", color = "azure" } },
-			{ "<leader>zb", "<cmd>FzfLua buffers<cr>", desc = "buffers" },
 			{ "<leader>zd1", "<cmd>lua FzfLuaDepth1()<cr>", desc = "files depth 1" },
 			{ "<leader>zdd", "<cmd>lua FzfLuaDepthN()<cr>", desc = "files depth N" },
-			{ "<leader>zf", "<cmd>FzfLua files resume=true<cr>", desc = "files" },
-			{ "<leader>zg", "<cmd>FzfLua git_files<cr>", desc = "git files" },
 			{ "<leader>zl", "<cmd>FzfLua<cr>", desc = "FzfLua" },
-			{ "<leader>zs", "<cmd>FzfLua git_status<cr>", desc = "git status" },
-			{ "<leader>zy", "<cmd>lua FzfLuaFrecency()<cr>", desc = "frecency files" },
-			{ "<leader>zu", "<cmd>lua Update_frecency_db()<cr>", desc = "update frecency files" },
 		})
 
 		-- normal non leader

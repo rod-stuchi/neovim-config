@@ -1,6 +1,7 @@
 return {
 	"junegunn/fzf.vim",
 	dependencies = { "junegunn/fzf" },
+	enabled = false,
 	init = function()
 		vim.cmd([[
         " Initialize configuration dictionary
@@ -77,7 +78,7 @@ return {
 " ----------------------------------------------------------------------------------------------------
 
         " " -relative "../.." path completation
-        " inoremap <expr> <c-x><c-r> fzf#vim#complete("fd <Bar> xargs realpath --relative-to " . expand("%:h"))
+        " inoremap <expr> <c-x><c-r> fzf#vim#complete("fd <Bar> xargs grealpath --relative-to " . expand("%:h"))
 
 " ----------------------------------------------------------------------------------------------------
 
@@ -168,39 +169,6 @@ return {
             let l:extra = join(filter([l:modified, l:readonly], '!empty(v:val)'), '')
             return substitute(printf("[%s] %s\t%s\t%s", a:b, l:flag, l:name, l:extra), '^\s*\|\s*$', '', 'g')
         endfunction
-
-        function! s:delete_buffers()
-            let opt = [
-                \ '--info=inline',
-                \ '--bind=ctrl-d:preview-page-down,ctrl-u:preview-page-up',
-                \ '--bind=alt-j:preview-down,alt-k:preview-up',
-                \ '--bind=tab:select+down,shift-tab:deselect+up',
-                \ '--bind=ctrl-l:select+up,ctrl-h:deselect+down',
-                \ '--bind=ctrl-n:half-page-down,ctrl-p:half-page-up',
-                \ '--header=List: ctrl-(n|p)=half-page-down/up, Preview: ctrl-(d|u)=page-down/up alt-(j|u)=down/up',
-                \ '--delimiter', '\t',
-                \ '--prompt', 'Delete> ',
-                \ '--multi',
-                \ '--no-sort',
-                \]
-            return fzf#run(fzf#vim#with_preview(fzf#wrap({
-                \ 'source':  map(
-                \   filter(
-                \     range(1, bufnr('$')),
-                \     {_, nr -> buflisted(nr) && !getbufvar(nr, "&modified")}
-                \   ),
-                \   {_, nr -> s:format_buffer(nr)}
-                \ ),
-                \ 'sink*': {
-                \   lines -> execute('bdelete ' . join(map(lines, {
-                \     _, line -> substitute(split(line)[0], '^\[\|\]$', '', 'g')
-                \   })), 'silent!')
-                \ },
-                \ 'placeholder': "{2}",
-                \ 'options': opt,
-                \})))
-        endfunction
-        command! -nargs=* -bang BuffersDelete call s:delete_buffers()
 
 " ----------------------------------------------------------------------------------------------------
 

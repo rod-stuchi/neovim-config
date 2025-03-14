@@ -32,26 +32,16 @@ return {
 		notifier = { enabled = true },
 	},
 	keys = {
-		-- {
-		-- 	"<leader>bD",
-		-- 	function()
-		-- 		Snacks.bufdelete()
-		-- 	end,
-		-- 	desc = "Delete Buffer",
-		-- },
-		{
-			"<leader>pR",
-			function()
-				Snacks.picker.resume()
-			end,
-			desc = "Resume",
-		},
-		{
-			"<leader>\\",
-			function()
-				Snacks.picker()
-			end,
-		},
+		-- stylua: ignore start
+		{ "<leader>bd", function() Snacks.bufdelete() end, desc = "delete Buffer" },
+		{ "<leader>fe", function() Snacks.picker.grep() end, desc = "Grep" },
+		{ "<leader>ff", function() Snacks.picker.files() end, desc = "Files" },
+		{ "<leader>fg", function() Snacks.picker.git_files() end, desc = "Git files" },
+		{ "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume" },
+		{ "<leader>ft", function() Snacks.picker.git_status() end, desc = "Git files status" },
+		{ "<leader>fw", function() Snacks.picker.grep_word() end, desc = "Grep word" },
+		{ "<leader>\\", function() Snacks.picker() end },
+		-- stylua: ignore end
 		{
 			"<leader>,",
 			function()
@@ -64,28 +54,5 @@ return {
 			end,
 			desc = "Buffers",
 		},
-		--[[ {
-			"<leader>x",
-			function()
-				return require("snacks.picker.source.proc").proc({
-					cmd = "eza",
-					args = { "-l", "." },
-					transform = function(item)
-						-- You can transform the item here if needed
-						return item
-					end,
-					layout = { preset = "ivy", layout = { position = "bottom" } },
-					on_select = function(item)
-						-- Get the current cursor position
-						local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-						-- Insert the selected item at the current cursor position
-						vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { item })
-						-- Return true to close the picker after selection
-						return true
-					end,
-				})
-			end,
-			desc = "Insert file listing at cursor",
-		}, ]]
 	},
 }
