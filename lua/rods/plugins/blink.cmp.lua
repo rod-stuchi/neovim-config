@@ -24,22 +24,22 @@ return {
 
 		opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
 			-- DOC: DYNAMICALLY PICKING PROVIDERS BY TREESITTER NODE/FILETYPE
-			-- default = { "lsp", "path", "snippets", "buffer" },
-			default = function(ctx)
-				local default_sources = { "lsp", "path", "snippets", "buffer" }
-				local success, node = pcall(vim.treesitter.get_node)
-				if vim.bo.filetype == "lua" then
-					return default_sources
-				elseif
-					success
-					and node
-					and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
-				then
-					return { "buffer", "patch" }
-				else
-					return default_sources
-				end
-			end,
+			default = { "lsp", "path", "snippets", "buffer" },
+			-- default = function(ctx)
+			-- 	local default_sources = { "lsp", "path", "snippets", "buffer" }
+			-- 	local success, node = pcall(vim.treesitter.get_node)
+			-- 	if vim.bo.filetype == "lua" then
+			-- 		return default_sources
+			-- 	elseif
+			-- 		success
+			-- 		and node
+			-- 		and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
+			-- 	then
+			-- 		return { "buffer", "patch" }
+			-- 	else
+			-- 		return default_sources
+			-- 	end
+			-- end,
 
 			providers = {
 				lsp = {

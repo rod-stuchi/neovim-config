@@ -41,6 +41,9 @@ return {
 		{ "<leader>ft", function() Snacks.picker.git_status() end, desc = "Git files status" },
 		{ "<leader>fw", function() Snacks.picker.grep_word() end, desc = "Grep word" },
 		{ "<leader>\\", function() Snacks.picker() end, desc = "Snacks Picker" },
+
+        { "<leader>.",  function() Snacks.scratch({ ft = "markdown" }) end, desc = "Toggle Scratch Buffer" },
+        { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
 		-- stylua: ignore end
 		{
 			"<leader>,",
