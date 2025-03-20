@@ -50,7 +50,7 @@ return {
 			function()
 				Snacks.picker.buffers({
 					focus = "list",
-					layout = { preset = "ivy", layout = { position = "bottom" } },
+					-- layout = { preset = "ivy", layout = { position = "bottom" } },
 					current = true,
 					sort_lastused = true,
 				})
