@@ -12,7 +12,7 @@ return {
 			model = "gpt-4o",
 			timeout = 30000, -- Timeout in milliseconds
 			temperature = 0,
-			max_tokens = 4096,
+			max_tokens = 10000,
 			api_key_name = "OPENAI_API_KEY",
 		},
 		claude = {
@@ -21,7 +21,7 @@ return {
 			model = "claude-3-7-sonnet-20250219",
 			timeout = 30000, -- Timeout in milliseconds
 			temperature = 0,
-			max_tokens = 4096,
+			max_tokens = 10000,
 			api_key_name = "ANTHROPIC_API_KEY",
 			disable_tools = { "python" },
 		},
