@@ -125,6 +125,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		"*.rs",
 		"*.scss",
 		"*.ts",
+		"*.tsx",
 	},
 	callback = function()
 		local bufnr = vim.api.nvim_get_current_buf()
