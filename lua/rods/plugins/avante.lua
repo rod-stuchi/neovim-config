@@ -5,6 +5,7 @@ return {
 	version = false, -- set this if you want to always pull the latest change
 	opts = {
 		-- add any opts here
+		mode = "legacy",
 		provider = "claude",
 		openai = {
 			-- endpoint = "https://api.openai.com/v1",
@@ -18,12 +19,17 @@ return {
 		claude = {
 			-- endpoint = "https://api.anthropic.com",
 			endpoint = "http://192.168.2.10:8092",
-			model = "claude-3-7-sonnet-20250219",
+			-- model = "claude-3-7-sonnet-20250219",
+			model = "claude-sonnet-4-20250514",
 			timeout = 30000, -- Timeout in milliseconds
 			temperature = 0,
 			max_tokens = 10000,
 			api_key_name = "ANTHROPIC_API_KEY",
-			disable_tools = { "python" },
+			disable_tools = true,
+			-- disable_tools = { "python" },
+		},
+		behaviour = {
+			use_cwd_as_project_root = true,
 		},
 	},
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
