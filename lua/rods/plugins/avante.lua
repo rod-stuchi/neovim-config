@@ -6,27 +6,43 @@ return {
 	opts = {
 		-- add any opts here
 		mode = "legacy",
-		provider = "claude",
-		openai = {
-			-- endpoint = "https://api.openai.com/v1",
-			endpoint = "http://192.168.2.10:8091/v1",
-			model = "gpt-4o",
-			timeout = 30000, -- Timeout in milliseconds
-			temperature = 0,
-			max_tokens = 10000,
-			api_key_name = "OPENAI_API_KEY",
-		},
-		claude = {
-			-- endpoint = "https://api.anthropic.com",
-			endpoint = "http://192.168.2.10:8092",
-			-- model = "claude-3-7-sonnet-20250219",
-			model = "claude-sonnet-4-20250514",
-			timeout = 30000, -- Timeout in milliseconds
-			temperature = 0,
-			max_tokens = 10000,
-			api_key_name = "ANTHROPIC_API_KEY",
-			disable_tools = true,
-			-- disable_tools = { "python" },
+		provider = "gemini",
+		providers = {
+			openai = {
+				-- endpoint = "https://api.openai.com/v1",
+				endpoint = "http://192.168.2.10:8091/v1",
+				model = "gpt-4o",
+				extra_request_body = {
+					timeout = 30000,
+					temperature = 0.75,
+					max_tokens = 10000,
+				},
+				api_key_name = "OPENAI_API_KEY",
+			},
+			claude = {
+				-- endpoint = "https://api.anthropic.com",
+				endpoint = "http://192.168.2.10:8092",
+				model = "claude-sonnet-4-20250514",
+				extra_request_body = {
+					timeout = 30000,
+					temperature = 0.75,
+					max_tokens = 10000,
+				},
+				api_key_name = "ANTHROPIC_API_KEY",
+				disable_tools = true,
+				-- disable_tools = { "python" },
+			},
+			gemini = {
+				-- endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+				endpoint = "http://192.168.2.10:8093/v1beta/models",
+				model = "gemini-2.5-flash",
+				extra_request_body = {
+					timeout = 30000,
+					temperature = 0.75,
+					max_tokens = 10000,
+				},
+				api_key_name = "GOOGLE_API_KEY",
+			},
 		},
 		behaviour = {
 			use_cwd_as_project_root = true,
