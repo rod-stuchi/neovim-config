@@ -6,7 +6,7 @@ return {
 	opts = {
 		-- add any opts here
 		mode = "legacy",
-		provider = "gemini",
+		provider = "gemini-flash",
 		providers = {
 			openai = {
 				-- endpoint = "https://api.openai.com/v1",
@@ -32,10 +32,22 @@ return {
 				disable_tools = true,
 				-- disable_tools = { "python" },
 			},
-			gemini = {
+			["gemini-flash"] = {
 				-- endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+				__inherited_from = "gemini",
 				endpoint = "http://192.168.2.10:8093/v1beta/models",
 				model = "gemini-2.5-flash",
+				extra_request_body = {
+					timeout = 30000,
+					temperature = 0.75,
+					max_tokens = 10000,
+				},
+				api_key_name = "GOOGLE_API_KEY",
+			},
+			["gemini-pro"] = {
+				__inherited_from = "gemini",
+				endpoint = "http://192.168.2.10:8093/v1beta/models",
+				model = "gemini-2.5-pro",
 				extra_request_body = {
 					timeout = 30000,
 					temperature = 0.75,
