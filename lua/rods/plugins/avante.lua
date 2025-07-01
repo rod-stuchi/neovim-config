@@ -13,7 +13,6 @@ return {
 				endpoint = "http://192.168.2.10:8091/v1",
 				model = "gpt-4o",
 				extra_request_body = {
-					timeout = 30000,
 					temperature = 0.75,
 					max_tokens = 10000,
 				},
@@ -24,7 +23,6 @@ return {
 				endpoint = "http://192.168.2.10:8092",
 				model = "claude-sonnet-4-20250514",
 				extra_request_body = {
-					timeout = 30000,
 					temperature = 0.75,
 					max_tokens = 10000,
 				},
