@@ -26,7 +26,7 @@ Scandir = function(regex, directory)
 	return t
 end
 
-Get_emoji = function(show_emoji_name)
+Get_emoji = function(show_emoji_name, repeatN)
 	local handle = io.popen("python ~/.scripts/emoji/choice.py")
 	local result = ""
 	if handle ~= nil then
@@ -36,9 +36,10 @@ Get_emoji = function(show_emoji_name)
 
 	result = result:gsub("\n", "")
 	local symbol, text = string.match(result, "(.*)#(.*)")
+	repeatN = repeatN or 3 -- default to 3 if not provided
 	if show_emoji_name then
-		return string.rep(symbol, 3) .. " " .. text
+		return string.rep(symbol, repeatN) .. " " .. text
 	else
-		return string.rep(symbol, 3) .. " "
+		return string.rep(symbol, repeatN) .. " "
 	end
 end
