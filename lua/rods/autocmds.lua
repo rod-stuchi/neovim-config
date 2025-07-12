@@ -138,24 +138,29 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		-- Save buffer state (including folds)
 		pcall(vim.cmd, "silent! mkview")
 
-		-- Check if LSP is attached
-		local has_lsp = false
-		for _, client in pairs(vim.lsp.get_active_clients({ bufnr = bufnr })) do
-			if client.supports_method("textDocument/formatting") then
-				has_lsp = true
-				break
+		-- Check if LSP is attached and formatting is enabled for any client
+		local can_format = false
+		if vim.fn.exists("#AutoFmtOnSave") == 0 then
+			for _, client in pairs(vim.lsp.get_active_clients({ bufnr = bufnr })) do
+				if
+					client.server_capabilities.documentFormattingProvider
+					and client.server_capabilities.documentRangeFormattingProvider
+				then
+					can_format = true
+					break
+				end
 			end
 		end
 
-		-- Save the current buffer state
-		local ok = pcall(vim.cmd, "write")
-		if not ok then
-			vim.notify("Failed to save file", vim.log.levels.ERROR)
-			return
-		end
-
 		-- Only attempt to format if we have an LSP that supports formatting
-		if has_lsp then
+		if can_format then
+			-- Save the current buffer state
+			local ok = pcall(vim.cmd, "write")
+			if not ok then
+				vim.notify("Failed to save file", vim.log.levels.ERROR)
+				return
+			end
+
 			local format_ok = pcall(function()
 				vim.lsp.buf.format({
 					async = false,
@@ -167,21 +172,21 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 			if not format_ok then
 				vim.notify("Formatting failed, but file was saved", vim.log.levels.WARN)
 			end
-		end
 
-		-- Reload the buffer to ensure we have the latest content
-		local reload_ok = pcall(function()
-			-- Preserve cursor position
-			local cursor_pos = vim.api.nvim_win_get_cursor(0)
-			vim.cmd("edit")
-			vim.api.nvim_win_set_cursor(0, cursor_pos)
+			-- Reload the buffer to ensure we have the latest content
+			local reload_ok = pcall(function()
+				-- Preserve cursor position
+				local cursor_pos = vim.api.nvim_win_get_cursor(0)
+				vim.cmd("edit")
+				vim.api.nvim_win_set_cursor(0, cursor_pos)
 
-			-- Restore buffer state (including folds)
-			vim.cmd("silent! loadview")
-		end)
+				-- Restore buffer state (including folds)
+				vim.cmd("silent! loadview")
+			end)
 
-		if not reload_ok then
-			vim.notify("Failed to reload buffer", vim.log.levels.WARN)
+			if not reload_ok then
+				vim.notify("Failed to reload buffer", vim.log.levels.WARN)
+			end
 		end
 
 		-- vim.cmd("write")
