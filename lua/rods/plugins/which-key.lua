@@ -10,22 +10,22 @@ return {
 		-- hidden
 		wk.add({
 			{ "<leader><tab>", hidden = true, mode = { "o", "n", "v" } },
-			{ "<leader>1", hidden = true },
-			{ "<leader>2", hidden = true },
-			{ "<leader>3", hidden = true },
-			{ "<leader>4", hidden = true },
-			{ "<leader>5", hidden = true },
-			{ "<leader>6", hidden = true },
-			{ "<leader>7", hidden = true },
-			{ "<leader>8", hidden = true },
-			{ "<leader>9", hidden = true },
-			{ "<leader>$", hidden = true },
-			{ "<leader>m", hidden = true },
-			{ "<leader>n", hidden = true },
-			{ "<leader>#", hidden = true },
-			{ "<leader>*", hidden = true },
-			{ "<leader>/", hidden = true },
-			{ "<leader>?", hidden = true },
+			{ "<leader>1",     hidden = true },
+			{ "<leader>2",     hidden = true },
+			{ "<leader>3",     hidden = true },
+			{ "<leader>4",     hidden = true },
+			{ "<leader>5",     hidden = true },
+			{ "<leader>6",     hidden = true },
+			{ "<leader>7",     hidden = true },
+			{ "<leader>8",     hidden = true },
+			{ "<leader>9",     hidden = true },
+			{ "<leader>$",     hidden = true },
+			{ "<leader>m",     hidden = true },
+			{ "<leader>n",     hidden = true },
+			{ "<leader>#",     hidden = true },
+			{ "<leader>*",     hidden = true },
+			{ "<leader>/",     hidden = true },
+			{ "<leader>?",     hidden = true },
 		})
 
 		-- stylua: ignore start
@@ -33,11 +33,11 @@ return {
 			{ "<leader>a", group = "Avante", icon = { icon = "󰧑 ", color = "red" }, mode = { "n", "v" } },
 		})
 
-		local buf_icon = { icon = "", color = "green"}
+		local buf_icon = { icon = "", color = "green" }
 		wk.add({
-			{ "<leader>b", group = "Buffers", icon = buf_icon },
-			{ "<leader>bt", "<cmd>Neotree float buffers focus toggle reveal<cr>", desc = "neotree buffers", icon = buf_icon },
-			{ "<leader>bX", "<cmd>%bd|e#|bd#<cr>", desc = "close all except this", icon = buf_icon },
+			{ "<leader>b",  group = "Buffers",                                    icon = buf_icon },
+			{ "<leader>bt", "<cmd>Neotree float buffers focus toggle reveal<cr>", desc = "neotree buffers",       icon = buf_icon },
+			{ "<leader>bX", "<cmd>%bd|e#|bd#<cr>",                                desc = "close all except this", icon = buf_icon },
 		})
 
 		wk.add({
@@ -66,9 +66,9 @@ return {
 		})
 
 		wk.add({
-			{ "<leader>g", group = "Git", mode = { "n", "v" } },
+			{ "<leader>g",  group = "Git",                                                                mode = { "n", "v" } },
 			{ "<leader>gy", '<cmd>GitLink<cr> <bar> <cmd>lua require"notify"("copied to clipboard")<cr>', desc = "Yank git link", mode = { "n", "v" } },
-			{ "<leader>gY", "<cmd>GitLink!<cr>", desc = "Open git link", mode = { "n", "v" } },
+			{ "<leader>gY", "<cmd>GitLink!<cr>",                                                          desc = "Open git link", mode = { "n", "v" } },
 		})
 
 		wk.add({
@@ -94,22 +94,29 @@ return {
 		})
 
 		wk.add({
-			{ "<leader>o", group = "Operations", icon = { icon = "", color = "cyan" }},
+			{ "<leader>o", group = "Operations", icon = { icon = "", color = "cyan" } },
 			{ "<leader>od", group = "Disable things" },
 			{ "<leader>odh", "<cmd>TSBufDisable highlight<cr>", desc = "highlight" },
 			{ "<leader>odi", "<cmd>TSBufDisable indent<cr>", desc = "indent" },
 			{ "<leader>oda", "<cmd>write<cr><cmd>LspStop harper_ls<cr><cmd>e!<cr>", desc = "harper_ls" },
-				-- abc = 12 ^12
-				-- cde = 3 * 4 + 2
+			-- abc = 12 ^12
+			-- cde = 3 * 4 + 2
 			{ "<leader>o1", "<cmd>w !/home/rods/.scripts/sum.sh<cr>", desc = "sum" },
 			{ "<leader>o2", '<cmd>lang pt_BR.UTF-8<cr><cmd>let @@=strftime("%d/%b (%a)\\n")<cr><cmd>normal! p<cr><cmd>lang en_US.UTF-8<cr>', desc = "pt-br (dd/mmm (ddd))" },
 			{ "<leader>o3", '<cmd>lang pt_BR.UTF-8<cr><cmd>let @@=strftime("%d/%m/%Y (%a)\\n")<cr><cmd>normal! p<cr><cmd>lang en_US.UTF-8<cr>', desc = "pt-br (dd/mm/yyyy (ddd))" },
 			{ "<leader>o4", '<cmd>lang pt_BR.UTF-8<cr><cmd>let @@=strftime("%A, %d de %B de %Y\\n")<cr><cmd>normal! p<cr><cmd>lang en_US.UTF-8<cr>', desc = "pt-br (dddd, dd de mmmm de yyyy)" },
-			{ "<leader>o5",  'i<c-r>=strftime("%Y-%m-%d")<cr><esc>', desc = "date yyyy-mm-dd" },
+			{ "<leader>o5", 'i<c-r>=strftime("%Y-%m-%d")<cr><esc>', desc = "date yyyy-mm-dd" },
 			{ "<leader>o6", '<cmd>lang en_US.UTF-8<cr><cmd>let @@=strftime("%d/%b (%a)\\n")<cr><cmd>normal! p<cr><cmd>lang en_US.UTF-8<cr>', desc = "en-us (dd/mmm (ddd))" },
 			{ "<leader>o7", '<cmd>lang en_US.UTF-8<cr><cmd>let @@=strftime("%m/%d/%Y (%a)\\n")<cr><cmd>normal! p<cr><cmd>lang en_US.UTF-8<cr>', desc = "en-us (dd/mm/yyyy (ddd))" },
 			{ "<leader>o8", '<cmd>lang en_US.UTF-8<cr><cmd>let @@=strftime("%A, %B %d, %Y\\n")<cr><cmd>normal! p<cr><cmd>lang en_US.UTF-8<cr>', desc = "en-us (dddd, mmmm dd, yyyy)" },
-			{ "<leader>os", function() local path = vim.fn.stdpath("config") .. "/lua/rods/plugins/snips/luasnip.lua" vim.cmd("source " .. path) end,  desc = "Reload LuaSnips" },
+			{
+				"<leader>os",
+				function()
+					local path = vim.fn.stdpath("config") .. "/lua/rods/plugins/snips/luasnip.lua"
+					vim.cmd("source " .. path)
+				end,
+				desc = "Reload LuaSnips"
+			},
 			-- stylua: ignore end
 		})
 
