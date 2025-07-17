@@ -15,8 +15,95 @@ return {
 			return "[" .. tostring(counter) .. " " .. emoji .. "]"
 		end
 
-		require("debugprint").setup({
+		local formats = {
+			ruby = {
+				default = {
+					left = 'warn "',
+					right = '"',
+					mid_var = "#{",
+					right_var = '}"',
+				},
+				json = {
+					left = 'warn "',
+					right = '"',
+					mid_var = "#{JSON.pretty_generate(JSON.parse(",
+					right_var = '.to_json))}"',
+				},
+			},
+			javascript = {
+				default = {
+					left = 'console.log("',
+					right = '");',
+					mid_var = '", ',
+					right_var = ");",
+				},
+				json = {
+					left = 'console.log("',
+					right = '");',
+					mid_var = '", JSON.stringify(',
+					right_var = ", null, 2));",
+				},
+			},
+			typescript = {
+				default = {
+					left = 'console.log("',
+					right = '");',
+					mid_var = '", ',
+					right_var = ");",
+				},
+				json = {
+					left = 'console.log("',
+					right = '")',
+					mid_var = '", JSON.stringify(',
+					right_var = ", null, 2));",
+				},
+			},
+			lua = {
+				default = {
+					left = 'print("',
+					right = '")',
+					mid_var = '", ',
+					right_var = "",
+				},
+				json = {
+					left = 'print("',
+					right = '")',
+					mid_var = '", vim.inspect(',
+					right_var = "))",
+				},
+			},
+		}
+
+		local get_dynamic_format = function(opts)
+			local format
+			for _, ft in ipairs(opts.effective_filetypes) do
+				if formats[ft] then
+					format = formats[ft]
+					break
+				end
+			end
+			if not format then
+				return nil -- use default
+			end
+
+			if vim.g.DEBUGPRINT_JSON_ENABLED then
+				return format.json
+			else
+				return format.default
+			end
+		end
+
+		local debugprint = require("debugprint")
+		debugprint.setup({
 			display_counter = gen_emoji,
+			filetypes = {
+				["ruby"] = get_dynamic_format,
+				["javascript"] = get_dynamic_format,
+				["javascriptreact"] = get_dynamic_format,
+				["typescript"] = get_dynamic_format,
+				["typescriptreact"] = get_dynamic_format,
+				["lua"] = get_dynamic_format,
+			},
 		})
 	end,
 	opts = {
@@ -50,7 +137,7 @@ return {
 
 	dependencies = {
 		"echasnovski/mini.hipatterns", -- Optional: Needed for line highlighting ('fine-grained' hipatterns plugin)
-		"folke/snacks.nvim", -- Optional: If you want to use the `:Debugprint search` command with snacks.nvim
+		"folke/snacks.nvim",     -- Optional: If you want to use the `:Debugprint search` command with snacks.nvim
 	},
 
 	lazy = false, -- Required to make line highlighting work before debugprint is first used

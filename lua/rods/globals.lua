@@ -3,6 +3,14 @@ P = function(v)
 	return v
 end
 
+Debugprint_toggle_JSON = function()
+	if vim.g.DEBUGPRINT_JSON_ENABLED == nil then
+		vim.g.DEBUGPRINT_JSON_ENABLED = false
+	end
+	vim.g.DEBUGPRINT_JSON_ENABLED = not vim.g.DEBUGPRINT_JSON_ENABLED
+	print("JSON Debugprint Toggled: " .. tostring(vim.g.DEBUGPRINT_JSON_ENABLED))
+end
+
 Has_value = function(tab, val)
 	for _, value in ipairs(tab) do
 		if value == val then

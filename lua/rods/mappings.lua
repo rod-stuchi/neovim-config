@@ -259,7 +259,8 @@ local prefill_edit_window = function(request)
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-s>", true, true, true), "v", true)
 end
 
-local avante_grammar_correction = "Correct the text to standard English, but keep any code blocks inside intact."
+local avante_grammar_correction =
+"Correct the text to standard English, but keep any code blocks inside intact, do not change spacing."
 
 require("which-key").add({
 	{

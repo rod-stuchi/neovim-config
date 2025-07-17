@@ -26,6 +26,13 @@ return {
 			return ""
 		end
 
+		local function debugprint_json()
+			if vim.g.DEBUGPRINT_JSON_ENABLED then
+				return "debugprint:  "
+			end
+			return ""
+		end
+
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
@@ -53,7 +60,7 @@ return {
 					{ "diff", source = diff_source },
 					{ "diagnostics", sources = { "nvim_diagnostic", "coc" } },
 				},
-				lualine_c = { "filename", inlay_hint },
+				lualine_c = { "filename", inlay_hint, debugprint_json },
 				-- lualine_c = { custom_fname },
 				lualine_x = { spell, "encoding", "fileformat", "filetype", "filesize" },
 				lualine_y = { "progress" },

@@ -144,6 +144,7 @@ return {
 			{ "<leader>wu", "<cmd>source /tmp/vim-session.vim<cr>", desc = "undo maximize" },
 			{ "<leader>wr", "<cmd>set number!<bar>set relativenumber!<cr>", desc = "toggle relative number" },
 			{ "<leader>wt", '<cmd>lua require("rods.funcs").toggle_transparency()<cr>', desc = "toggle transparency" },
+			{ "<leader>wj", '<cmd>lua Debugprint_toggle_JSON()<cr>', desc = "toggle JSON Debugprint" },
 		})
 
 		wk.add({
