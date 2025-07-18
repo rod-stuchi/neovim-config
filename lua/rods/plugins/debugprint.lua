@@ -14,6 +14,20 @@ return {
 			counter = counter + 1
 			return "[" .. tostring(counter) .. " " .. emoji .. "]"
 		end
+		local js_default = {
+			default = {
+				left = 'console.log("',
+				right = '");',
+				mid_var = '", ',
+				right_var = ");",
+			},
+			json = {
+				left = 'console.log("',
+				right = '");',
+				mid_var = '", JSON.stringify(',
+				right_var = ", null, 2));",
+			},
+		}
 
 		local formats = {
 			ruby = {
@@ -30,34 +44,10 @@ return {
 					right_var = '.to_json))}"',
 				},
 			},
-			javascript = {
-				default = {
-					left = 'console.log("',
-					right = '");',
-					mid_var = '", ',
-					right_var = ");",
-				},
-				json = {
-					left = 'console.log("',
-					right = '");',
-					mid_var = '", JSON.stringify(',
-					right_var = ", null, 2));",
-				},
-			},
-			typescript = {
-				default = {
-					left = 'console.log("',
-					right = '");',
-					mid_var = '", ',
-					right_var = ");",
-				},
-				json = {
-					left = 'console.log("',
-					right = '")',
-					mid_var = '", JSON.stringify(',
-					right_var = ", null, 2));",
-				},
-			},
+			javascript = js_default,
+			javascriptreact = js_default,
+			typescript = js_default,
+			typescriptreact = js_default,
 			lua = {
 				default = {
 					left = 'print("',
@@ -137,7 +127,7 @@ return {
 
 	dependencies = {
 		"echasnovski/mini.hipatterns", -- Optional: Needed for line highlighting ('fine-grained' hipatterns plugin)
-		"folke/snacks.nvim",     -- Optional: If you want to use the `:Debugprint search` command with snacks.nvim
+		"folke/snacks.nvim", -- Optional: If you want to use the `:Debugprint search` command with snacks.nvim
 	},
 
 	lazy = false, -- Required to make line highlighting work before debugprint is first used
