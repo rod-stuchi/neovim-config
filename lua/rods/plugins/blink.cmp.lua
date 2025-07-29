@@ -156,7 +156,8 @@ return {
 				["<C-j>"]  = { "select_next", "fallback" },
 				["<Down>"] = { "select_next", "fallback" },
 
-				["<CR>"]   = { "accept_and_enter", "fallback" },
+				["<C-y>"]  = { "accept", "fallback" },
+				["<C-l>"]  = { "accept_and_enter", "fallback" },
 			},
 		}
 
@@ -200,7 +201,7 @@ return {
 
 		-- stylua: ignore
 		opts.keymap = {
-			preset = "default",
+			preset        = "default",
 			["<Tab>"]     = { "snippet_forward", "fallback" },
 			["<S-Tab>"]   = { "snippet_backward", "fallback" },
 
