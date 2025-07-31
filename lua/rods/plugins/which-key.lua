@@ -21,7 +21,7 @@ return {
 			{ "<leader>9",     hidden = true },
 			{ "<leader>$",     hidden = true },
 			{ "<leader>m",     hidden = true },
-			{ "<leader>n",     hidden = true },
+			-- { "<leader>n",     hidden = true },
 			{ "<leader>#",     hidden = true },
 			{ "<leader>*",     hidden = true },
 			{ "<leader>/",     hidden = true },
@@ -94,7 +94,11 @@ return {
 		})
 
 		wk.add({
-			{ "<leader>o", group = "Operations", icon = { icon = "", color = "cyan" } },
+			{ "<leader>n", group = "Notifier", icon = { icon = "󰎟 ", color = "green" }, mode = { "n", "v" } },
+		})
+
+		wk.add({
+			{ "<leader>o", group = "Operations", icon = { icon = "", color = "blue" } },
 			{ "<leader>od", group = "Disable things" },
 			{ "<leader>odh", "<cmd>TSBufDisable highlight<cr>", desc = "highlight" },
 			{ "<leader>odi", "<cmd>TSBufDisable indent<cr>", desc = "indent" },

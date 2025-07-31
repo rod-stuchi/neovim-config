@@ -33,17 +33,19 @@ return {
 	},
 	keys = {
 		-- stylua: ignore start
-		{ "<leader>bd", function() Snacks.bufdelete() end, desc = "delete Buffer" },
-		{ "<leader>fe", function() Snacks.picker.grep() end, desc = "Grep" },
-		{ "<leader>ff", function() Snacks.picker.files() end, desc = "Files" },
-		{ "<leader>fg", function() Snacks.picker.git_files() end, desc = "Git files" },
-		{ "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume" },
-		{ "<leader>ft", function() Snacks.picker.git_status() end, desc = "Git files status" },
-		{ "<leader>fw", function() Snacks.picker.grep_word() end, desc = "Grep word" },
-		{ "<leader>\\", function() Snacks.picker() end, desc = "Snacks Picker" },
+		{ "<leader>bd", function() Snacks.bufdelete() end,                  desc = "delete Buffer" },
+		{ "<leader>fe", function() Snacks.picker.grep() end,                desc = "Grep" },
+		{ "<leader>ff", function() Snacks.picker.files() end,               desc = "Files" },
+		{ "<leader>fg", function() Snacks.picker.git_files() end,           desc = "Git files" },
+		{ "<leader>fr", function() Snacks.picker.resume() end,              desc = "Resume" },
+		{ "<leader>ft", function() Snacks.picker.git_status() end,          desc = "Git files status" },
+		{ "<leader>fw", function() Snacks.picker.grep_word() end,           desc = "Grep word" },
+		{ "<leader>nh", function() Snacks.notifier.show_history() end,      desc = "Notifier show history" },
+		{ "<leader>nx", function() Snacks.notifier.hide() end,              desc = "Notifier hide all" },
+		{ "<leader>\\", function() Snacks.picker() end,                     desc = "Snacks Picker" },
 
-        { "<leader>.",  function() Snacks.scratch({ ft = "markdown" }) end, desc = "Toggle Scratch Buffer" },
-        { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+		{ "<leader>.",  function() Snacks.scratch({ ft = "markdown" }) end, desc = "Toggle Scratch Buffer" },
+		{ "<leader>S",  function() Snacks.scratch.select() end,             desc = "Select Scratch Buffer" },
 		-- stylua: ignore end
 		{
 			"<leader>,",
