@@ -33,7 +33,7 @@ return {
 	},
 	keys = {
 		-- stylua: ignore start
-		{ "<leader>bd", function() Snacks.bufdelete() end,                  desc = "delete Buffer" },
+		{ "<leader>bd", function() Snacks.bufdelete({ wipe = true }) end,   desc = "delete Buffer" },
 		{ "<leader>fe", function() Snacks.picker.grep() end,                desc = "Grep" },
 		{ "<leader>ff", function() Snacks.picker.files() end,               desc = "Files" },
 		{ "<leader>fg", function() Snacks.picker.git_files() end,           desc = "Git files" },
