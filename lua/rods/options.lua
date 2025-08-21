@@ -21,7 +21,9 @@ opt.cmdheight = 1
 opt.encoding = "utf-8"
 opt.expandtab = true
 opt.fillchars:append("fold:•")
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- opt.foldexpr = vim.lsp.foldexpr()
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevel = 4
 opt.foldmethod = "expr"
 opt.foldopen:remove({ "search" })

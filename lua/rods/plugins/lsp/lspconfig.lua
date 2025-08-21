@@ -18,7 +18,7 @@ return {
 
 		local servers = get_servers()
 		table.insert(servers, "dartls")
-		table.insert(servers, "kulala_ls")
+		-- table.insert(servers, "kulala_ls")
 		for _, server_name in ipairs(servers) do
 			lspconfig[server_name].setup({
 				capabilities = capabilities,
