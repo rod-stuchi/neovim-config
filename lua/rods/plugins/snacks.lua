@@ -1,3 +1,17 @@
+if _G.snacks_indent_enabled == nil then
+	_G.snacks_indent_enabled = true
+end
+_G.toggle_snacks_indent = function()
+	if _G.snacks_indent_enabled then
+		require("snacks").indent.disable()
+		vim.notify("Snacks indent disabled")
+	else
+		require("snacks").indent.enable()
+		vim.notify("Snacks indent enabled")
+	end
+	_G.snacks_indent_enabled = not _G.snacks_indent_enabled
+end
+
 return {
 	"folke/snacks.nvim",
 	priority = 1000,

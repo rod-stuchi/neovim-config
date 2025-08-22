@@ -143,6 +143,7 @@ return {
 			{ "<leader>wb", "<cmd>lua require('nvim-biscuits').toggle_biscuits()<cr>", desc = "toggle bisbuits" },
 			{ "<leader>wc", "<cmd>set cursorcolumn!<bar>set cursorline!<cr>", desc = "toggle column/line cursor" },
 			{ "<leader>wd", '<cmd>lua require("rods.funcs").toggle_diagnostics()<cr>', desc = "toggle diagnostics" },
+			{ "<leader>wi", "<cmd>lua _G.toggle_snacks_indent()<cr>", desc = "toggle indent snacks" },
 			{ "<leader>wl", "<cmd>set number!<bar>set list!<cr>", desc = "toggle list chars" },
 			{ "<leader>wm", "<cmd>mksession! /tmp/vim-session.vim<cr><cmd>wincmd o<cr>", desc = "maximize window" },
 			{ "<leader>wu", "<cmd>source /tmp/vim-session.vim<cr>", desc = "undo maximize" },
