@@ -44,6 +44,14 @@ return {
 			},
 		},
 		notifier = { enabled = true },
+		styles = {
+			scratch = {
+				height = 0.8,
+				width = 0.8,
+				zindex = 20,
+				wo = { winhighlight = "NormalFloat:Normal", wrap = true },
+			},
+		},
 	},
 	keys = {
 		-- stylua: ignore start
