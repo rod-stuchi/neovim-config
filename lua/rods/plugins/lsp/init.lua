@@ -15,8 +15,18 @@ return {
 			end
 		end
 
-		local servers =
-			{ "lua_ls", "harper_ls", "gopls", "rust_analyzer", "terraformls", "tflint", "ts_ls", "dartls", "ruff" }
+		local servers = {
+			"lua_ls",
+			"harper_ls",
+			"gopls",
+			"rust_analyzer",
+			"terraformls",
+			"tflint",
+			"ts_ls",
+			"dartls",
+			"ruff",
+			"prismals",
+		}
 		-- table.insert(servers, "kulala_ls")
 		for _, server_name in ipairs(servers) do
 			local server_opts = require("rods.plugins.lsp.configs").setup(server_name, on_attach)
