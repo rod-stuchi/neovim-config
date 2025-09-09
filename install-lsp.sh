@@ -2,6 +2,18 @@
 
 set -e
 
+show_help() {
+    echo "Usage: $0 [options]"
+    echo ""
+    echo "Options:"
+    echo "  --system      Install only system packages (pacman/brew)."
+    echo "  --npm         Install only npm packages."
+    echo "  --ruby        Install only Ruby gems."
+    echo "  --help        Show this help message."
+    echo ""
+    echo "If no options are provided, all packages will be installed."
+}
+
 detect_os() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
         echo "macos"
@@ -12,13 +24,9 @@ detect_os() {
     fi
 }
 
-install_arch() {
-    echo "Installing LSP servers for Arch Linux..."
-    
-    # Update package database
+install_arch_system() {
+    echo "Installing system packages for Arch Linux..."
     sudo pacman -Sy
-    
-    # Install packages available in official repos
     sudo pacman -S --needed \
         lua-language-server \
         rust-analyzer \
@@ -30,44 +38,63 @@ install_arch() {
         python-ruff \
         nodejs \
         npm
-    
-    # Install packages from AUR (requires yay or paru)
+
     if command -v yay &> /dev/null; then
         AUR_HELPER="yay"
     elif command -v paru &> /dev/null; then
         AUR_HELPER="paru"
     else
-        echo "Warning: No AUR helper found. Please install yay or paru to install AUR packages."
-        echo "Skipping AUR packages: terraform-ls"
+        echo "Warning: No AUR helper found. Skipping AUR packages: terraform-ls"
         AUR_HELPER=""
     fi
     
     if [[ -n "$AUR_HELPER" ]]; then
         $AUR_HELPER -S --needed terraform-ls
     fi
-    
-    # Install remaining packages via npm (only those not available in pacman)
+}
+
+install_npm() {
+    echo "Installing npm packages..."
     npm install -g \
         @fsouza/prettierd \
         @prisma/language-server \
         tailwindcss-language-server \
         graphql-language-service-cli
-    
-    # Install Ruby gems (Ruby should be installed if needed)
+}
+
+install_ruby() {
+    echo "Installing Ruby gems..."
+    if command -v ruby &> /dev/null; then
+        echo "Ruby detected, installing gems..."
+        gem install rubocop ruby-lsp
+    else
+        echo "Ruby not found, skipping gem installation."
+    fi
+}
+install_arch_ruby() {
+    echo "Installing Ruby gems for Arch Linux..."
     if ! command -v ruby &> /dev/null; then
         sudo pacman -S --needed ruby
     fi
-    
     gem install rubocop ruby-lsp
 }
 
-install_macos() {
-    echo "Installing LSP servers for macOS..."
-    
-    # Update Homebrew
+install_arch() {
+    echo "Installing LSP servers for Arch Linux..."
+    if [ "$install_system" = true ]; then
+        install_arch_system
+    fi
+    if [ "$install_npm" = true ]; then
+        install_npm
+    fi
+    if [ "$install_ruby" = true ]; then
+        install_arch_ruby
+    fi
+}
+
+install_macos_system() {
+    echo "Installing system packages for macOS..."
     brew update
-    
-    # Install packages available in Homebrew
     brew install \
         lua-language-server \
         rust-analyzer \
@@ -79,24 +106,58 @@ install_macos() {
         typescript-language-server \
         ruff \
         node
-    
-    # Install remaining packages via npm (only those not available in brew)
-    npm install -g \
-        @fsouza/prettierd \
-        @prisma/language-server \
-        tailwindcss-language-server \
-        graphql-language-service-cli
-    
-    # Install Ruby gems if Ruby is available
-    if command -v ruby &> /dev/null; then
-        echo "Ruby detected, installing gems..."
-        gem install rubocop ruby-lsp
-    else
-        echo "Ruby not found, skipping gem installation."
+}
+
+install_macos() {
+    echo "Installing LSP servers for macOS..."
+    if [ "$install_system" = true ]; then
+        install_macos_system
+    fi
+    if [ "$install_npm" = true ]; then
+        install_npm
+    fi
+    if [ "$install_ruby" = true ]; then
+        install_ruby
     fi
 }
 
 main() {
+    install_system=false
+    install_npm=false
+    install_ruby=false
+
+    if [ $# -eq 0 ]; then
+        install_system=true
+        install_npm=true
+        install_ruby=true
+    else
+        for arg in "$@"; do
+            case $arg in
+                --system)
+                install_system=true
+                shift
+                ;;
+                --npm)
+                install_npm=true
+                shift
+                ;;
+                --ruby)
+                install_ruby=true
+                shift
+                ;;
+                --help)
+                show_help
+                exit 0
+                ;;
+                *)
+                echo "Unknown option: $arg"
+                show_help
+                exit 1
+                ;;
+            esac
+        done
+    fi
+
     OS=$(detect_os)
     
     case $OS in
