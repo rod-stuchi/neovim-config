@@ -7,7 +7,6 @@ return {
 		table.unpack = table.unpack or unpack -- 5.1 compatibility
 
 		local lspconfig = require("lspconfig")
-		local get_servers = require("mason-lspconfig").get_installed_servers
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		local on_attach = function(client, bufnr)
@@ -16,15 +15,18 @@ return {
 			end
 		end
 
-		local servers = get_servers()
-		table.insert(servers, "dartls")
+		local servers =
+			{ "lua_ls", "harper_ls", "gopls", "rust_analyzer", "terraformls", "tflint", "ts_ls", "dartls", "ruff" }
 		-- table.insert(servers, "kulala_ls")
 		for _, server_name in ipairs(servers) do
-			lspconfig[server_name].setup({
+			local server_opts = require("rods.plugins.lsp.configs").setup(server_name, on_attach)
+
+			local opts = vim.tbl_deep_extend("force", {
 				capabilities = capabilities,
 				on_attach = on_attach,
-			})
-			require("rods.plugins.lsp.helper.setup-lsp").setup(server_name, lspconfig, on_attach)
+			}, server_opts)
+
+			lspconfig[server_name].setup(opts)
 		end
 
 		-- ================ LSP ATTACH ================

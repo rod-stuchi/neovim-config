@@ -1,4 +1,5 @@
 local M = {}
+local lspconfig = require("lspconfig")
 
 local function filter(arr, fn)
 	if type(arr) ~= "table" then
@@ -28,9 +29,9 @@ local function organize_imports()
 	vim.lsp.buf.execute_command(params)
 end
 
-function M.setup(server_name, lspconfig, attach)
+function M.setup(server_name, on_attach)
 	if server_name == "lua_ls" then
-		lspconfig[server_name].setup({
+		return {
 			settings = {
 				Lua = {
 					format = { enable = false },
@@ -40,11 +41,11 @@ function M.setup(server_name, lspconfig, attach)
 					},
 				},
 			},
-		})
+		}
 	end
 
 	if server_name == "harper_ls" then
-		lspconfig[server_name].setup({
+		return {
 			settings = {
 				["harper-ls"] = {
 					linters = {
@@ -54,7 +55,7 @@ function M.setup(server_name, lspconfig, attach)
 						sentence_capitalization = false,
 						unclosed_quotes = true,
 						wrong_quotes = false,
-						long_sentences = true,
+						long_sentences = false,
 						repeated_words = true,
 						spaces = true,
 						matcher = true,
@@ -70,11 +71,11 @@ function M.setup(server_name, lspconfig, attach)
 					},
 				},
 			},
-		})
+		}
 	end
 
 	if server_name == "ts_ls" then
-		lspconfig[server_name].setup({
+		return {
 			root_dir = lspconfig.util.root_pattern("package.json"),
 			single_file_support = false,
 			handlers = {
@@ -123,18 +124,19 @@ function M.setup(server_name, lspconfig, attach)
 			on_attach = function(client, bufnr)
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
-				attach(client, bufnr)
+				on_attach(client, bufnr)
 			end,
-		})
+		}
 	end
 
 	if server_name == "dartls" then
-		lspconfig[server_name].setup({
+		return {
 			init_options = {
 				closingLabels = true,
 				flutterOutline = true,
 				onlyAnalyzeProjectsWithOpenFiles = true,
 				outline = true,
+
 				suggestFromUnimportedLibraries = true,
 			},
 			settings = {
@@ -143,11 +145,11 @@ function M.setup(server_name, lspconfig, attach)
 					showTodos = true,
 				},
 			},
-		})
+		}
 	end
 
 	if server_name == "gopls" then
-		lspconfig[server_name].setup({
+		return {
 			settings = {
 				gopls = {
 					["ui.inlayhint.hints"] = {
@@ -161,27 +163,27 @@ function M.setup(server_name, lspconfig, attach)
 					},
 				},
 			},
-		})
+		}
 	end
 
 	if server_name == "denols" then
-		lspconfig[server_name].setup({
+		return {
 			root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-		})
+		}
 	end
 
 	if server_name == "prismals" then
-		lspconfig[server_name].setup({
+		return {
 			on_attach = function(client, bufnr)
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
-				attach(client, bufnr)
+				on_attach(client, bufnr)
 			end,
-		})
+		}
 	end
 
 	if server_name == "tailwindcss" then
-		lspconfig[server_name].setup({
+		return {
 			filetypes = {
 				"aspnetcorerazor",
 				"astro",
@@ -228,8 +230,25 @@ function M.setup(server_name, lspconfig, attach)
 				"vue",
 				"svelte",
 			},
-		})
+		}
 	end
+
+	if server_name == "ruff" then
+		return {
+			on_attach = function(client, bufnr)
+				-- Disable hover in favor of Pylsp or other Python LSP
+				client.server_capabilities.hoverProvider = false
+				on_attach(client, bufnr)
+			end,
+			init_options = {
+				settings = {
+					-- Arguments passed to ruff
+					args = {},
+				},
+			},
+		}
+	end
+	return {}
 end
 
 return M

@@ -7,7 +7,7 @@ function M.setup()
 		type = "server",
 		port = "13000",
 		executable = {
-			command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/codelldb",
+			command = "codelldb",
 			args = { "--port", "13000" },
 		},
 	}
@@ -19,19 +19,18 @@ function M.setup()
 		port = "13001",
 		pid = require("dap.utils").pick_process,
 		executable = {
-			command = "node",
-			-- 💀 Make sure to update this path to point to your installation
-			args = {
-				vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
-				"13001",
-			},
+			-- Make sure to have js-debug-adapter installed and in your path
+			-- npm install -g js-debug-adapter
+			command = "js-debug-adapter",
+			args = { "13001" },
 		},
 	}
 
 	dap.adapters.chrome = {
 		type = "executable",
-		command = "node",
-		args = { vim.fn.stdpath("data") .. "/mason/packages/chrome-debug-adapter/src/chromeDebug.ts" }, -- TODO adjust
+		-- Make sure to have chrome-debug-adapter installed and in your path
+		-- npm install -g chrome-debug-adapter
+		command = "chrome-debug-adapter",
 	}
 
 	dap.configurations.rust = {
