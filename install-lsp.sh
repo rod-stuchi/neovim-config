@@ -78,8 +78,7 @@ install_macos() {
         harper \
         typescript-language-server \
         ruff \
-        node \
-        ruby
+        node
     
     # Install remaining packages via npm (only those not available in brew)
     npm install -g \
@@ -88,8 +87,13 @@ install_macos() {
         tailwindcss-language-server \
         graphql-language-service-cli
     
-    # Install Ruby gems
-    gem install rubocop ruby-lsp
+    # Install Ruby gems if Ruby is available
+    if command -v ruby &> /dev/null; then
+        echo "Ruby detected, installing gems..."
+        gem install rubocop ruby-lsp
+    else
+        echo "Ruby not found, skipping gem installation."
+    fi
 }
 
 main() {
