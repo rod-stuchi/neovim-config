@@ -16,16 +16,17 @@ return {
 		end
 
 		local servers = {
-			"lua_ls",
-			"harper_ls",
+			"dartls",
 			"gopls",
+			"harper_ls",
+			"lua_ls",
+			"prismals",
+			"ruby_lsp",
+			"ruff",
 			"rust_analyzer",
 			"terraformls",
 			"tflint",
 			"ts_ls",
-			"dartls",
-			"ruff",
-			"prismals",
 		}
 		-- table.insert(servers, "kulala_ls")
 		for _, server_name in ipairs(servers) do
