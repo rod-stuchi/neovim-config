@@ -1,7 +1,7 @@
 return {
 	"junegunn/fzf.vim",
 	dependencies = { "junegunn/fzf" },
-	enabled = false,
+	-- enabled = false,
 	init = function()
 		vim.cmd([[
         " Initialize configuration dictionary
@@ -88,7 +88,7 @@ return {
 " ----------------------------------------------------------------------------------------------------
 
         " -complete line in buffer
-        " imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
+        imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
 
 " ----------------------------------------------------------------------------------------------------
 

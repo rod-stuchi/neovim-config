@@ -6,7 +6,6 @@ return {
 		local snacks = require("snacks")
 		table.unpack = table.unpack or unpack -- 5.1 compatibility
 
-		local lspconfig = require("lspconfig")
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		local on_attach = function(client, bufnr)
@@ -30,14 +29,28 @@ return {
 		}
 		-- table.insert(servers, "kulala_ls")
 		for _, server_name in ipairs(servers) do
-			local server_opts = require("rods.plugins.lsp.configs").setup(server_name, on_attach)
+			local ok, server_opts = pcall(require("rods.plugins.lsp.configs").setup, server_name, on_attach)
+			if not ok then
+				server_opts = {}
+				vim.notify("Failed to load config for '" .. server_name .. "'", vim.log.levels.WARN)
+			end
 
 			local opts = vim.tbl_deep_extend("force", {
 				capabilities = capabilities,
 				on_attach = on_attach,
 			}, server_opts)
 
-			lspconfig[server_name].setup(opts)
+			-- Use the new vim.lsp.config() API instead of require('lspconfig')
+			local config_ok = pcall(function()
+				vim.lsp.config(server_name, opts)
+			end)
+
+			if not config_ok then
+				vim.notify(
+					"Failed to setup LSP server '" .. server_name .. "' with vim.lsp.config",
+					vim.log.levels.ERROR
+				)
+			end
 		end
 
 		-- ================ LSP ATTACH ================

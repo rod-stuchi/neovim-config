@@ -1,5 +1,4 @@
 local M = {}
-local lspconfig = require("lspconfig")
 
 local function filter(arr, fn)
 	if type(arr) ~= "table" then
@@ -76,7 +75,10 @@ function M.setup(server_name, on_attach)
 
 	if server_name == "ts_ls" then
 		return {
-			root_dir = lspconfig.util.root_pattern("package.json"),
+			root_dir = function(fname)
+				local util = require("lspconfig.util")
+				return util.root_pattern("package.json")(fname)
+			end,
 			single_file_support = false,
 			handlers = {
 				-- ref.: https://github.com/typescript-language-server/typescript-language-server/issues/216
@@ -168,7 +170,10 @@ function M.setup(server_name, on_attach)
 
 	if server_name == "denols" then
 		return {
-			root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+			root_dir = function(fname)
+				local util = require("lspconfig.util")
+				return util.root_pattern("deno.json", "deno.jsonc")(fname)
+			end,
 		}
 	end
 
