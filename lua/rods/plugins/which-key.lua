@@ -10,22 +10,22 @@ return {
 		-- hidden
 		wk.add({
 			{ "<leader><tab>", hidden = true, mode = { "o", "n", "v" } },
-			{ "<leader>1",     hidden = true },
-			{ "<leader>2",     hidden = true },
-			{ "<leader>3",     hidden = true },
-			{ "<leader>4",     hidden = true },
-			{ "<leader>5",     hidden = true },
-			{ "<leader>6",     hidden = true },
-			{ "<leader>7",     hidden = true },
-			{ "<leader>8",     hidden = true },
-			{ "<leader>9",     hidden = true },
-			{ "<leader>$",     hidden = true },
-			{ "<leader>m",     hidden = true },
+			{ "<leader>1", hidden = true },
+			{ "<leader>2", hidden = true },
+			{ "<leader>3", hidden = true },
+			{ "<leader>4", hidden = true },
+			{ "<leader>5", hidden = true },
+			{ "<leader>6", hidden = true },
+			{ "<leader>7", hidden = true },
+			{ "<leader>8", hidden = true },
+			{ "<leader>9", hidden = true },
+			{ "<leader>$", hidden = true },
+			{ "<leader>m", hidden = true },
 			-- { "<leader>n",     hidden = true },
-			{ "<leader>#",     hidden = true },
-			{ "<leader>*",     hidden = true },
-			{ "<leader>/",     hidden = true },
-			{ "<leader>?",     hidden = true },
+			{ "<leader>#", hidden = true },
+			{ "<leader>*", hidden = true },
+			{ "<leader>/", hidden = true },
+			{ "<leader>?", hidden = true },
 		})
 
 		-- stylua: ignore start
@@ -43,10 +43,10 @@ return {
 		wk.add({
 			{ "<leader>c", group = "Copy / Change", icon = { icon = "", color = "cyan" } },
 			{ "<leader>cc", "<cmd>Commands<cr>", desc = "open Commands" },
-			{ "<leader>cd", '<cmd>cd %:p:h<cr><cmd>echom "CD to [" . expand("%:p:h") . "]"<cr>', desc = "cd directory current path" },
-			{ "<leader>cn", '<cmd>let @+=expand("%:t")<cr><cmd>echom "Copied: [" . expand("%:t") . "] use ctrl+v"<cr>', desc = "copy filename to clipboard" },
-			{ "<leader>co", '<cmd>let @+=expand("%")<cr><cmd>echom "Copied: [" . expand("%") . "] use ctrl+v"<cr>', desc = "copy relative filepath to clipboard" },
-			{ "<leader>cp", '<cmd>let @+=expand("%:p")<cr><cmd>echom "Copied: [" . expand("%:p") . "] use ctrl+v"<cr>', desc = "copy full filepath to clipboard" },
+			{ "<leader>cd", '<cmd>cd %:p:h | echom "CD to [" . expand("%:p:h") . "]"<cr>', desc = "cd directory current path" },
+			{ "<leader>cn", '<cmd>let @+ = expand("%:t") | echom "Copied: [" . expand("%:t") . "] use ctrl+v"<cr>', desc = "copy filename to clipboard" },
+			{ "<leader>co", '<cmd>let @+ = fnamemodify(expand("%:p"), ":.") | echom "Copied: [" . fnamemodify(expand("%:p"), ":.") . "] use ctrl+v"<cr>', desc = "copy relative filepath to clipboard" },
+			{ "<leader>cp", '<cmd>let @+ = expand("%:p") | echom "Copied: [" . expand("%:p") . "] use ctrl+v"<cr>', desc = "copy full filepath to clipboard" },
 		})
 
 		wk.add({

@@ -29,15 +29,17 @@ install_arch_system() {
     sudo pacman -Sy
     sudo pacman -S --needed \
         lua-language-server \
-        rust-analyzer \
+        rustup \
         gopls \
         bash-language-server \
         tflint \
         typescript-language-server \
         harper \
-        python-ruff \
+        ruff \
         nodejs \
         npm
+
+    rustup component add rust-analyzer
 
     if command -v yay &> /dev/null; then
         AUR_HELPER="yay"
@@ -47,7 +49,7 @@ install_arch_system() {
         echo "Warning: No AUR helper found. Skipping AUR packages: terraform-ls"
         AUR_HELPER=""
     fi
-    
+
     if [[ -n "$AUR_HELPER" ]]; then
         $AUR_HELPER -S --needed terraform-ls
     fi
@@ -159,7 +161,7 @@ main() {
     fi
 
     OS=$(detect_os)
-    
+
     case $OS in
         "arch")
             install_arch
@@ -172,7 +174,7 @@ main() {
             exit 1
             ;;
     esac
-    
+
     echo ""
     echo "Installation complete! LSP servers installed:"
     echo "- harper (grammar/spell checker)"

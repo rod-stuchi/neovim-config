@@ -9,11 +9,33 @@ return {
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		local on_attach = function(client, bufnr)
+			-- Server-specific capability modifications
+			local server_name = client.name
+
+			-- Disable formatting for servers where we use external formatters
+			if server_name == "ts_ls" or server_name == "prismals" then
+				client.server_capabilities.documentFormattingProvider = false
+				client.server_capabilities.documentRangeFormattingProvider = false
+			end
+
+			-- Disable hover for ruff (prefer other Python LSPs)
+			if server_name == "ruff" then
+				client.server_capabilities.hoverProvider = false
+			end
+
+			-- Attach navic for document symbols
 			if client.server_capabilities.documentSymbolProvider then
 				navic.attach(client, bufnr)
 			end
 		end
 
+		-- Set default config for all servers
+		vim.lsp.config("*", {
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
+		-- Enable LSP servers (configs loaded from after/lsp/*.lua)
 		local servers = {
 			"dartls",
 			"gopls",
@@ -23,35 +45,12 @@ return {
 			"ruby_lsp",
 			"ruff",
 			"rust_analyzer",
+			"tailwindcss",
 			"terraformls",
 			"tflint",
 			"ts_ls",
 		}
-		-- table.insert(servers, "kulala_ls")
-		for _, server_name in ipairs(servers) do
-			local ok, server_opts = pcall(require("rods.plugins.lsp.configs").setup, server_name, on_attach)
-			if not ok then
-				server_opts = {}
-				vim.notify("Failed to load config for '" .. server_name .. "'", vim.log.levels.WARN)
-			end
-
-			local opts = vim.tbl_deep_extend("force", {
-				capabilities = capabilities,
-				on_attach = on_attach,
-			}, server_opts)
-
-			-- Use the new vim.lsp.config() API instead of require('lspconfig')
-			local config_ok = pcall(function()
-				vim.lsp.config(server_name, opts)
-			end)
-
-			if not config_ok then
-				vim.notify(
-					"Failed to setup LSP server '" .. server_name .. "' with vim.lsp.config",
-					vim.log.levels.ERROR
-				)
-			end
-		end
+		vim.lsp.enable(servers)
 
 		-- ================ LSP ATTACH ================
 		-- Global mappings.
@@ -94,6 +93,7 @@ return {
 					{ "<leader>lf", function() vim.lsp.buf.format({ async = true }) end,                           desc = "format",            icon = _icon,        buffer = ev.buf },
 					{ "<leader>lh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, desc = "toggle inlay hint", icon = _icon,        buffer = ev.buf },
 					{ "<leader>la", vim.lsp.buf.code_action,                                                       desc = "code actions",      mode = { "n", "v" }, icon = _icon,   buffer = ev.buf },
+					{ "<leader>lA", function() vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } }) end, desc = "source actions", icon = _icon, buffer = ev.buf },
 					{ "<leader>lR", vim.lsp.buf.rename,                                                            desc = "rename",            icon = _icon,        buffer = ev.buf },
 					{ "<leader>lD", vim.lsp.buf.type_definition,                                                   desc = "type definition",   icon = _icon,        buffer = ev.buf },
 				})
