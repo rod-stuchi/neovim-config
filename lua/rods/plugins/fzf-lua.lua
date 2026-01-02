@@ -109,12 +109,12 @@ return {
 
 		-- ================================================================================
 		-- complete buffer line
-		-- vim.keymap.set(
-		-- 	{ "n", "v", "i" },
-		-- 	"<C-x><C-l>",
-		-- 	"<cmd>FzfLua complete_bline<cr>",
-		-- 	{ silent = true, desc = "Fuzzy complete cur buffer lines" }
-		-- )
+		vim.keymap.set(
+			{ "n", "v", "i" },
+			"<C-x><C-l>",
+			"<cmd>FzfLua complete_bline<cr>",
+			{ silent = true, desc = "Fuzzy complete cur buffer lines" }
+		)
 
 		-- ================================================================================
 		-- complete project line

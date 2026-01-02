@@ -82,6 +82,7 @@ return {
 		wk.add({
 			{ "<leader>l", group = "LSP", icon = { icon = "", color = "orange" }, mode = { "n", "v" } },
 			{ "<leader>ls", '<cmd>lua require("luasnip.extras.snippet_list").open()<cr>', desc = "LuaSnip List", icon = { icon = " ", color = "blue" } },
+			{ "<leader>lc", '<cmd>Redir lua local caps={}; for _,c in ipairs(vim.lsp.get_clients({bufnr=0})) do caps[c.name]=c.server_capabilities end; vim.print(caps)<cr>', desc = "LSP Capabilities" },
 		})
 
 		wk.add({

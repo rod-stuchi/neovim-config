@@ -1,24 +1,19 @@
+local inlay_hints = {
+	includeInlayParameterNameHints = "all",
+	includeInlayFunctionParameterTypeHints = true,
+	includeInlayVariableTypeHints = true,
+	includeInlayPropertyDeclarationTypeHints = true,
+	includeInlayFunctionLikeReturnTypeHints = true,
+	includeInlayEnumMemberValueHints = true,
+}
+
 return {
 	settings = {
 		typescript = {
-			inlayHints = {
-				includeInlayParameterNameHints = "all",
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayVariableTypeHints = true,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayEnumMemberValueHints = true,
-			},
+			inlayHints = inlay_hints,
 		},
 		javascript = {
-			inlayHints = {
-				includeInlayParameterNameHints = "all",
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayVariableTypeHints = true,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayEnumMemberValueHints = true,
-			},
+			inlayHints = inlay_hints,
 		},
 	},
 }
