@@ -10,21 +10,6 @@ return {
 			return cmd -- fallback to global
 		end
 
-		-- Check if 'standard' gem is in Gemfile
-		local function has_standard_installed_gemfile()
-			local gemfile_path = vim.fn.getcwd() .. "/Gemfile"
-			if vim.fn.filereadable(gemfile_path) == 0 then
-				return false
-			end
-			local gemfile = vim.fn.readfile(gemfile_path)
-			for _, line in ipairs(gemfile) do
-				if line:match("gem%s+[\"']standard[\"']") then
-					return true
-				end
-			end
-			return false
-		end
-
 		null_ls.setup({
 			-- debug = true,
 			sources = {
@@ -43,17 +28,6 @@ return {
 				}),
 				-- ================================================================================
 				-- null_ls.builtins.formatting.black,
-				-- ================================================================================
-
-				-- Rails *****************************************************************
-				-- Dynamically use standardrb if 'standard' gem is in Gemfile, otherwise use rubocop
-				has_standard_installed_gemfile() and null_ls.builtins.diagnostics.standardrb
-					or null_ls.builtins.diagnostics.rubocop,
-				has_standard_installed_gemfile() and null_ls.builtins.formatting.standardrb
-					or null_ls.builtins.formatting.rubocop,
-				-- Rails *****************************************************************
-				-- ================================================================================
-
 				-- ================================================================================
 			},
 		})
