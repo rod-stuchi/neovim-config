@@ -29,8 +29,17 @@ return {
 				-- ================================================================================
 				-- null_ls.builtins.formatting.black,
 				-- ================================================================================
-				null_ls.builtins.diagnostics.rubocop,
-				null_ls.builtins.formatting.rubocop,
+
+				-- Rails *****************************************************************
+				-- Using standard instead of rubocop directly
+				-- null_ls.builtins.diagnostics.rubocop,
+				-- null_ls.builtins.formatting.rubocop,
+
+				null_ls.builtins.diagnostics.standardrb,
+				null_ls.builtins.formatting.standardrb,
+				-- Rails *****************************************************************
+				-- ================================================================================
+
 				-- ================================================================================
 			},
 		})
