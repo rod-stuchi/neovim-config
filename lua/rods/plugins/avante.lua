@@ -21,7 +21,7 @@ return {
 			claude = {
 				-- endpoint = "https://api.anthropic.com",
 				endpoint = "http://192.168.2.10:8092",
-				model = "claude-sonnet-4-20250514",
+				model = "claude-sonnet-4-5-20250929",
 				extra_request_body = {
 					temperature = 0.75,
 					max_tokens = 10000,
@@ -34,7 +34,7 @@ return {
 				-- endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
 				__inherited_from = "gemini",
 				endpoint = "http://192.168.2.10:8093/v1beta/models",
-				model = "gemini-2.5-flash",
+				model = "gemini-3-flash-preview",
 				extra_request_body = {
 					timeout = 30000,
 					temperature = 0.75,
@@ -45,7 +45,7 @@ return {
 			["gemini-pro"] = {
 				__inherited_from = "gemini",
 				endpoint = "http://192.168.2.10:8093/v1beta/models",
-				model = "gemini-2.5-pro",
+				model = "gemini-3-pro-preview",
 				extra_request_body = {
 					timeout = 30000,
 					temperature = 0.75,
