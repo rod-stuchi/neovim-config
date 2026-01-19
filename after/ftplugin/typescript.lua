@@ -31,25 +31,24 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	pattern = "*.ts,*.tsx,*.js,*.jsx",
 	callback = function()
 		if has_npm_format() then
-			-- If npm format is available, run it asynchronously and silently
-			vim.fn.jobstart("npx prettier -w " .. vim.fn.expand("%"), {
-				stdout_buffered = true, -- Optional: Buffer stdout so we can handle the output
-				stderr_buffered = true,
-
-				-- Callback for what to do when the job finishes
-				on_exit = function(_, exit_code)
-					if exit_code == 0 then
-						vim.notify("🦇 File formatted successfully!", vim.log.levels.INFO)
-						-- Reload the buffer with changes
-						vim.cmd("checktime") -- Use 'checktime' to refresh the file without losing unsaved buffer changes
-					else
-						vim.notify("🙈 Failed to format file.", vim.log.levels.ERROR)
-					end
-				end,
-			})
+			-- Add a small delay before running prettier to avoid race conditions
+			vim.defer_fn(function()
+				vim.fn.jobstart("npx prettier -w " .. vim.fn.shellescape(vim.fn.expand("%:p")), {
+					stdout_buffered = true,
+					stderr_buffered = true,
+					on_exit = function(_, exit_code)
+						if exit_code == 0 then
+							vim.notify("🦇 File formatted successfully!", vim.log.levels.INFO)
+							-- Reload the buffer with changes
+							vim.cmd("checktime")
+						else
+							vim.notify("🙈 Failed to format file.", vim.log.levels.ERROR)
+						end
+					end,
+				})
+			end, 50) -- 50ms delay
 		else
-			-- Optional: Print a message if the format command is not found
-			vim.notify("'🙈 npx prettier' command not found", vim.log.levels.ERROR)
+			vim.notify("🙈 npx prettier command not found", vim.log.levels.ERROR)
 		end
 	end,
 })

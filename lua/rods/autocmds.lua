@@ -118,14 +118,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = {
 		"*.css",
 		"*.go",
-		"*.js",
 		"*.lua",
 		"*.prisma",
 		"*.py",
 		"*.rs",
 		"*.scss",
-		"*.ts",
-		"*.tsx",
 	},
 	callback = function()
 		local bufnr = vim.api.nvim_get_current_buf()
