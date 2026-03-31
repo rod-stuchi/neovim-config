@@ -1,92 +1,70 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	disabled = false,
+	-- The plugin does not support lazy-loading [1]
+	lazy = false,
 	dependencies = {
-		"theHamsta/nvim-treesitter-pairs",
+		"nvim-treesitter/nvim-treesitter-textobjects",
 	},
-	build = function()
-		require("nvim-treesitter.install").update({ with_sync = true })()
-	end,
+	-- Simplified build command to ensure parsers are updated [1]
+	build = ":TSUpdate",
 	config = function()
-		local disable_ts = function(lang, buf)
-			local max_filesize = 100 * 1024 -- 100 KB
-			local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-			if ok and stats and stats.size > max_filesize then
-				return true
-			end
-
-			return lang == "latex"
-		end
-		-- JoosepAlviste/nvim-ts-context-commentstring
+		-- 1. ts_context_commentstring remains independent
 		require("ts_context_commentstring").setup({
 			enable_autocmd = false,
 			languages = {
 				typescript = "// %s",
 			},
 		})
-		require("nvim-treesitter.configs").setup({
-			autotag = {
-				enables = true,
-				disable = disable_ts,
-			},
-			ensure_installed = {
-				"bash",
-				"c",
-				"css",
-				"diff",
-				"dockerfile",
-				"elixir",
-				"erlang",
-				"go",
-				"graphql",
-				"hcl",
-				"http",
-				"javascript",
-				"jq",
-				"json",
-				"latex",
-				"lua",
-				"luadoc",
-				"make",
-				"python",
-				"regex",
-				"rst",
-				"ruby",
-				"rust",
-				"scss",
-				"sql",
-				"svelte",
-				"terraform",
-				"toml",
-				"tsx",
-				"typescript",
-				"vim",
-				"vue",
-				"yaml",
-			},
-			highlight = {
-				enable = true,
-				disable = disable_ts,
-				-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-				-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-				-- Using this option may slow down your editor, and you may see some duplicate highlights.
-				-- Instead of true it can also be a list of languages
-				additional_vim_regex_highlighting = false,
-			},
-			indent = {
-				enable = true,
-				disable = disable_ts,
-			},
-			incremental_selection = {
-				enable = true,
-				disable = disable_ts,
-				keymaps = {
-					init_selection = "gn", -- set to `false` to disable one of the mappings
-					scope_incremental = "go",
-					node_incremental = "gn",
-					node_decremental = "gm",
-				},
-			},
+
+		-- 2. Install parsers directly using the new API [1]
+		require("nvim-treesitter").install({
+			"bash",
+			"c",
+			"css",
+			"diff",
+			"dockerfile",
+			"elixir",
+			"erlang",
+			"go",
+			"graphql",
+			"hcl",
+			"http",
+			"javascript",
+			"jq",
+			"json",
+			"latex",
+			"lua",
+			"luadoc",
+			"make",
+			"python",
+			"regex",
+			"rst",
+			"ruby",
+			"rust",
+			"scss",
+			"sql",
+			"svelte",
+			"terraform",
+			"toml",
+			"tsx",
+			"typescript",
+			"vim",
+			"vue",
+			"yaml",
+		})
+
+		-- Highlighting and indentation via native Neovim autocommands
+		-- Large file handling delegated to snacks.bigfile (> 1.5 MB)
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function(args)
+				local buf = args.buf
+				local lang = vim.bo[buf].filetype
+
+				if lang ~= "latex" then
+					pcall(vim.treesitter.start, buf)
+					vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end
+			end,
 		})
 	end,
 }
