@@ -88,3 +88,6 @@ vim.filetype.add({
 		end,
 	},
 })
+
+-- NVIM v0.12.0
+require("vim._core.ui2").enable()
