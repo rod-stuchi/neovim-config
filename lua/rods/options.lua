@@ -90,4 +90,4 @@ vim.filetype.add({
 })
 
 -- NVIM v0.12.0
-require("vim._core.ui2").enable()
+require("vim._core.ui2").enable({})
