@@ -81,6 +81,7 @@ return {
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 
 				local _icon = { icon = "", color = "red" }
+				-- stylua: ignore
 				wk.add({
 					{ "<leader>h", group = "Gitsigns", icon = _icon },
 					{ "<leader>hs", gs.stage_hunk, desc = "stage hunk" },
@@ -95,6 +96,7 @@ return {
 					{ "<leader>hb", function() gs.blame_line({ full = true }) end, desc = "blame line" },
 					{ "<leader>hd", gs.diffthis, desc = "diff index" },
 					{ "<leader>hD", function() gs.diffthis("~") end, desc = "diff last commit ~" },
+					{ "<leader>hm", function() gs.diffthis("main") end, desc = "diff against main" },
 
 
 					{ "<leader>ht", group = "Toggle" },
