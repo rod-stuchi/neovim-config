@@ -81,23 +81,63 @@ return {
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 
 				local _icon = { icon = "", color = "red" }
-				-- stylua: ignore
 				wk.add({
 					{ "<leader>h", group = "Gitsigns", icon = _icon },
 					{ "<leader>hs", gs.stage_hunk, desc = "stage hunk" },
 					{ "<leader>hr", gs.reset_hunk, desc = "reset hunk" },
 					{ "<leader>eq", "<cmd>Gitsigns setqflist<cr>", desc = "set quickfix list" },
-					{ "<leader>hs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, desc = "stage selection", mode = "v" },
-					{ "<leader>hr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, desc = "reset selection", mode = "v" },
+					{
+						"<leader>hs",
+						function()
+							gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+						end,
+						desc = "stage selection",
+						mode = "v",
+					},
+					{
+						"<leader>hr",
+						function()
+							gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+						end,
+						desc = "reset selection",
+						mode = "v",
+					},
 					{ "<leader>hS", gs.stage_buffer, desc = "stage buffer", icon = _icon },
 					{ "<leader>hu", gs.undo_stage_hunk, desc = "stage buffer", icon = _icon },
 					{ "<leader>hR", gs.reset_buffer, desc = "reset buffer", icon = _icon },
 					{ "<leader>hp", gs.preview_hunk, desc = "preview hunk" },
-					{ "<leader>hb", function() gs.blame_line({ full = true }) end, desc = "blame line" },
+					{
+						"<leader>hb",
+						function()
+							gs.blame_line({ full = true })
+						end,
+						desc = "blame line",
+					},
 					{ "<leader>hd", gs.diffthis, desc = "diff index" },
-					{ "<leader>hD", function() gs.diffthis("~") end, desc = "diff last commit ~" },
-					{ "<leader>hm", function() gs.diffthis("main") end, desc = "diff against main" },
-
+					{
+						"<leader>hD",
+						function()
+							gs.diffthis("~")
+						end,
+						desc = "diff last commit ~",
+					},
+					{
+						"<leader>hm",
+						function()
+							-- gs.diffthis("master") end, desc = "diff against main"
+							local branch = vim.fn.system("git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null")
+							local match = branch:match("refs/remotes/origin/([^\n]+)")
+							if vim.v.shell_error == 0 and match then
+								branch = match
+							else
+								vim.fn.system({ "git", "show-ref", "--verify", "--quiet", "refs/heads/main" })
+								branch = vim.v.shell_error == 0 and "main" or "master"
+							end
+							vim.notify("the main branch is: " .. branch, vim.log.levels.INFO)
+							gs.diffthis(branch)
+						end,
+						desc = "diff against default branch",
+					},
 
 					{ "<leader>ht", group = "Toggle" },
 					{ "<leader>htb", gs.toggle_current_line_blame, desc = "current line blame" },

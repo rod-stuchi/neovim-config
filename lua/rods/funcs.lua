@@ -109,4 +109,15 @@ function M.toggle_diagnostics()
 	end
 end
 
+vim.g.treesitter_active = true
+function M.toggle_treesitter()
+	if vim.g.treesitter_active then
+		vim.treesitter.stop()
+		vim.g.treesitter_active = false
+	else
+		vim.treesitter.start()
+		vim.g.treesitter_active = true
+	end
+end
+
 return M
