@@ -133,7 +133,7 @@ return {
 								vim.fn.system({ "git", "show-ref", "--verify", "--quiet", "refs/heads/main" })
 								branch = vim.v.shell_error == 0 and "main" or "master"
 							end
-							vim.notify("the main branch is: " .. branch, vim.log.levels.INFO)
+							vim.notify("the default branch is: " .. branch, vim.log.levels.INFO)
 							gs.diffthis(branch)
 						end,
 						desc = "diff against default branch",
