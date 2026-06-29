@@ -1,11 +1,13 @@
 return {
 	"LintaoAmons/bookmarks.nvim",
+	tag = "v4.0.0",
 	event = "BufEnter",
 	dependencies = {
 		{ "kkharji/sqlite.lua" },
-		{ "nvim-telescope/telescope.nvim" },
+		{"folke/snacks.nvim"},
 		{ "stevearc/dressing.nvim" }, -- optional: better UI
 	},
+	enabled = true,
 	config = function()
 		-- telescope re-mappings
 		local actions = require("telescope.actions")
