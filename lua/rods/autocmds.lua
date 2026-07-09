@@ -60,7 +60,7 @@ vim.api.nvim_create_augroup("highlight_yank", {})
 vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 400 })
+		vim.hl.on_yank({ higroup = "IncSearch", timeout = 400 })
 	end,
 	group = "highlight_yank",
 })
@@ -138,7 +138,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		-- Check if LSP is attached and formatting is enabled for any client
 		local can_format = false
 		if vim.fn.exists("#AutoFmtOnSave") == 0 then
-			for _, client in pairs(vim.lsp.get_active_clients({ bufnr = bufnr })) do
+			for _, client in pairs(vim.lsp.get_clients({ bufnr = bufnr })) do
 				if
 					client.server_capabilities.documentFormattingProvider
 					and client.server_capabilities.documentRangeFormattingProvider

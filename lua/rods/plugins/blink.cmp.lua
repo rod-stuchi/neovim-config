@@ -7,6 +7,7 @@ return {
 	version = "*",
 	dependencies = {
 		{ "L3MON4D3/LuaSnip", version = "v2.*" },
+		{ "Kaiser-Yang/blink-cmp-avante" },
 	},
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
@@ -24,7 +25,7 @@ return {
 
 		opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
 			-- DOC: DYNAMICALLY PICKING PROVIDERS BY TREESITTER NODE/FILETYPE
-			default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "path", "snippets", "buffer", "avante" },
 			-- default = function(ctx)
 			-- 	local default_sources = { "lsp", "path", "snippets", "buffer" }
 			-- 	local success, node = pcall(vim.treesitter.get_node)
@@ -42,6 +43,11 @@ return {
 			-- end,
 
 			providers = {
+				avante = {
+					module = "blink-cmp-avante",
+					name = "Avante",
+					opts = {},
+				},
 				lsp = {
 					name = "lsp",
 					enabled = true,

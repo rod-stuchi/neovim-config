@@ -5,13 +5,17 @@ return {
 	version = false, -- set this if you want to always pull the latest change
 	opts = {
 		-- add any opts here
-		mode = "legacy",
 		provider = "gemini-flash",
+		auto_suggestions_provider = "gemini-flash",
+		file_selector = {
+			provider = "fzf",
+			provider_opts = {},
+		},
 		providers = {
 			openai = {
 				-- endpoint = "https://api.openai.com/v1",
 				endpoint = "http://192.168.2.10:8091/v1",
-				model = "gpt-4o",
+				model = "gpt-5.5-pro",
 				extra_request_body = {
 					temperature = 0.75,
 					max_tokens = 10000,
@@ -21,7 +25,7 @@ return {
 			claude = {
 				-- endpoint = "https://api.anthropic.com",
 				endpoint = "http://192.168.2.10:8092",
-				model = "claude-sonnet-4-5-20250929",
+				model = "claude-sonnet-5",
 				extra_request_body = {
 					temperature = 0.75,
 					max_tokens = 10000,
@@ -34,7 +38,7 @@ return {
 				-- endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
 				__inherited_from = "gemini",
 				endpoint = "http://192.168.2.10:8093/v1beta/models",
-				model = "gemini-3-flash-preview",
+				model = "gemini-3.5-flash",
 				extra_request_body = {
 					timeout = 30000,
 					temperature = 0.75,
@@ -45,7 +49,7 @@ return {
 			["gemini-pro"] = {
 				__inherited_from = "gemini",
 				endpoint = "http://192.168.2.10:8093/v1beta/models",
-				model = "gemini-3-pro-preview",
+				model = "gemini-pro-latest",
 				extra_request_body = {
 					timeout = 30000,
 					temperature = 0.75,
@@ -55,6 +59,7 @@ return {
 			},
 		},
 		behaviour = {
+			auto_suggestions = false, -- Set to true to enable Copilot-like ghost text
 			use_cwd_as_project_root = true,
 		},
 	},
@@ -66,6 +71,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		"MunifTanjim/nui.nvim",
 		"nvim-tree/nvim-web-devicons",
+		"ibhagwan/fzf-lua",
 		{
 			-- support for image pasting
 			"HakonHarnes/img-clip.nvim",

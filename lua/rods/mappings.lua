@@ -25,8 +25,8 @@ keymap("n", "#", "#zz")
 keymap("n", "g*", "g*zz")
 keymap("n", "g#", "g#zz")
 
-keymap("n", "<M-t>", "<c-w>+")  -- resize split
-keymap("n", "<M-s>", "<c-w>-")  -- resize split
+keymap("n", "<M-t>", "<c-w>+") -- resize split
+keymap("n", "<M-s>", "<c-w>-") -- resize split
 keymap("n", "<M-h>", "<c-w>5<") -- resize split
 keymap("n", "<M-l>", "<c-w>5>") -- resize split
 
@@ -119,8 +119,8 @@ vim.keymap.set("n", "<leader>f1", function()
 					box = "vertical",
 					border = "rounded",
 					title = "Find directory",
-					{ win = "input", height = 1,     border = "bottom" },
-					{ win = "list",  border = "none" },
+					{ win = "input", height = 1, border = "bottom" },
+					{ win = "list", border = "none" },
 				},
 			},
 		},
@@ -260,7 +260,7 @@ local prefill_edit_window = function(request)
 end
 
 local avante_grammar_correction =
-"Correct the text to standard English, but keep any code blocks inside intact, do not change spacing."
+	"Correct the text to standard English, but keep any code blocks inside intact, do not change spacing."
 
 require("which-key").add({
 	{
