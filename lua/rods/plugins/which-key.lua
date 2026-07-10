@@ -164,6 +164,19 @@ return {
 		-- normal non leader
 		-- stylua: ignore start
 		wk.add({
+			{
+				",<space>",
+				function()
+					local mf = require("mini.files")
+					-- Toggle: close if open, otherwise open at the current file
+					if not mf.close() then
+						local name = vim.api.nvim_buf_get_name(0)
+						mf.open(name ~= "" and name or nil)
+					end
+				end,
+				desc = "mini.files (current file)",
+				icon = { icon = "", color = "orange" },
+			},
 			{ "[c", desc = "Prev git hunk", icon = { icon = "󰊢", color = "red" } },
 			{ "]c", desc = "Next git hunk", icon = { icon = "󰊢", color = "red" } },
 			{ "[t", "<cmd>lua require('todo-comments').jump_prev()<cr>", desc = "Prev todo comment" },
