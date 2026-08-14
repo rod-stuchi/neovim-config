@@ -10,6 +10,24 @@ keymap("n", "Q", "<nop>")
 
 -- remap digraphs, conflict with cmp
 -- keymap("i", "<c-y>", "<c-k>")
+local custom_digraphs = {
+	["-P"] = 0x25BA, -- ►
+	["-H"] = 0x29D7, -- ⧗
+	["->"] = 0x2192, -- →
+	["OK"] = 0x2713, -- ✓
+	["XX"] = 0x2717, -- ✗
+	["-h"] = 0x29D6, -- ⧖
+	["!!"] = 0x26A0, -- ⚠
+	["=="] = 0x2261, -- ≡
+	["~="] = 0x2248, -- ≈
+	["(."] = 0x25D0, -- ◐
+	["[]"] = 0x2B1A, -- ⬚
+	["[."] = 0x25A8, -- ▨
+}
+
+for keys, codepoint in pairs(custom_digraphs) do
+	vim.fn.digraph_set(keys, vim.fn.nr2char(codepoint))
+end
 
 keymap("n", "\\", "<cmd>noh<cr>")
 keymap("n", "<M-o>", "<cmd>copen<cr>")
