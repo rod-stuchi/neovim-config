@@ -1,8 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
   "LuaSnip": { "branch": "master", "commit": "642b0c595e11608b4c18219e93b88d7637af27bc" },
-  "avante.nvim": { "branch": "main", "commit": "2162ad121610bc3f7402fced50058427b6d6fa0e" },
-  "blink-cmp-avante": { "branch": "master", "commit": "4f494c6e124acbe31a8f5d58effa0c14aa38a6d5" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
   "bookmarks.nvim": { "branch": "main", "commit": "6d39685485bfb95e6e8cd3441ff156562ff6fe59" },
   "debugprint.nvim": { "branch": "main", "commit": "957093d8b695aa4cc18c18f421ef0cb6c7380c59" },
@@ -27,8 +25,6 @@
   "live-command.nvim": { "branch": "main", "commit": "fc8c36d7e5b96945fbc52af7029facc317a47377" },
   "lualine.nvim": { "branch": "master", "commit": "221ce6b2d999187044529f49da6554a92f740a96" },
   "markdown-preview.nvim": { "branch": "master", "commit": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee" },
-  "mega.cmdparse": { "branch": "main", "commit": "47ea5b1b23059fbb79a8e262002f32e7cd8aed90" },
-  "mega.logging": { "branch": "main", "commit": "194ad8c300186e73c3eb1ebeb3ede42eb219be3b" },
   "mini.ai": { "branch": "main", "commit": "d73c36349aa7b0bab5f77ad71701a1d42211a1df" },
   "mini.files": { "branch": "main", "commit": "638b80cb985c89ca2a98eed72c552c8d485a3d5b" },
   "mini.hipatterns": { "branch": "main", "commit": "247c0173579a29af60f25f00671a75c57090be9c" },

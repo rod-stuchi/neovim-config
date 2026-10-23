@@ -257,38 +257,3 @@ vim.keymap.set("i", "<C-d>", function()
 	insert_debug_log()
 	vim.api.nvim_win_set_cursor(0, cursor_pos)
 end, { silent = true, desc = "Insert debug log in insert mode" })
-
--- ================================================================================
--- AVANTE
--- ================================================================================
-
--- prefil edit window with common scenarios to avoid repeating query and submit immediately
-local prefill_edit_window = function(request)
-	require("avante.api").edit()
-	local code_bufnr = vim.api.nvim_get_current_buf()
-	local code_winid = vim.api.nvim_get_current_win()
-	if code_bufnr == nil or code_winid == nil then
-		return
-	end
-	vim.api.nvim_buf_set_lines(code_bufnr, 0, -1, false, { request })
-	-- Optionally set the cursor position to the end of the input
-	vim.api.nvim_win_set_cursor(code_winid, { 1, #request + 1 })
-	-- Simulate Ctrl+S keypress to submit
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-s>", true, true, true), "v", true)
-end
-
-local avante_grammar_correction =
-	"Correct the text to standard English, but keep any code blocks inside intact, do not change spacing."
-
-require("which-key").add({
-	{
-		mode = { "v" },
-		{
-			"<leader>ag",
-			function()
-				prefill_edit_window(avante_grammar_correction)
-			end,
-			desc = "Grammar Correction",
-		},
-	},
-})

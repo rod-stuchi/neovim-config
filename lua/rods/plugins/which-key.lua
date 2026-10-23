@@ -29,10 +29,6 @@ return {
 		})
 
 		-- stylua: ignore start
-		wk.add({
-			{ "<leader>a", group = "Avante", icon = { icon = "󰧑 ", color = "red" }, mode = { "n", "v" } },
-		})
-
 		local buf_icon = { icon = "", color = "green" }
 		wk.add({
 			{ "<leader>b",  group = "Buffers",                                    icon = buf_icon },
