@@ -24,7 +24,7 @@ return {
 
 		opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
 			-- DOC: DYNAMICALLY PICKING PROVIDERS BY TREESITTER NODE/FILETYPE
-			default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "path", "snippets", "buffer", "digit_words" },
 			-- default = function(ctx)
 			-- 	local default_sources = { "lsp", "path", "snippets", "buffer" }
 			-- 	local success, node = pcall(vim.treesitter.get_node)
@@ -74,6 +74,16 @@ return {
 					module = "blink.cmp.sources.buffer",
 					min_keyword_length = 4,
 					score_offset = 15, -- the higher the number, the higher the priority
+				},
+
+				-- buffer words starting with a digit (`123-asdf`), which blink's buffer source skips
+				digit_words = {
+					name = "Buffer",
+					enabled = true,
+					max_items = 3,
+					module = "rods.blink.digit_words",
+					min_keyword_length = 4,
+					score_offset = 15,
 				},
 
 				-- INFO: https://github.com/linkarzu/dotfiles-latest/blob/main/neovim/neobean/lua/plugins/blink-cmp.lua
