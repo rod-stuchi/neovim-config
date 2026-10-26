@@ -60,7 +60,7 @@ install_npm() {
     npm install -g \
         @fsouza/prettierd \
         @prisma/language-server \
-        tailwindcss-language-server \
+        @tailwindcss/language-server \
         graphql-language-service-cli
 }
 

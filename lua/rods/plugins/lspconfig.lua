@@ -55,6 +55,21 @@ return {
 			})
 		end
 
+		-- Only start tailwindcss when its server is installed (project-local or global).
+		-- Its root_dir falls back to .git, so otherwise it fails to spawn in every repo
+		local tailwind_root_dir = vim.lsp.config.tailwindcss.root_dir
+		vim.lsp.config("tailwindcss", {
+			root_dir = function(bufnr, on_dir)
+				tailwind_root_dir(bufnr, function(root)
+					local cmd = "tailwindcss-language-server"
+					local local_cmd = root and vim.fs.joinpath(root, "node_modules/.bin", cmd)
+					if root and (vim.fn.executable(local_cmd) == 1 or vim.fn.executable(cmd) == 1) then
+						on_dir(root)
+					end
+				end)
+			end,
+		})
+
 		-- Enable LSP servers (configs from after/lsp/*.lua are auto-merged)
 		vim.lsp.enable(servers)
 
